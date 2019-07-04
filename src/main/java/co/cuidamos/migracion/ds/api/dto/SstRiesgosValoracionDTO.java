@@ -1,0 +1,1309 @@
+package co.cuidamos.migracion.ds.api.dto;
+
+import java.io.Serializable;
+import java.util.List;
+
+public class SstRiesgosValoracionDTO implements Serializable {
+	
+	private Long id;
+	
+	private String risks[] ; 
+
+	private String subdomain;
+	
+	private Integer quantityFields;
+	
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosBiologicos_virus;
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosBiologicos_bacteria;
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosBiologicos_hongo;
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosBiologicos_rickettsias;
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosBiologicos_parasitos;
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosBiologicos_picaduras;
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosBiologicos_mordeduras;
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosBiologicos_fluidosExcrementos;
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosBiologicos_otrosBiologicos;
+	
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosFisicos_ruido;
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosFisicos_iluminacion;
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosFisicos_vibracion;
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosFisicos_temperaturas;
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosFisicos_presion;
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosFisicos_radiacionesIon;
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosFisicos_radiacionesNoIon;
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosFisicos_otrosFisicos;
+	
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosQuimicos_polvos;
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosQuimicos_fibras;
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosQuimicos_liquidos;
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosQuimicos_gases;
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosQuimicos_humos;
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosQuimicos_materialParticulado;
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosQuimicos_otrosQuimicos;
+	
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosPsicosociales_gestionOrgan;
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosPsicosociales_caractOrganiz;
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosPsicosociales_caractGrupoSoc;
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosPsicosociales_condicionesTarea;
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosPsicosociales_interfasePerson;
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosPsicosociales_jornadaTrab;
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosPsicosociales_otrosPsicosoc;
+	
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosBiomecanicos_postura;
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosBiomecanicos_esfuerzo;
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosBiomecanicos_movRepet;
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosBiomecanicos_manipulManual;
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosBiomecanicos_otrosBiomecan;
+	
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosCondSeguridad_mecanico;
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosCondSeguridad_electrico;
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosCondSeguridad_locativo;
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosCondSeguridad_tecnologico;
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosCondSeguridad_accTransito;
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosCondSeguridad_publico;
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosCondSeguridad_trabAlturas;
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosCondSeguridad_espaciosConfin;
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosCondSeguridad_otrosCondSeg;
+	
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosFenomNaturales_sismo;
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosFenomNaturales_terremoto;
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosFenomNaturales_vendaval;
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosFenomNaturales_inundacion;
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosFenomNaturales_derrumbe;
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosFenomNaturales_precipitaciones;
+	private GenericoDTO estimaDeficienciaRiesgo_riesgosFenomNaturales_otrosFenomNat;
+	
+	
+	
+	
+	
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosBiologicos_virus;
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosBiologicos_bacteria;
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosBiologicos_hongo;
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosBiologicos_rickettsias;
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosBiologicos_parasitos;
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosBiologicos_picaduras;
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosBiologicos_mordeduras;
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosBiologicos_fluidosExcrementos;
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosBiologicos_otrosBiologicos;
+	
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosFisicos_ruido;
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosFisicos_iluminacion;
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosFisicos_vibracion;
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosFisicos_temperaturas;
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosFisicos_presion;
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosFisicos_radiacionesIon;
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosFisicos_radiacionesNoIon;
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosFisicos_otrosFisicos;
+	
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosQuimicos_polvos;
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosQuimicos_fibras;
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosQuimicos_liquidos;
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosQuimicos_gases;
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosQuimicos_humos;
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosQuimicos_materialParticulado;
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosQuimicos_otrosQuimicos;
+	
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosPsicosociales_gestionOrgan;
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosPsicosociales_caractOrganiz;
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosPsicosociales_caractGrupoSoc;
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosPsicosociales_condicionesTarea;
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosPsicosociales_interfasePerson;
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosPsicosociales_jornadaTrab;
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosPsicosociales_otrosPsicosoc;
+	
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosBiomecanicos_postura;
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosBiomecanicos_esfuerzo;
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosBiomecanicos_movRepet;
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosBiomecanicos_manipulManual;
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosBiomecanicos_otrosBiomecan;
+	
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosCondSeguridad_mecanico;
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosCondSeguridad_electrico;
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosCondSeguridad_locativo;
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosCondSeguridad_tecnologico;
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosCondSeguridad_accTransito;
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosCondSeguridad_publico;
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosCondSeguridad_trabAlturas;
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosCondSeguridad_espaciosConfin;
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosCondSeguridad_otrosCondSeg;
+	
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosFenomNaturales_sismo;
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosFenomNaturales_terremoto;
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosFenomNaturales_vendaval;
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosFenomNaturales_inundacion;
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosFenomNaturales_derrumbe;
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosFenomNaturales_precipitaciones;
+	private GenericoDTO estimaConsecuenciaRiesgo_riesgosFenomNaturales_otrosFenomNat;
+
+
+
+	
+	
+	
+	
+	
+	
+	private GenericoDTO estimaExpoRiesgo_riesgosBiologicos_virus;
+	private GenericoDTO estimaExpoRiesgo_riesgosBiologicos_bacteria;
+	private GenericoDTO estimaExpoRiesgo_riesgosBiologicos_hongo;
+	private GenericoDTO estimaExpoRiesgo_riesgosBiologicos_rickettsias;
+	private GenericoDTO estimaExpoRiesgo_riesgosBiologicos_parasitos;
+	private GenericoDTO estimaExpoRiesgo_riesgosBiologicos_picaduras;
+	private GenericoDTO estimaExpoRiesgo_riesgosBiologicos_mordeduras;
+	private GenericoDTO estimaExpoRiesgo_riesgosBiologicos_fluidosExcrementos;
+	private GenericoDTO estimaExpoRiesgo_riesgosBiologicos_otrosBiologicos;
+	
+	private GenericoDTO estimaExpoRiesgo_riesgosFisicos_ruido;
+	private GenericoDTO estimaExpoRiesgo_riesgosFisicos_iluminacion;
+	private GenericoDTO estimaExpoRiesgo_riesgosFisicos_vibracion;
+	private GenericoDTO estimaExpoRiesgo_riesgosFisicos_temperaturas;
+	private GenericoDTO estimaExpoRiesgo_riesgosFisicos_presion;
+	private GenericoDTO estimaExpoRiesgo_riesgosFisicos_radiacionesIon;
+	private GenericoDTO estimaExpoRiesgo_riesgosFisicos_radiacionesNoIon;
+	private GenericoDTO estimaExpoRiesgo_riesgosFisicos_otrosFisicos;
+	
+	private GenericoDTO estimaExpoRiesgo_riesgosQuimicos_polvos;
+	private GenericoDTO estimaExpoRiesgo_riesgosQuimicos_fibras;
+	private GenericoDTO estimaExpoRiesgo_riesgosQuimicos_liquidos;
+	private GenericoDTO estimaExpoRiesgo_riesgosQuimicos_gases;
+	private GenericoDTO estimaExpoRiesgo_riesgosQuimicos_humos;
+	private GenericoDTO estimaExpoRiesgo_riesgosQuimicos_materialParticulado;
+	private GenericoDTO estimaExpoRiesgo_riesgosQuimicos_otrosQuimicos;
+	
+	private GenericoDTO estimaExpoRiesgo_riesgosPsicosociales_gestionOrgan;
+	private GenericoDTO estimaExpoRiesgo_riesgosPsicosociales_caractOrganiz;
+	private GenericoDTO estimaExpoRiesgo_riesgosPsicosociales_caractGrupoSoc;
+	private GenericoDTO estimaExpoRiesgo_riesgosPsicosociales_condicionesTarea;
+	private GenericoDTO estimaExpoRiesgo_riesgosPsicosociales_interfasePerson;
+	private GenericoDTO estimaExpoRiesgo_riesgosPsicosociales_jornadaTrab;
+	private GenericoDTO estimaExpoRiesgo_riesgosPsicosociales_otrosPsicosoc;
+	
+	private GenericoDTO estimaExpoRiesgo_riesgosBiomecanicos_postura;
+	private GenericoDTO estimaExpoRiesgo_riesgosBiomecanicos_esfuerzo;
+	private GenericoDTO estimaExpoRiesgo_riesgosBiomecanicos_movRepet;
+	private GenericoDTO estimaExpoRiesgo_riesgosBiomecanicos_manipulManual;
+	private GenericoDTO estimaExpoRiesgo_riesgosBiomecanicos_otrosBiomecan;
+	
+	private GenericoDTO estimaExpoRiesgo_riesgosCondSeguridad_mecanico;
+	private GenericoDTO estimaExpoRiesgo_riesgosCondSeguridad_electrico;
+	private GenericoDTO estimaExpoRiesgo_riesgosCondSeguridad_locativo;
+	private GenericoDTO estimaExpoRiesgo_riesgosCondSeguridad_tecnologico;
+	private GenericoDTO estimaExpoRiesgo_riesgosCondSeguridad_accTransito;
+	private GenericoDTO estimaExpoRiesgo_riesgosCondSeguridad_publico;
+	private GenericoDTO estimaExpoRiesgo_riesgosCondSeguridad_trabAlturas;
+	private GenericoDTO estimaExpoRiesgo_riesgosCondSeguridad_espaciosConfin;
+	private GenericoDTO estimaExpoRiesgo_riesgosCondSeguridad_otrosCondSeg;
+	
+	private GenericoDTO estimaExpoRiesgo_riesgosFenomNaturales_sismo;
+	private GenericoDTO estimaExpoRiesgo_riesgosFenomNaturales_terremoto;
+	private GenericoDTO estimaExpoRiesgo_riesgosFenomNaturales_vendaval;
+	private GenericoDTO estimaExpoRiesgo_riesgosFenomNaturales_inundacion;
+	private GenericoDTO estimaExpoRiesgo_riesgosFenomNaturales_derrumbe;
+	private GenericoDTO estimaExpoRiesgo_riesgosFenomNaturales_precipitaciones;
+	private GenericoDTO estimaExpoRiesgo_riesgosFenomNaturales_otrosFenomNat;
+	
+	
+	
+	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public String[] getRisks() {
+		return risks;
+	}
+	public void setRisks(String[] risks) {
+		this.risks = risks;
+	}
+	public String getSubdomain() {
+		return subdomain;
+	}
+	public void setSubdomain(String subdomain) {
+		this.subdomain = subdomain;
+	}
+	public Integer getQuantityFields() {
+		return quantityFields;
+	}
+	public void setQuantityFields(Integer quantityFields) {
+		this.quantityFields = quantityFields;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosBiologicos_virus() {
+		return estimaDeficienciaRiesgo_riesgosBiologicos_virus;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosBiologicos_virus(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosBiologicos_virus) {
+		this.estimaDeficienciaRiesgo_riesgosBiologicos_virus = estimaDeficienciaRiesgo_riesgosBiologicos_virus;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosBiologicos_bacteria() {
+		return estimaDeficienciaRiesgo_riesgosBiologicos_bacteria;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosBiologicos_bacteria(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosBiologicos_bacteria) {
+		this.estimaDeficienciaRiesgo_riesgosBiologicos_bacteria = estimaDeficienciaRiesgo_riesgosBiologicos_bacteria;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosBiologicos_hongo() {
+		return estimaDeficienciaRiesgo_riesgosBiologicos_hongo;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosBiologicos_hongo(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosBiologicos_hongo) {
+		this.estimaDeficienciaRiesgo_riesgosBiologicos_hongo = estimaDeficienciaRiesgo_riesgosBiologicos_hongo;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosBiologicos_rickettsias() {
+		return estimaDeficienciaRiesgo_riesgosBiologicos_rickettsias;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosBiologicos_rickettsias(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosBiologicos_rickettsias) {
+		this.estimaDeficienciaRiesgo_riesgosBiologicos_rickettsias = estimaDeficienciaRiesgo_riesgosBiologicos_rickettsias;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosBiologicos_parasitos() {
+		return estimaDeficienciaRiesgo_riesgosBiologicos_parasitos;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosBiologicos_parasitos(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosBiologicos_parasitos) {
+		this.estimaDeficienciaRiesgo_riesgosBiologicos_parasitos = estimaDeficienciaRiesgo_riesgosBiologicos_parasitos;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosBiologicos_picaduras() {
+		return estimaDeficienciaRiesgo_riesgosBiologicos_picaduras;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosBiologicos_picaduras(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosBiologicos_picaduras) {
+		this.estimaDeficienciaRiesgo_riesgosBiologicos_picaduras = estimaDeficienciaRiesgo_riesgosBiologicos_picaduras;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosBiologicos_mordeduras() {
+		return estimaDeficienciaRiesgo_riesgosBiologicos_mordeduras;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosBiologicos_mordeduras(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosBiologicos_mordeduras) {
+		this.estimaDeficienciaRiesgo_riesgosBiologicos_mordeduras = estimaDeficienciaRiesgo_riesgosBiologicos_mordeduras;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosBiologicos_fluidosExcrementos() {
+		return estimaDeficienciaRiesgo_riesgosBiologicos_fluidosExcrementos;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosBiologicos_fluidosExcrementos(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosBiologicos_fluidosExcrementos) {
+		this.estimaDeficienciaRiesgo_riesgosBiologicos_fluidosExcrementos = estimaDeficienciaRiesgo_riesgosBiologicos_fluidosExcrementos;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosBiologicos_otrosBiologicos() {
+		return estimaDeficienciaRiesgo_riesgosBiologicos_otrosBiologicos;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosBiologicos_otrosBiologicos(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosBiologicos_otrosBiologicos) {
+		this.estimaDeficienciaRiesgo_riesgosBiologicos_otrosBiologicos = estimaDeficienciaRiesgo_riesgosBiologicos_otrosBiologicos;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosFisicos_ruido() {
+		return estimaDeficienciaRiesgo_riesgosFisicos_ruido;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosFisicos_ruido(GenericoDTO estimaDeficienciaRiesgo_riesgosFisicos_ruido) {
+		this.estimaDeficienciaRiesgo_riesgosFisicos_ruido = estimaDeficienciaRiesgo_riesgosFisicos_ruido;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosFisicos_iluminacion() {
+		return estimaDeficienciaRiesgo_riesgosFisicos_iluminacion;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosFisicos_iluminacion(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosFisicos_iluminacion) {
+		this.estimaDeficienciaRiesgo_riesgosFisicos_iluminacion = estimaDeficienciaRiesgo_riesgosFisicos_iluminacion;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosFisicos_vibracion() {
+		return estimaDeficienciaRiesgo_riesgosFisicos_vibracion;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosFisicos_vibracion(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosFisicos_vibracion) {
+		this.estimaDeficienciaRiesgo_riesgosFisicos_vibracion = estimaDeficienciaRiesgo_riesgosFisicos_vibracion;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosFisicos_temperaturas() {
+		return estimaDeficienciaRiesgo_riesgosFisicos_temperaturas;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosFisicos_temperaturas(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosFisicos_temperaturas) {
+		this.estimaDeficienciaRiesgo_riesgosFisicos_temperaturas = estimaDeficienciaRiesgo_riesgosFisicos_temperaturas;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosFisicos_presion() {
+		return estimaDeficienciaRiesgo_riesgosFisicos_presion;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosFisicos_presion(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosFisicos_presion) {
+		this.estimaDeficienciaRiesgo_riesgosFisicos_presion = estimaDeficienciaRiesgo_riesgosFisicos_presion;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosFisicos_radiacionesIon() {
+		return estimaDeficienciaRiesgo_riesgosFisicos_radiacionesIon;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosFisicos_radiacionesIon(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosFisicos_radiacionesIon) {
+		this.estimaDeficienciaRiesgo_riesgosFisicos_radiacionesIon = estimaDeficienciaRiesgo_riesgosFisicos_radiacionesIon;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosFisicos_radiacionesNoIon() {
+		return estimaDeficienciaRiesgo_riesgosFisicos_radiacionesNoIon;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosFisicos_radiacionesNoIon(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosFisicos_radiacionesNoIon) {
+		this.estimaDeficienciaRiesgo_riesgosFisicos_radiacionesNoIon = estimaDeficienciaRiesgo_riesgosFisicos_radiacionesNoIon;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosFisicos_otrosFisicos() {
+		return estimaDeficienciaRiesgo_riesgosFisicos_otrosFisicos;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosFisicos_otrosFisicos(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosFisicos_otrosFisicos) {
+		this.estimaDeficienciaRiesgo_riesgosFisicos_otrosFisicos = estimaDeficienciaRiesgo_riesgosFisicos_otrosFisicos;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosQuimicos_polvos() {
+		return estimaDeficienciaRiesgo_riesgosQuimicos_polvos;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosQuimicos_polvos(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosQuimicos_polvos) {
+		this.estimaDeficienciaRiesgo_riesgosQuimicos_polvos = estimaDeficienciaRiesgo_riesgosQuimicos_polvos;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosQuimicos_fibras() {
+		return estimaDeficienciaRiesgo_riesgosQuimicos_fibras;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosQuimicos_fibras(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosQuimicos_fibras) {
+		this.estimaDeficienciaRiesgo_riesgosQuimicos_fibras = estimaDeficienciaRiesgo_riesgosQuimicos_fibras;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosQuimicos_liquidos() {
+		return estimaDeficienciaRiesgo_riesgosQuimicos_liquidos;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosQuimicos_liquidos(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosQuimicos_liquidos) {
+		this.estimaDeficienciaRiesgo_riesgosQuimicos_liquidos = estimaDeficienciaRiesgo_riesgosQuimicos_liquidos;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosQuimicos_gases() {
+		return estimaDeficienciaRiesgo_riesgosQuimicos_gases;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosQuimicos_gases(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosQuimicos_gases) {
+		this.estimaDeficienciaRiesgo_riesgosQuimicos_gases = estimaDeficienciaRiesgo_riesgosQuimicos_gases;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosQuimicos_humos() {
+		return estimaDeficienciaRiesgo_riesgosQuimicos_humos;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosQuimicos_humos(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosQuimicos_humos) {
+		this.estimaDeficienciaRiesgo_riesgosQuimicos_humos = estimaDeficienciaRiesgo_riesgosQuimicos_humos;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosQuimicos_materialParticulado() {
+		return estimaDeficienciaRiesgo_riesgosQuimicos_materialParticulado;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosQuimicos_materialParticulado(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosQuimicos_materialParticulado) {
+		this.estimaDeficienciaRiesgo_riesgosQuimicos_materialParticulado = estimaDeficienciaRiesgo_riesgosQuimicos_materialParticulado;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosQuimicos_otrosQuimicos() {
+		return estimaDeficienciaRiesgo_riesgosQuimicos_otrosQuimicos;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosQuimicos_otrosQuimicos(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosQuimicos_otrosQuimicos) {
+		this.estimaDeficienciaRiesgo_riesgosQuimicos_otrosQuimicos = estimaDeficienciaRiesgo_riesgosQuimicos_otrosQuimicos;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosPsicosociales_gestionOrgan() {
+		return estimaDeficienciaRiesgo_riesgosPsicosociales_gestionOrgan;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosPsicosociales_gestionOrgan(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosPsicosociales_gestionOrgan) {
+		this.estimaDeficienciaRiesgo_riesgosPsicosociales_gestionOrgan = estimaDeficienciaRiesgo_riesgosPsicosociales_gestionOrgan;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosPsicosociales_caractOrganiz() {
+		return estimaDeficienciaRiesgo_riesgosPsicosociales_caractOrganiz;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosPsicosociales_caractOrganiz(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosPsicosociales_caractOrganiz) {
+		this.estimaDeficienciaRiesgo_riesgosPsicosociales_caractOrganiz = estimaDeficienciaRiesgo_riesgosPsicosociales_caractOrganiz;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosPsicosociales_caractGrupoSoc() {
+		return estimaDeficienciaRiesgo_riesgosPsicosociales_caractGrupoSoc;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosPsicosociales_caractGrupoSoc(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosPsicosociales_caractGrupoSoc) {
+		this.estimaDeficienciaRiesgo_riesgosPsicosociales_caractGrupoSoc = estimaDeficienciaRiesgo_riesgosPsicosociales_caractGrupoSoc;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosPsicosociales_condicionesTarea() {
+		return estimaDeficienciaRiesgo_riesgosPsicosociales_condicionesTarea;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosPsicosociales_condicionesTarea(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosPsicosociales_condicionesTarea) {
+		this.estimaDeficienciaRiesgo_riesgosPsicosociales_condicionesTarea = estimaDeficienciaRiesgo_riesgosPsicosociales_condicionesTarea;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosPsicosociales_interfasePerson() {
+		return estimaDeficienciaRiesgo_riesgosPsicosociales_interfasePerson;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosPsicosociales_interfasePerson(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosPsicosociales_interfasePerson) {
+		this.estimaDeficienciaRiesgo_riesgosPsicosociales_interfasePerson = estimaDeficienciaRiesgo_riesgosPsicosociales_interfasePerson;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosPsicosociales_jornadaTrab() {
+		return estimaDeficienciaRiesgo_riesgosPsicosociales_jornadaTrab;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosPsicosociales_jornadaTrab(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosPsicosociales_jornadaTrab) {
+		this.estimaDeficienciaRiesgo_riesgosPsicosociales_jornadaTrab = estimaDeficienciaRiesgo_riesgosPsicosociales_jornadaTrab;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosPsicosociales_otrosPsicosoc() {
+		return estimaDeficienciaRiesgo_riesgosPsicosociales_otrosPsicosoc;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosPsicosociales_otrosPsicosoc(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosPsicosociales_otrosPsicosoc) {
+		this.estimaDeficienciaRiesgo_riesgosPsicosociales_otrosPsicosoc = estimaDeficienciaRiesgo_riesgosPsicosociales_otrosPsicosoc;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosBiomecanicos_postura() {
+		return estimaDeficienciaRiesgo_riesgosBiomecanicos_postura;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosBiomecanicos_postura(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosBiomecanicos_postura) {
+		this.estimaDeficienciaRiesgo_riesgosBiomecanicos_postura = estimaDeficienciaRiesgo_riesgosBiomecanicos_postura;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosBiomecanicos_esfuerzo() {
+		return estimaDeficienciaRiesgo_riesgosBiomecanicos_esfuerzo;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosBiomecanicos_esfuerzo(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosBiomecanicos_esfuerzo) {
+		this.estimaDeficienciaRiesgo_riesgosBiomecanicos_esfuerzo = estimaDeficienciaRiesgo_riesgosBiomecanicos_esfuerzo;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosBiomecanicos_movRepet() {
+		return estimaDeficienciaRiesgo_riesgosBiomecanicos_movRepet;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosBiomecanicos_movRepet(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosBiomecanicos_movRepet) {
+		this.estimaDeficienciaRiesgo_riesgosBiomecanicos_movRepet = estimaDeficienciaRiesgo_riesgosBiomecanicos_movRepet;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosBiomecanicos_manipulManual() {
+		return estimaDeficienciaRiesgo_riesgosBiomecanicos_manipulManual;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosBiomecanicos_manipulManual(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosBiomecanicos_manipulManual) {
+		this.estimaDeficienciaRiesgo_riesgosBiomecanicos_manipulManual = estimaDeficienciaRiesgo_riesgosBiomecanicos_manipulManual;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosBiomecanicos_otrosBiomecan() {
+		return estimaDeficienciaRiesgo_riesgosBiomecanicos_otrosBiomecan;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosBiomecanicos_otrosBiomecan(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosBiomecanicos_otrosBiomecan) {
+		this.estimaDeficienciaRiesgo_riesgosBiomecanicos_otrosBiomecan = estimaDeficienciaRiesgo_riesgosBiomecanicos_otrosBiomecan;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosCondSeguridad_mecanico() {
+		return estimaDeficienciaRiesgo_riesgosCondSeguridad_mecanico;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosCondSeguridad_mecanico(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosCondSeguridad_mecanico) {
+		this.estimaDeficienciaRiesgo_riesgosCondSeguridad_mecanico = estimaDeficienciaRiesgo_riesgosCondSeguridad_mecanico;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosCondSeguridad_electrico() {
+		return estimaDeficienciaRiesgo_riesgosCondSeguridad_electrico;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosCondSeguridad_electrico(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosCondSeguridad_electrico) {
+		this.estimaDeficienciaRiesgo_riesgosCondSeguridad_electrico = estimaDeficienciaRiesgo_riesgosCondSeguridad_electrico;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosCondSeguridad_locativo() {
+		return estimaDeficienciaRiesgo_riesgosCondSeguridad_locativo;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosCondSeguridad_locativo(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosCondSeguridad_locativo) {
+		this.estimaDeficienciaRiesgo_riesgosCondSeguridad_locativo = estimaDeficienciaRiesgo_riesgosCondSeguridad_locativo;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosCondSeguridad_tecnologico() {
+		return estimaDeficienciaRiesgo_riesgosCondSeguridad_tecnologico;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosCondSeguridad_tecnologico(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosCondSeguridad_tecnologico) {
+		this.estimaDeficienciaRiesgo_riesgosCondSeguridad_tecnologico = estimaDeficienciaRiesgo_riesgosCondSeguridad_tecnologico;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosCondSeguridad_accTransito() {
+		return estimaDeficienciaRiesgo_riesgosCondSeguridad_accTransito;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosCondSeguridad_accTransito(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosCondSeguridad_accTransito) {
+		this.estimaDeficienciaRiesgo_riesgosCondSeguridad_accTransito = estimaDeficienciaRiesgo_riesgosCondSeguridad_accTransito;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosCondSeguridad_publico() {
+		return estimaDeficienciaRiesgo_riesgosCondSeguridad_publico;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosCondSeguridad_publico(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosCondSeguridad_publico) {
+		this.estimaDeficienciaRiesgo_riesgosCondSeguridad_publico = estimaDeficienciaRiesgo_riesgosCondSeguridad_publico;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosCondSeguridad_trabAlturas() {
+		return estimaDeficienciaRiesgo_riesgosCondSeguridad_trabAlturas;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosCondSeguridad_trabAlturas(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosCondSeguridad_trabAlturas) {
+		this.estimaDeficienciaRiesgo_riesgosCondSeguridad_trabAlturas = estimaDeficienciaRiesgo_riesgosCondSeguridad_trabAlturas;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosCondSeguridad_espaciosConfin() {
+		return estimaDeficienciaRiesgo_riesgosCondSeguridad_espaciosConfin;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosCondSeguridad_espaciosConfin(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosCondSeguridad_espaciosConfin) {
+		this.estimaDeficienciaRiesgo_riesgosCondSeguridad_espaciosConfin = estimaDeficienciaRiesgo_riesgosCondSeguridad_espaciosConfin;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosBiologicos_virus() {
+		return estimaConsecuenciaRiesgo_riesgosBiologicos_virus;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosBiologicos_virus(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosBiologicos_virus) {
+		this.estimaConsecuenciaRiesgo_riesgosBiologicos_virus = estimaConsecuenciaRiesgo_riesgosBiologicos_virus;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosBiologicos_bacteria() {
+		return estimaConsecuenciaRiesgo_riesgosBiologicos_bacteria;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosBiologicos_bacteria(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosBiologicos_bacteria) {
+		this.estimaConsecuenciaRiesgo_riesgosBiologicos_bacteria = estimaConsecuenciaRiesgo_riesgosBiologicos_bacteria;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosBiologicos_hongo() {
+		return estimaConsecuenciaRiesgo_riesgosBiologicos_hongo;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosBiologicos_hongo(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosBiologicos_hongo) {
+		this.estimaConsecuenciaRiesgo_riesgosBiologicos_hongo = estimaConsecuenciaRiesgo_riesgosBiologicos_hongo;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosBiologicos_rickettsias() {
+		return estimaConsecuenciaRiesgo_riesgosBiologicos_rickettsias;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosBiologicos_rickettsias(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosBiologicos_rickettsias) {
+		this.estimaConsecuenciaRiesgo_riesgosBiologicos_rickettsias = estimaConsecuenciaRiesgo_riesgosBiologicos_rickettsias;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosBiologicos_parasitos() {
+		return estimaConsecuenciaRiesgo_riesgosBiologicos_parasitos;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosBiologicos_parasitos(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosBiologicos_parasitos) {
+		this.estimaConsecuenciaRiesgo_riesgosBiologicos_parasitos = estimaConsecuenciaRiesgo_riesgosBiologicos_parasitos;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosBiologicos_picaduras() {
+		return estimaConsecuenciaRiesgo_riesgosBiologicos_picaduras;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosBiologicos_picaduras(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosBiologicos_picaduras) {
+		this.estimaConsecuenciaRiesgo_riesgosBiologicos_picaduras = estimaConsecuenciaRiesgo_riesgosBiologicos_picaduras;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosBiologicos_mordeduras() {
+		return estimaConsecuenciaRiesgo_riesgosBiologicos_mordeduras;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosBiologicos_mordeduras(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosBiologicos_mordeduras) {
+		this.estimaConsecuenciaRiesgo_riesgosBiologicos_mordeduras = estimaConsecuenciaRiesgo_riesgosBiologicos_mordeduras;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosBiologicos_fluidosExcrementos() {
+		return estimaConsecuenciaRiesgo_riesgosBiologicos_fluidosExcrementos;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosBiologicos_fluidosExcrementos(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosBiologicos_fluidosExcrementos) {
+		this.estimaConsecuenciaRiesgo_riesgosBiologicos_fluidosExcrementos = estimaConsecuenciaRiesgo_riesgosBiologicos_fluidosExcrementos;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosBiologicos_otrosBiologicos() {
+		return estimaConsecuenciaRiesgo_riesgosBiologicos_otrosBiologicos;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosBiologicos_otrosBiologicos(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosBiologicos_otrosBiologicos) {
+		this.estimaConsecuenciaRiesgo_riesgosBiologicos_otrosBiologicos = estimaConsecuenciaRiesgo_riesgosBiologicos_otrosBiologicos;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosFisicos_ruido() {
+		return estimaConsecuenciaRiesgo_riesgosFisicos_ruido;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosFisicos_ruido(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosFisicos_ruido) {
+		this.estimaConsecuenciaRiesgo_riesgosFisicos_ruido = estimaConsecuenciaRiesgo_riesgosFisicos_ruido;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosFisicos_iluminacion() {
+		return estimaConsecuenciaRiesgo_riesgosFisicos_iluminacion;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosFisicos_iluminacion(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosFisicos_iluminacion) {
+		this.estimaConsecuenciaRiesgo_riesgosFisicos_iluminacion = estimaConsecuenciaRiesgo_riesgosFisicos_iluminacion;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosFisicos_vibracion() {
+		return estimaConsecuenciaRiesgo_riesgosFisicos_vibracion;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosFisicos_vibracion(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosFisicos_vibracion) {
+		this.estimaConsecuenciaRiesgo_riesgosFisicos_vibracion = estimaConsecuenciaRiesgo_riesgosFisicos_vibracion;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosFisicos_temperaturas() {
+		return estimaConsecuenciaRiesgo_riesgosFisicos_temperaturas;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosFisicos_temperaturas(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosFisicos_temperaturas) {
+		this.estimaConsecuenciaRiesgo_riesgosFisicos_temperaturas = estimaConsecuenciaRiesgo_riesgosFisicos_temperaturas;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosFisicos_presion() {
+		return estimaConsecuenciaRiesgo_riesgosFisicos_presion;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosFisicos_presion(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosFisicos_presion) {
+		this.estimaConsecuenciaRiesgo_riesgosFisicos_presion = estimaConsecuenciaRiesgo_riesgosFisicos_presion;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosFisicos_radiacionesIon() {
+		return estimaConsecuenciaRiesgo_riesgosFisicos_radiacionesIon;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosFisicos_radiacionesIon(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosFisicos_radiacionesIon) {
+		this.estimaConsecuenciaRiesgo_riesgosFisicos_radiacionesIon = estimaConsecuenciaRiesgo_riesgosFisicos_radiacionesIon;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosFisicos_radiacionesNoIon() {
+		return estimaConsecuenciaRiesgo_riesgosFisicos_radiacionesNoIon;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosFisicos_radiacionesNoIon(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosFisicos_radiacionesNoIon) {
+		this.estimaConsecuenciaRiesgo_riesgosFisicos_radiacionesNoIon = estimaConsecuenciaRiesgo_riesgosFisicos_radiacionesNoIon;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosFisicos_otrosFisicos() {
+		return estimaConsecuenciaRiesgo_riesgosFisicos_otrosFisicos;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosFisicos_otrosFisicos(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosFisicos_otrosFisicos) {
+		this.estimaConsecuenciaRiesgo_riesgosFisicos_otrosFisicos = estimaConsecuenciaRiesgo_riesgosFisicos_otrosFisicos;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosQuimicos_polvos() {
+		return estimaConsecuenciaRiesgo_riesgosQuimicos_polvos;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosQuimicos_polvos(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosQuimicos_polvos) {
+		this.estimaConsecuenciaRiesgo_riesgosQuimicos_polvos = estimaConsecuenciaRiesgo_riesgosQuimicos_polvos;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosQuimicos_fibras() {
+		return estimaConsecuenciaRiesgo_riesgosQuimicos_fibras;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosQuimicos_fibras(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosQuimicos_fibras) {
+		this.estimaConsecuenciaRiesgo_riesgosQuimicos_fibras = estimaConsecuenciaRiesgo_riesgosQuimicos_fibras;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosQuimicos_liquidos() {
+		return estimaConsecuenciaRiesgo_riesgosQuimicos_liquidos;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosQuimicos_liquidos(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosQuimicos_liquidos) {
+		this.estimaConsecuenciaRiesgo_riesgosQuimicos_liquidos = estimaConsecuenciaRiesgo_riesgosQuimicos_liquidos;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosQuimicos_gases() {
+		return estimaConsecuenciaRiesgo_riesgosQuimicos_gases;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosQuimicos_gases(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosQuimicos_gases) {
+		this.estimaConsecuenciaRiesgo_riesgosQuimicos_gases = estimaConsecuenciaRiesgo_riesgosQuimicos_gases;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosQuimicos_humos() {
+		return estimaConsecuenciaRiesgo_riesgosQuimicos_humos;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosQuimicos_humos(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosQuimicos_humos) {
+		this.estimaConsecuenciaRiesgo_riesgosQuimicos_humos = estimaConsecuenciaRiesgo_riesgosQuimicos_humos;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosQuimicos_materialParticulado() {
+		return estimaConsecuenciaRiesgo_riesgosQuimicos_materialParticulado;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosQuimicos_materialParticulado(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosQuimicos_materialParticulado) {
+		this.estimaConsecuenciaRiesgo_riesgosQuimicos_materialParticulado = estimaConsecuenciaRiesgo_riesgosQuimicos_materialParticulado;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosQuimicos_otrosQuimicos() {
+		return estimaConsecuenciaRiesgo_riesgosQuimicos_otrosQuimicos;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosQuimicos_otrosQuimicos(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosQuimicos_otrosQuimicos) {
+		this.estimaConsecuenciaRiesgo_riesgosQuimicos_otrosQuimicos = estimaConsecuenciaRiesgo_riesgosQuimicos_otrosQuimicos;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosPsicosociales_gestionOrgan() {
+		return estimaConsecuenciaRiesgo_riesgosPsicosociales_gestionOrgan;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosPsicosociales_gestionOrgan(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosPsicosociales_gestionOrgan) {
+		this.estimaConsecuenciaRiesgo_riesgosPsicosociales_gestionOrgan = estimaConsecuenciaRiesgo_riesgosPsicosociales_gestionOrgan;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosPsicosociales_caractOrganiz() {
+		return estimaConsecuenciaRiesgo_riesgosPsicosociales_caractOrganiz;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosPsicosociales_caractOrganiz(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosPsicosociales_caractOrganiz) {
+		this.estimaConsecuenciaRiesgo_riesgosPsicosociales_caractOrganiz = estimaConsecuenciaRiesgo_riesgosPsicosociales_caractOrganiz;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosPsicosociales_caractGrupoSoc() {
+		return estimaConsecuenciaRiesgo_riesgosPsicosociales_caractGrupoSoc;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosPsicosociales_caractGrupoSoc(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosPsicosociales_caractGrupoSoc) {
+		this.estimaConsecuenciaRiesgo_riesgosPsicosociales_caractGrupoSoc = estimaConsecuenciaRiesgo_riesgosPsicosociales_caractGrupoSoc;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosPsicosociales_condicionesTarea() {
+		return estimaConsecuenciaRiesgo_riesgosPsicosociales_condicionesTarea;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosPsicosociales_condicionesTarea(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosPsicosociales_condicionesTarea) {
+		this.estimaConsecuenciaRiesgo_riesgosPsicosociales_condicionesTarea = estimaConsecuenciaRiesgo_riesgosPsicosociales_condicionesTarea;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosPsicosociales_interfasePerson() {
+		return estimaConsecuenciaRiesgo_riesgosPsicosociales_interfasePerson;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosPsicosociales_interfasePerson(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosPsicosociales_interfasePerson) {
+		this.estimaConsecuenciaRiesgo_riesgosPsicosociales_interfasePerson = estimaConsecuenciaRiesgo_riesgosPsicosociales_interfasePerson;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosPsicosociales_jornadaTrab() {
+		return estimaConsecuenciaRiesgo_riesgosPsicosociales_jornadaTrab;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosPsicosociales_jornadaTrab(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosPsicosociales_jornadaTrab) {
+		this.estimaConsecuenciaRiesgo_riesgosPsicosociales_jornadaTrab = estimaConsecuenciaRiesgo_riesgosPsicosociales_jornadaTrab;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosPsicosociales_otrosPsicosoc() {
+		return estimaConsecuenciaRiesgo_riesgosPsicosociales_otrosPsicosoc;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosPsicosociales_otrosPsicosoc(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosPsicosociales_otrosPsicosoc) {
+		this.estimaConsecuenciaRiesgo_riesgosPsicosociales_otrosPsicosoc = estimaConsecuenciaRiesgo_riesgosPsicosociales_otrosPsicosoc;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosBiomecanicos_postura() {
+		return estimaConsecuenciaRiesgo_riesgosBiomecanicos_postura;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosBiomecanicos_postura(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosBiomecanicos_postura) {
+		this.estimaConsecuenciaRiesgo_riesgosBiomecanicos_postura = estimaConsecuenciaRiesgo_riesgosBiomecanicos_postura;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosBiomecanicos_esfuerzo() {
+		return estimaConsecuenciaRiesgo_riesgosBiomecanicos_esfuerzo;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosBiomecanicos_esfuerzo(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosBiomecanicos_esfuerzo) {
+		this.estimaConsecuenciaRiesgo_riesgosBiomecanicos_esfuerzo = estimaConsecuenciaRiesgo_riesgosBiomecanicos_esfuerzo;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosBiomecanicos_movRepet() {
+		return estimaConsecuenciaRiesgo_riesgosBiomecanicos_movRepet;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosBiomecanicos_movRepet(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosBiomecanicos_movRepet) {
+		this.estimaConsecuenciaRiesgo_riesgosBiomecanicos_movRepet = estimaConsecuenciaRiesgo_riesgosBiomecanicos_movRepet;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosBiomecanicos_manipulManual() {
+		return estimaConsecuenciaRiesgo_riesgosBiomecanicos_manipulManual;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosBiomecanicos_manipulManual(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosBiomecanicos_manipulManual) {
+		this.estimaConsecuenciaRiesgo_riesgosBiomecanicos_manipulManual = estimaConsecuenciaRiesgo_riesgosBiomecanicos_manipulManual;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosBiomecanicos_otrosBiomecan() {
+		return estimaConsecuenciaRiesgo_riesgosBiomecanicos_otrosBiomecan;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosBiomecanicos_otrosBiomecan(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosBiomecanicos_otrosBiomecan) {
+		this.estimaConsecuenciaRiesgo_riesgosBiomecanicos_otrosBiomecan = estimaConsecuenciaRiesgo_riesgosBiomecanicos_otrosBiomecan;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosCondSeguridad_mecanico() {
+		return estimaConsecuenciaRiesgo_riesgosCondSeguridad_mecanico;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosCondSeguridad_mecanico(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosCondSeguridad_mecanico) {
+		this.estimaConsecuenciaRiesgo_riesgosCondSeguridad_mecanico = estimaConsecuenciaRiesgo_riesgosCondSeguridad_mecanico;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosCondSeguridad_electrico() {
+		return estimaConsecuenciaRiesgo_riesgosCondSeguridad_electrico;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosCondSeguridad_electrico(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosCondSeguridad_electrico) {
+		this.estimaConsecuenciaRiesgo_riesgosCondSeguridad_electrico = estimaConsecuenciaRiesgo_riesgosCondSeguridad_electrico;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosCondSeguridad_locativo() {
+		return estimaConsecuenciaRiesgo_riesgosCondSeguridad_locativo;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosCondSeguridad_locativo(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosCondSeguridad_locativo) {
+		this.estimaConsecuenciaRiesgo_riesgosCondSeguridad_locativo = estimaConsecuenciaRiesgo_riesgosCondSeguridad_locativo;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosCondSeguridad_tecnologico() {
+		return estimaConsecuenciaRiesgo_riesgosCondSeguridad_tecnologico;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosCondSeguridad_tecnologico(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosCondSeguridad_tecnologico) {
+		this.estimaConsecuenciaRiesgo_riesgosCondSeguridad_tecnologico = estimaConsecuenciaRiesgo_riesgosCondSeguridad_tecnologico;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosCondSeguridad_accTransito() {
+		return estimaConsecuenciaRiesgo_riesgosCondSeguridad_accTransito;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosCondSeguridad_accTransito(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosCondSeguridad_accTransito) {
+		this.estimaConsecuenciaRiesgo_riesgosCondSeguridad_accTransito = estimaConsecuenciaRiesgo_riesgosCondSeguridad_accTransito;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosCondSeguridad_publico() {
+		return estimaConsecuenciaRiesgo_riesgosCondSeguridad_publico;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosCondSeguridad_publico(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosCondSeguridad_publico) {
+		this.estimaConsecuenciaRiesgo_riesgosCondSeguridad_publico = estimaConsecuenciaRiesgo_riesgosCondSeguridad_publico;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosCondSeguridad_trabAlturas() {
+		return estimaConsecuenciaRiesgo_riesgosCondSeguridad_trabAlturas;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosCondSeguridad_trabAlturas(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosCondSeguridad_trabAlturas) {
+		this.estimaConsecuenciaRiesgo_riesgosCondSeguridad_trabAlturas = estimaConsecuenciaRiesgo_riesgosCondSeguridad_trabAlturas;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosCondSeguridad_espaciosConfin() {
+		return estimaConsecuenciaRiesgo_riesgosCondSeguridad_espaciosConfin;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosCondSeguridad_espaciosConfin(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosCondSeguridad_espaciosConfin) {
+		this.estimaConsecuenciaRiesgo_riesgosCondSeguridad_espaciosConfin = estimaConsecuenciaRiesgo_riesgosCondSeguridad_espaciosConfin;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosBiologicos_virus() {
+		return estimaExpoRiesgo_riesgosBiologicos_virus;
+	}
+	public void setEstimaExpoRiesgo_riesgosBiologicos_virus(GenericoDTO estimaExpoRiesgo_riesgosBiologicos_virus) {
+		this.estimaExpoRiesgo_riesgosBiologicos_virus = estimaExpoRiesgo_riesgosBiologicos_virus;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosBiologicos_bacteria() {
+		return estimaExpoRiesgo_riesgosBiologicos_bacteria;
+	}
+	public void setEstimaExpoRiesgo_riesgosBiologicos_bacteria(GenericoDTO estimaExpoRiesgo_riesgosBiologicos_bacteria) {
+		this.estimaExpoRiesgo_riesgosBiologicos_bacteria = estimaExpoRiesgo_riesgosBiologicos_bacteria;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosBiologicos_hongo() {
+		return estimaExpoRiesgo_riesgosBiologicos_hongo;
+	}
+	public void setEstimaExpoRiesgo_riesgosBiologicos_hongo(GenericoDTO estimaExpoRiesgo_riesgosBiologicos_hongo) {
+		this.estimaExpoRiesgo_riesgosBiologicos_hongo = estimaExpoRiesgo_riesgosBiologicos_hongo;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosBiologicos_rickettsias() {
+		return estimaExpoRiesgo_riesgosBiologicos_rickettsias;
+	}
+	public void setEstimaExpoRiesgo_riesgosBiologicos_rickettsias(
+			GenericoDTO estimaExpoRiesgo_riesgosBiologicos_rickettsias) {
+		this.estimaExpoRiesgo_riesgosBiologicos_rickettsias = estimaExpoRiesgo_riesgosBiologicos_rickettsias;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosBiologicos_parasitos() {
+		return estimaExpoRiesgo_riesgosBiologicos_parasitos;
+	}
+	public void setEstimaExpoRiesgo_riesgosBiologicos_parasitos(GenericoDTO estimaExpoRiesgo_riesgosBiologicos_parasitos) {
+		this.estimaExpoRiesgo_riesgosBiologicos_parasitos = estimaExpoRiesgo_riesgosBiologicos_parasitos;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosBiologicos_picaduras() {
+		return estimaExpoRiesgo_riesgosBiologicos_picaduras;
+	}
+	public void setEstimaExpoRiesgo_riesgosBiologicos_picaduras(GenericoDTO estimaExpoRiesgo_riesgosBiologicos_picaduras) {
+		this.estimaExpoRiesgo_riesgosBiologicos_picaduras = estimaExpoRiesgo_riesgosBiologicos_picaduras;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosBiologicos_mordeduras() {
+		return estimaExpoRiesgo_riesgosBiologicos_mordeduras;
+	}
+	public void setEstimaExpoRiesgo_riesgosBiologicos_mordeduras(
+			GenericoDTO estimaExpoRiesgo_riesgosBiologicos_mordeduras) {
+		this.estimaExpoRiesgo_riesgosBiologicos_mordeduras = estimaExpoRiesgo_riesgosBiologicos_mordeduras;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosBiologicos_fluidosExcrementos() {
+		return estimaExpoRiesgo_riesgosBiologicos_fluidosExcrementos;
+	}
+	public void setEstimaExpoRiesgo_riesgosBiologicos_fluidosExcrementos(
+			GenericoDTO estimaExpoRiesgo_riesgosBiologicos_fluidosExcrementos) {
+		this.estimaExpoRiesgo_riesgosBiologicos_fluidosExcrementos = estimaExpoRiesgo_riesgosBiologicos_fluidosExcrementos;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosBiologicos_otrosBiologicos() {
+		return estimaExpoRiesgo_riesgosBiologicos_otrosBiologicos;
+	}
+	public void setEstimaExpoRiesgo_riesgosBiologicos_otrosBiologicos(
+			GenericoDTO estimaExpoRiesgo_riesgosBiologicos_otrosBiologicos) {
+		this.estimaExpoRiesgo_riesgosBiologicos_otrosBiologicos = estimaExpoRiesgo_riesgosBiologicos_otrosBiologicos;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosFisicos_ruido() {
+		return estimaExpoRiesgo_riesgosFisicos_ruido;
+	}
+	public void setEstimaExpoRiesgo_riesgosFisicos_ruido(GenericoDTO estimaExpoRiesgo_riesgosFisicos_ruido) {
+		this.estimaExpoRiesgo_riesgosFisicos_ruido = estimaExpoRiesgo_riesgosFisicos_ruido;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosFisicos_iluminacion() {
+		return estimaExpoRiesgo_riesgosFisicos_iluminacion;
+	}
+	public void setEstimaExpoRiesgo_riesgosFisicos_iluminacion(GenericoDTO estimaExpoRiesgo_riesgosFisicos_iluminacion) {
+		this.estimaExpoRiesgo_riesgosFisicos_iluminacion = estimaExpoRiesgo_riesgosFisicos_iluminacion;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosFisicos_vibracion() {
+		return estimaExpoRiesgo_riesgosFisicos_vibracion;
+	}
+	public void setEstimaExpoRiesgo_riesgosFisicos_vibracion(GenericoDTO estimaExpoRiesgo_riesgosFisicos_vibracion) {
+		this.estimaExpoRiesgo_riesgosFisicos_vibracion = estimaExpoRiesgo_riesgosFisicos_vibracion;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosFisicos_temperaturas() {
+		return estimaExpoRiesgo_riesgosFisicos_temperaturas;
+	}
+	public void setEstimaExpoRiesgo_riesgosFisicos_temperaturas(GenericoDTO estimaExpoRiesgo_riesgosFisicos_temperaturas) {
+		this.estimaExpoRiesgo_riesgosFisicos_temperaturas = estimaExpoRiesgo_riesgosFisicos_temperaturas;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosFisicos_presion() {
+		return estimaExpoRiesgo_riesgosFisicos_presion;
+	}
+	public void setEstimaExpoRiesgo_riesgosFisicos_presion(GenericoDTO estimaExpoRiesgo_riesgosFisicos_presion) {
+		this.estimaExpoRiesgo_riesgosFisicos_presion = estimaExpoRiesgo_riesgosFisicos_presion;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosFisicos_radiacionesIon() {
+		return estimaExpoRiesgo_riesgosFisicos_radiacionesIon;
+	}
+	public void setEstimaExpoRiesgo_riesgosFisicos_radiacionesIon(
+			GenericoDTO estimaExpoRiesgo_riesgosFisicos_radiacionesIon) {
+		this.estimaExpoRiesgo_riesgosFisicos_radiacionesIon = estimaExpoRiesgo_riesgosFisicos_radiacionesIon;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosFisicos_radiacionesNoIon() {
+		return estimaExpoRiesgo_riesgosFisicos_radiacionesNoIon;
+	}
+	public void setEstimaExpoRiesgo_riesgosFisicos_radiacionesNoIon(
+			GenericoDTO estimaExpoRiesgo_riesgosFisicos_radiacionesNoIon) {
+		this.estimaExpoRiesgo_riesgosFisicos_radiacionesNoIon = estimaExpoRiesgo_riesgosFisicos_radiacionesNoIon;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosFisicos_otrosFisicos() {
+		return estimaExpoRiesgo_riesgosFisicos_otrosFisicos;
+	}
+	public void setEstimaExpoRiesgo_riesgosFisicos_otrosFisicos(GenericoDTO estimaExpoRiesgo_riesgosFisicos_otrosFisicos) {
+		this.estimaExpoRiesgo_riesgosFisicos_otrosFisicos = estimaExpoRiesgo_riesgosFisicos_otrosFisicos;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosQuimicos_polvos() {
+		return estimaExpoRiesgo_riesgosQuimicos_polvos;
+	}
+	public void setEstimaExpoRiesgo_riesgosQuimicos_polvos(GenericoDTO estimaExpoRiesgo_riesgosQuimicos_polvos) {
+		this.estimaExpoRiesgo_riesgosQuimicos_polvos = estimaExpoRiesgo_riesgosQuimicos_polvos;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosQuimicos_fibras() {
+		return estimaExpoRiesgo_riesgosQuimicos_fibras;
+	}
+	public void setEstimaExpoRiesgo_riesgosQuimicos_fibras(GenericoDTO estimaExpoRiesgo_riesgosQuimicos_fibras) {
+		this.estimaExpoRiesgo_riesgosQuimicos_fibras = estimaExpoRiesgo_riesgosQuimicos_fibras;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosQuimicos_liquidos() {
+		return estimaExpoRiesgo_riesgosQuimicos_liquidos;
+	}
+	public void setEstimaExpoRiesgo_riesgosQuimicos_liquidos(GenericoDTO estimaExpoRiesgo_riesgosQuimicos_liquidos) {
+		this.estimaExpoRiesgo_riesgosQuimicos_liquidos = estimaExpoRiesgo_riesgosQuimicos_liquidos;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosQuimicos_gases() {
+		return estimaExpoRiesgo_riesgosQuimicos_gases;
+	}
+	public void setEstimaExpoRiesgo_riesgosQuimicos_gases(GenericoDTO estimaExpoRiesgo_riesgosQuimicos_gases) {
+		this.estimaExpoRiesgo_riesgosQuimicos_gases = estimaExpoRiesgo_riesgosQuimicos_gases;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosQuimicos_humos() {
+		return estimaExpoRiesgo_riesgosQuimicos_humos;
+	}
+	public void setEstimaExpoRiesgo_riesgosQuimicos_humos(GenericoDTO estimaExpoRiesgo_riesgosQuimicos_humos) {
+		this.estimaExpoRiesgo_riesgosQuimicos_humos = estimaExpoRiesgo_riesgosQuimicos_humos;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosQuimicos_materialParticulado() {
+		return estimaExpoRiesgo_riesgosQuimicos_materialParticulado;
+	}
+	public void setEstimaExpoRiesgo_riesgosQuimicos_materialParticulado(
+			GenericoDTO estimaExpoRiesgo_riesgosQuimicos_materialParticulado) {
+		this.estimaExpoRiesgo_riesgosQuimicos_materialParticulado = estimaExpoRiesgo_riesgosQuimicos_materialParticulado;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosQuimicos_otrosQuimicos() {
+		return estimaExpoRiesgo_riesgosQuimicos_otrosQuimicos;
+	}
+	public void setEstimaExpoRiesgo_riesgosQuimicos_otrosQuimicos(
+			GenericoDTO estimaExpoRiesgo_riesgosQuimicos_otrosQuimicos) {
+		this.estimaExpoRiesgo_riesgosQuimicos_otrosQuimicos = estimaExpoRiesgo_riesgosQuimicos_otrosQuimicos;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosPsicosociales_gestionOrgan() {
+		return estimaExpoRiesgo_riesgosPsicosociales_gestionOrgan;
+	}
+	public void setEstimaExpoRiesgo_riesgosPsicosociales_gestionOrgan(
+			GenericoDTO estimaExpoRiesgo_riesgosPsicosociales_gestionOrgan) {
+		this.estimaExpoRiesgo_riesgosPsicosociales_gestionOrgan = estimaExpoRiesgo_riesgosPsicosociales_gestionOrgan;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosPsicosociales_caractOrganiz() {
+		return estimaExpoRiesgo_riesgosPsicosociales_caractOrganiz;
+	}
+	public void setEstimaExpoRiesgo_riesgosPsicosociales_caractOrganiz(
+			GenericoDTO estimaExpoRiesgo_riesgosPsicosociales_caractOrganiz) {
+		this.estimaExpoRiesgo_riesgosPsicosociales_caractOrganiz = estimaExpoRiesgo_riesgosPsicosociales_caractOrganiz;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosPsicosociales_caractGrupoSoc() {
+		return estimaExpoRiesgo_riesgosPsicosociales_caractGrupoSoc;
+	}
+	public void setEstimaExpoRiesgo_riesgosPsicosociales_caractGrupoSoc(
+			GenericoDTO estimaExpoRiesgo_riesgosPsicosociales_caractGrupoSoc) {
+		this.estimaExpoRiesgo_riesgosPsicosociales_caractGrupoSoc = estimaExpoRiesgo_riesgosPsicosociales_caractGrupoSoc;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosPsicosociales_condicionesTarea() {
+		return estimaExpoRiesgo_riesgosPsicosociales_condicionesTarea;
+	}
+	public void setEstimaExpoRiesgo_riesgosPsicosociales_condicionesTarea(
+			GenericoDTO estimaExpoRiesgo_riesgosPsicosociales_condicionesTarea) {
+		this.estimaExpoRiesgo_riesgosPsicosociales_condicionesTarea = estimaExpoRiesgo_riesgosPsicosociales_condicionesTarea;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosPsicosociales_interfasePerson() {
+		return estimaExpoRiesgo_riesgosPsicosociales_interfasePerson;
+	}
+	public void setEstimaExpoRiesgo_riesgosPsicosociales_interfasePerson(
+			GenericoDTO estimaExpoRiesgo_riesgosPsicosociales_interfasePerson) {
+		this.estimaExpoRiesgo_riesgosPsicosociales_interfasePerson = estimaExpoRiesgo_riesgosPsicosociales_interfasePerson;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosPsicosociales_jornadaTrab() {
+		return estimaExpoRiesgo_riesgosPsicosociales_jornadaTrab;
+	}
+	public void setEstimaExpoRiesgo_riesgosPsicosociales_jornadaTrab(
+			GenericoDTO estimaExpoRiesgo_riesgosPsicosociales_jornadaTrab) {
+		this.estimaExpoRiesgo_riesgosPsicosociales_jornadaTrab = estimaExpoRiesgo_riesgosPsicosociales_jornadaTrab;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosPsicosociales_otrosPsicosoc() {
+		return estimaExpoRiesgo_riesgosPsicosociales_otrosPsicosoc;
+	}
+	public void setEstimaExpoRiesgo_riesgosPsicosociales_otrosPsicosoc(
+			GenericoDTO estimaExpoRiesgo_riesgosPsicosociales_otrosPsicosoc) {
+		this.estimaExpoRiesgo_riesgosPsicosociales_otrosPsicosoc = estimaExpoRiesgo_riesgosPsicosociales_otrosPsicosoc;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosBiomecanicos_postura() {
+		return estimaExpoRiesgo_riesgosBiomecanicos_postura;
+	}
+	public void setEstimaExpoRiesgo_riesgosBiomecanicos_postura(GenericoDTO estimaExpoRiesgo_riesgosBiomecanicos_postura) {
+		this.estimaExpoRiesgo_riesgosBiomecanicos_postura = estimaExpoRiesgo_riesgosBiomecanicos_postura;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosBiomecanicos_esfuerzo() {
+		return estimaExpoRiesgo_riesgosBiomecanicos_esfuerzo;
+	}
+	public void setEstimaExpoRiesgo_riesgosBiomecanicos_esfuerzo(
+			GenericoDTO estimaExpoRiesgo_riesgosBiomecanicos_esfuerzo) {
+		this.estimaExpoRiesgo_riesgosBiomecanicos_esfuerzo = estimaExpoRiesgo_riesgosBiomecanicos_esfuerzo;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosBiomecanicos_movRepet() {
+		return estimaExpoRiesgo_riesgosBiomecanicos_movRepet;
+	}
+	public void setEstimaExpoRiesgo_riesgosBiomecanicos_movRepet(
+			GenericoDTO estimaExpoRiesgo_riesgosBiomecanicos_movRepet) {
+		this.estimaExpoRiesgo_riesgosBiomecanicos_movRepet = estimaExpoRiesgo_riesgosBiomecanicos_movRepet;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosBiomecanicos_manipulManual() {
+		return estimaExpoRiesgo_riesgosBiomecanicos_manipulManual;
+	}
+	public void setEstimaExpoRiesgo_riesgosBiomecanicos_manipulManual(
+			GenericoDTO estimaExpoRiesgo_riesgosBiomecanicos_manipulManual) {
+		this.estimaExpoRiesgo_riesgosBiomecanicos_manipulManual = estimaExpoRiesgo_riesgosBiomecanicos_manipulManual;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosBiomecanicos_otrosBiomecan() {
+		return estimaExpoRiesgo_riesgosBiomecanicos_otrosBiomecan;
+	}
+	public void setEstimaExpoRiesgo_riesgosBiomecanicos_otrosBiomecan(
+			GenericoDTO estimaExpoRiesgo_riesgosBiomecanicos_otrosBiomecan) {
+		this.estimaExpoRiesgo_riesgosBiomecanicos_otrosBiomecan = estimaExpoRiesgo_riesgosBiomecanicos_otrosBiomecan;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosCondSeguridad_mecanico() {
+		return estimaExpoRiesgo_riesgosCondSeguridad_mecanico;
+	}
+	public void setEstimaExpoRiesgo_riesgosCondSeguridad_mecanico(
+			GenericoDTO estimaExpoRiesgo_riesgosCondSeguridad_mecanico) {
+		this.estimaExpoRiesgo_riesgosCondSeguridad_mecanico = estimaExpoRiesgo_riesgosCondSeguridad_mecanico;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosCondSeguridad_electrico() {
+		return estimaExpoRiesgo_riesgosCondSeguridad_electrico;
+	}
+	public void setEstimaExpoRiesgo_riesgosCondSeguridad_electrico(
+			GenericoDTO estimaExpoRiesgo_riesgosCondSeguridad_electrico) {
+		this.estimaExpoRiesgo_riesgosCondSeguridad_electrico = estimaExpoRiesgo_riesgosCondSeguridad_electrico;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosCondSeguridad_locativo() {
+		return estimaExpoRiesgo_riesgosCondSeguridad_locativo;
+	}
+	public void setEstimaExpoRiesgo_riesgosCondSeguridad_locativo(
+			GenericoDTO estimaExpoRiesgo_riesgosCondSeguridad_locativo) {
+		this.estimaExpoRiesgo_riesgosCondSeguridad_locativo = estimaExpoRiesgo_riesgosCondSeguridad_locativo;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosCondSeguridad_tecnologico() {
+		return estimaExpoRiesgo_riesgosCondSeguridad_tecnologico;
+	}
+	public void setEstimaExpoRiesgo_riesgosCondSeguridad_tecnologico(
+			GenericoDTO estimaExpoRiesgo_riesgosCondSeguridad_tecnologico) {
+		this.estimaExpoRiesgo_riesgosCondSeguridad_tecnologico = estimaExpoRiesgo_riesgosCondSeguridad_tecnologico;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosCondSeguridad_accTransito() {
+		return estimaExpoRiesgo_riesgosCondSeguridad_accTransito;
+	}
+	public void setEstimaExpoRiesgo_riesgosCondSeguridad_accTransito(
+			GenericoDTO estimaExpoRiesgo_riesgosCondSeguridad_accTransito) {
+		this.estimaExpoRiesgo_riesgosCondSeguridad_accTransito = estimaExpoRiesgo_riesgosCondSeguridad_accTransito;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosCondSeguridad_publico() {
+		return estimaExpoRiesgo_riesgosCondSeguridad_publico;
+	}
+	public void setEstimaExpoRiesgo_riesgosCondSeguridad_publico(
+			GenericoDTO estimaExpoRiesgo_riesgosCondSeguridad_publico) {
+		this.estimaExpoRiesgo_riesgosCondSeguridad_publico = estimaExpoRiesgo_riesgosCondSeguridad_publico;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosCondSeguridad_trabAlturas() {
+		return estimaExpoRiesgo_riesgosCondSeguridad_trabAlturas;
+	}
+	public void setEstimaExpoRiesgo_riesgosCondSeguridad_trabAlturas(
+			GenericoDTO estimaExpoRiesgo_riesgosCondSeguridad_trabAlturas) {
+		this.estimaExpoRiesgo_riesgosCondSeguridad_trabAlturas = estimaExpoRiesgo_riesgosCondSeguridad_trabAlturas;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosCondSeguridad_espaciosConfin() {
+		return estimaExpoRiesgo_riesgosCondSeguridad_espaciosConfin;
+	}
+	public void setEstimaExpoRiesgo_riesgosCondSeguridad_espaciosConfin(
+			GenericoDTO estimaExpoRiesgo_riesgosCondSeguridad_espaciosConfin) {
+		this.estimaExpoRiesgo_riesgosCondSeguridad_espaciosConfin = estimaExpoRiesgo_riesgosCondSeguridad_espaciosConfin;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosCondSeguridad_otrosCondSeg() {
+		return estimaDeficienciaRiesgo_riesgosCondSeguridad_otrosCondSeg;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosCondSeguridad_otrosCondSeg(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosCondSeguridad_otrosCondSeg) {
+		this.estimaDeficienciaRiesgo_riesgosCondSeguridad_otrosCondSeg = estimaDeficienciaRiesgo_riesgosCondSeguridad_otrosCondSeg;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosFenomNaturales_sismo() {
+		return estimaDeficienciaRiesgo_riesgosFenomNaturales_sismo;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosFenomNaturales_sismo(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosFenomNaturales_sismo) {
+		this.estimaDeficienciaRiesgo_riesgosFenomNaturales_sismo = estimaDeficienciaRiesgo_riesgosFenomNaturales_sismo;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosFenomNaturales_terremoto() {
+		return estimaDeficienciaRiesgo_riesgosFenomNaturales_terremoto;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosFenomNaturales_terremoto(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosFenomNaturales_terremoto) {
+		this.estimaDeficienciaRiesgo_riesgosFenomNaturales_terremoto = estimaDeficienciaRiesgo_riesgosFenomNaturales_terremoto;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosFenomNaturales_vendaval() {
+		return estimaDeficienciaRiesgo_riesgosFenomNaturales_vendaval;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosFenomNaturales_vendaval(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosFenomNaturales_vendaval) {
+		this.estimaDeficienciaRiesgo_riesgosFenomNaturales_vendaval = estimaDeficienciaRiesgo_riesgosFenomNaturales_vendaval;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosFenomNaturales_inundacion() {
+		return estimaDeficienciaRiesgo_riesgosFenomNaturales_inundacion;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosFenomNaturales_inundacion(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosFenomNaturales_inundacion) {
+		this.estimaDeficienciaRiesgo_riesgosFenomNaturales_inundacion = estimaDeficienciaRiesgo_riesgosFenomNaturales_inundacion;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosFenomNaturales_derrumbe() {
+		return estimaDeficienciaRiesgo_riesgosFenomNaturales_derrumbe;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosFenomNaturales_derrumbe(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosFenomNaturales_derrumbe) {
+		this.estimaDeficienciaRiesgo_riesgosFenomNaturales_derrumbe = estimaDeficienciaRiesgo_riesgosFenomNaturales_derrumbe;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosFenomNaturales_precipitaciones() {
+		return estimaDeficienciaRiesgo_riesgosFenomNaturales_precipitaciones;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosFenomNaturales_precipitaciones(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosFenomNaturales_precipitaciones) {
+		this.estimaDeficienciaRiesgo_riesgosFenomNaturales_precipitaciones = estimaDeficienciaRiesgo_riesgosFenomNaturales_precipitaciones;
+	}
+	public GenericoDTO getEstimaDeficienciaRiesgo_riesgosFenomNaturales_otrosFenomNat() {
+		return estimaDeficienciaRiesgo_riesgosFenomNaturales_otrosFenomNat;
+	}
+	public void setEstimaDeficienciaRiesgo_riesgosFenomNaturales_otrosFenomNat(
+			GenericoDTO estimaDeficienciaRiesgo_riesgosFenomNaturales_otrosFenomNat) {
+		this.estimaDeficienciaRiesgo_riesgosFenomNaturales_otrosFenomNat = estimaDeficienciaRiesgo_riesgosFenomNaturales_otrosFenomNat;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosCondSeguridad_otrosCondSeg() {
+		return estimaConsecuenciaRiesgo_riesgosCondSeguridad_otrosCondSeg;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosCondSeguridad_otrosCondSeg(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosCondSeguridad_otrosCondSeg) {
+		this.estimaConsecuenciaRiesgo_riesgosCondSeguridad_otrosCondSeg = estimaConsecuenciaRiesgo_riesgosCondSeguridad_otrosCondSeg;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosFenomNaturales_sismo() {
+		return estimaConsecuenciaRiesgo_riesgosFenomNaturales_sismo;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosFenomNaturales_sismo(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosFenomNaturales_sismo) {
+		this.estimaConsecuenciaRiesgo_riesgosFenomNaturales_sismo = estimaConsecuenciaRiesgo_riesgosFenomNaturales_sismo;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosFenomNaturales_terremoto() {
+		return estimaConsecuenciaRiesgo_riesgosFenomNaturales_terremoto;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosFenomNaturales_terremoto(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosFenomNaturales_terremoto) {
+		this.estimaConsecuenciaRiesgo_riesgosFenomNaturales_terremoto = estimaConsecuenciaRiesgo_riesgosFenomNaturales_terremoto;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosFenomNaturales_vendaval() {
+		return estimaConsecuenciaRiesgo_riesgosFenomNaturales_vendaval;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosFenomNaturales_vendaval(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosFenomNaturales_vendaval) {
+		this.estimaConsecuenciaRiesgo_riesgosFenomNaturales_vendaval = estimaConsecuenciaRiesgo_riesgosFenomNaturales_vendaval;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosFenomNaturales_inundacion() {
+		return estimaConsecuenciaRiesgo_riesgosFenomNaturales_inundacion;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosFenomNaturales_inundacion(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosFenomNaturales_inundacion) {
+		this.estimaConsecuenciaRiesgo_riesgosFenomNaturales_inundacion = estimaConsecuenciaRiesgo_riesgosFenomNaturales_inundacion;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosFenomNaturales_derrumbe() {
+		return estimaConsecuenciaRiesgo_riesgosFenomNaturales_derrumbe;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosFenomNaturales_derrumbe(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosFenomNaturales_derrumbe) {
+		this.estimaConsecuenciaRiesgo_riesgosFenomNaturales_derrumbe = estimaConsecuenciaRiesgo_riesgosFenomNaturales_derrumbe;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosFenomNaturales_precipitaciones() {
+		return estimaConsecuenciaRiesgo_riesgosFenomNaturales_precipitaciones;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosFenomNaturales_precipitaciones(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosFenomNaturales_precipitaciones) {
+		this.estimaConsecuenciaRiesgo_riesgosFenomNaturales_precipitaciones = estimaConsecuenciaRiesgo_riesgosFenomNaturales_precipitaciones;
+	}
+	public GenericoDTO getEstimaConsecuenciaRiesgo_riesgosFenomNaturales_otrosFenomNat() {
+		return estimaConsecuenciaRiesgo_riesgosFenomNaturales_otrosFenomNat;
+	}
+	public void setEstimaConsecuenciaRiesgo_riesgosFenomNaturales_otrosFenomNat(
+			GenericoDTO estimaConsecuenciaRiesgo_riesgosFenomNaturales_otrosFenomNat) {
+		this.estimaConsecuenciaRiesgo_riesgosFenomNaturales_otrosFenomNat = estimaConsecuenciaRiesgo_riesgosFenomNaturales_otrosFenomNat;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosCondSeguridad_otrosCondSeg() {
+		return estimaExpoRiesgo_riesgosCondSeguridad_otrosCondSeg;
+	}
+	public void setEstimaExpoRiesgo_riesgosCondSeguridad_otrosCondSeg(
+			GenericoDTO estimaExpoRiesgo_riesgosCondSeguridad_otrosCondSeg) {
+		this.estimaExpoRiesgo_riesgosCondSeguridad_otrosCondSeg = estimaExpoRiesgo_riesgosCondSeguridad_otrosCondSeg;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosFenomNaturales_sismo() {
+		return estimaExpoRiesgo_riesgosFenomNaturales_sismo;
+	}
+	public void setEstimaExpoRiesgo_riesgosFenomNaturales_sismo(GenericoDTO estimaExpoRiesgo_riesgosFenomNaturales_sismo) {
+		this.estimaExpoRiesgo_riesgosFenomNaturales_sismo = estimaExpoRiesgo_riesgosFenomNaturales_sismo;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosFenomNaturales_terremoto() {
+		return estimaExpoRiesgo_riesgosFenomNaturales_terremoto;
+	}
+	public void setEstimaExpoRiesgo_riesgosFenomNaturales_terremoto(
+			GenericoDTO estimaExpoRiesgo_riesgosFenomNaturales_terremoto) {
+		this.estimaExpoRiesgo_riesgosFenomNaturales_terremoto = estimaExpoRiesgo_riesgosFenomNaturales_terremoto;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosFenomNaturales_vendaval() {
+		return estimaExpoRiesgo_riesgosFenomNaturales_vendaval;
+	}
+	public void setEstimaExpoRiesgo_riesgosFenomNaturales_vendaval(
+			GenericoDTO estimaExpoRiesgo_riesgosFenomNaturales_vendaval) {
+		this.estimaExpoRiesgo_riesgosFenomNaturales_vendaval = estimaExpoRiesgo_riesgosFenomNaturales_vendaval;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosFenomNaturales_inundacion() {
+		return estimaExpoRiesgo_riesgosFenomNaturales_inundacion;
+	}
+	public void setEstimaExpoRiesgo_riesgosFenomNaturales_inundacion(
+			GenericoDTO estimaExpoRiesgo_riesgosFenomNaturales_inundacion) {
+		this.estimaExpoRiesgo_riesgosFenomNaturales_inundacion = estimaExpoRiesgo_riesgosFenomNaturales_inundacion;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosFenomNaturales_derrumbe() {
+		return estimaExpoRiesgo_riesgosFenomNaturales_derrumbe;
+	}
+	public void setEstimaExpoRiesgo_riesgosFenomNaturales_derrumbe(
+			GenericoDTO estimaExpoRiesgo_riesgosFenomNaturales_derrumbe) {
+		this.estimaExpoRiesgo_riesgosFenomNaturales_derrumbe = estimaExpoRiesgo_riesgosFenomNaturales_derrumbe;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosFenomNaturales_precipitaciones() {
+		return estimaExpoRiesgo_riesgosFenomNaturales_precipitaciones;
+	}
+	public void setEstimaExpoRiesgo_riesgosFenomNaturales_precipitaciones(
+			GenericoDTO estimaExpoRiesgo_riesgosFenomNaturales_precipitaciones) {
+		this.estimaExpoRiesgo_riesgosFenomNaturales_precipitaciones = estimaExpoRiesgo_riesgosFenomNaturales_precipitaciones;
+	}
+	public GenericoDTO getEstimaExpoRiesgo_riesgosFenomNaturales_otrosFenomNat() {
+		return estimaExpoRiesgo_riesgosFenomNaturales_otrosFenomNat;
+	}
+	public void setEstimaExpoRiesgo_riesgosFenomNaturales_otrosFenomNat(
+			GenericoDTO estimaExpoRiesgo_riesgosFenomNaturales_otrosFenomNat) {
+		this.estimaExpoRiesgo_riesgosFenomNaturales_otrosFenomNat = estimaExpoRiesgo_riesgosFenomNaturales_otrosFenomNat;
+	}
+	
+	
+	
+}
+

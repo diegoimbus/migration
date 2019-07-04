@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="certificacion" uuid="555e2e48-0001-4008-ad5e-3badce2ed6eb">
+      <database-info product="PostgreSQL" version="10.8" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.2.5" dbms="POSTGRES" exact-version="10.8" exact-driver-version="42.2">
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>certif-app</user-name>
+      <introspection-schemas>@:@|cuidamos_app:esqcore</introspection-schemas>
+    </data-source>
+  </component>
+</project>
