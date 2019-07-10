@@ -2,16 +2,25 @@ package co.cuidamos.migracion.ds.api.services;
 
 import co.cuidamos.migracion.ds.api.pdn.repository.CoreSubdomainsDao;
 import co.cuidamos.migracion.ds.api.pdn.repository.CoreUsuarioDao;
+import co.cuidamos.migracion.ds.api.pdn.repository.SstAmenazasDataPdnDao;
+import co.cuidamos.migracion.ds.api.pdn.repository.SstAmenazasFieldsDao;
 import co.cuidamos.migracion.ds.api.pdn.repository.SstAtelDataDao;
 import co.cuidamos.migracion.ds.api.pdn.repository.SstAtelGestionPdnDao;
+import co.cuidamos.migracion.ds.api.pdn.repository.SstCapacitacionDataPdnDao;
+import co.cuidamos.migracion.ds.api.pdn.repository.SstCapacitacionFieldsDao;
 import co.cuidamos.migracion.ds.api.pdn.repository.SstControlesDataDao;
 import co.cuidamos.migracion.ds.api.pdn.repository.SstEmpresaEspecDataDao;
 import co.cuidamos.migracion.ds.api.pdn.repository.SstEmpresaEspecFieldsDao;
 import co.cuidamos.migracion.ds.api.pdn.repository.SstEmpresaGralDataDao;
+import co.cuidamos.migracion.ds.api.pdn.repository.SstEncuestasDataPdnDao;
+import co.cuidamos.migracion.ds.api.pdn.repository.SstEncuestasFieldsDao;
 import co.cuidamos.migracion.ds.api.pdn.repository.SstEncuestasFormDataDao;
 import co.cuidamos.migracion.ds.api.pdn.repository.SstEppDataDao;
 import co.cuidamos.migracion.ds.api.pdn.repository.SstEppFieldsDao;
+import co.cuidamos.migracion.ds.api.pdn.repository.SstMatrizLegalDataPdnDao;
 import co.cuidamos.migracion.ds.api.pdn.repository.SstObjetivosDataDao;
+import co.cuidamos.migracion.ds.api.pdn.repository.SstPlanTrabajoDataPdnDao;
+import co.cuidamos.migracion.ds.api.pdn.repository.SstPlanTrabajoFieldsDao;
 import co.cuidamos.migracion.ds.api.pdn.repository.SstPoliticaDataDao;
 import co.cuidamos.migracion.ds.api.pdn.repository.SstResponsabDataDao;
 import co.cuidamos.migracion.ds.api.pdn.repository.SstRiesgosTipoDataDao;
@@ -21,14 +30,21 @@ import co.cuidamos.migracion.ds.api.pdn.repository.SstRiesgosValoracionFieldsDao
 import co.cuidamos.migracion.ds.api.dto.EppDTO;
 import co.cuidamos.migracion.ds.api.dto.GenericoDTO;
 import co.cuidamos.migracion.ds.api.dto.IntegranteDTO;
+import co.cuidamos.migracion.ds.api.dto.MatrizLegalDTO;
 import co.cuidamos.migracion.ds.api.dto.RisksDTO;
+import co.cuidamos.migracion.ds.api.dto.SstAmenazasDTO;
 import co.cuidamos.migracion.ds.api.dto.SstAtelDTO;
 import co.cuidamos.migracion.ds.api.dto.SstAtelGestionDTO;
+import co.cuidamos.migracion.ds.api.dto.SstCapacitacionDTO;
 import co.cuidamos.migracion.ds.api.dto.SstControlesDTO;
 import co.cuidamos.migracion.ds.api.dto.SstEmpresaEspecDTO;
 import co.cuidamos.migracion.ds.api.dto.SstEmpresaGralDTO;
+import co.cuidamos.migracion.ds.api.dto.SstEncuestasSaludDTO;
+import co.cuidamos.migracion.ds.api.dto.SstEncuestasTrabajoDTO;
 import co.cuidamos.migracion.ds.api.dto.SstEppDTO;
+import co.cuidamos.migracion.ds.api.dto.SstMatrizLegalDTO;
 import co.cuidamos.migracion.ds.api.dto.SstObjetivosDTO;
+import co.cuidamos.migracion.ds.api.dto.SstPlanTrabajoDTO;
 import co.cuidamos.migracion.ds.api.dto.SstPoliticaDTO;
 import co.cuidamos.migracion.ds.api.dto.SstResponsableDTO;
 import co.cuidamos.migracion.ds.api.dto.SstRiesgosTipoDTO;
@@ -37,38 +53,53 @@ import co.cuidamos.migracion.ds.api.util.JsonUtil;
 import co.cuidamos.migracion.ds.api.pdn.repository.CoreRecursoDao;
 import co.cuidamos.migracion.ds.api.model.pdn.CoreRecurso;
 import co.cuidamos.migracion.ds.api.model.pdn.CoreSubdomains;
+import co.cuidamos.migracion.ds.api.model.pdn.SstAmenazasDataPdn;
 import co.cuidamos.migracion.ds.api.model.pdn.SstAtelDataPdn;
 import co.cuidamos.migracion.ds.api.model.pdn.SstAtelGestionPdn;
+import co.cuidamos.migracion.ds.api.model.pdn.SstCapacitacionPlanDataPdn;
 import co.cuidamos.migracion.ds.api.model.pdn.SstControlesDataPdn;
 import co.cuidamos.migracion.ds.api.model.pdn.SstEmpresaGralDataPdn;
+import co.cuidamos.migracion.ds.api.model.pdn.SstEncuestasDataPdn;
 import co.cuidamos.migracion.ds.api.model.pdn.SstEncuestasFormPdn;
 import co.cuidamos.migracion.ds.api.model.pdn.SstEppDataPdn;
+import co.cuidamos.migracion.ds.api.model.pdn.SstMatrizLegalDataPdn;
 import co.cuidamos.migracion.ds.api.model.pdn.SstObjetivosDataPdn;
+import co.cuidamos.migracion.ds.api.model.pdn.SstPlanTrabajoDataPdn;
 import co.cuidamos.migracion.ds.api.model.pdn.SstEmpresaEspecDataPdn;
 import co.cuidamos.migracion.ds.api.model.pdn.SstPoliticaDataPdn;
 import co.cuidamos.migracion.ds.api.model.pdn.SstResponsabDataPdn;
 import co.cuidamos.migracion.ds.api.model.pdn.SstRiesgosTipoDataPdn;
 import co.cuidamos.migracion.ds.api.model.pdn.SstRiesgosValoracionDataPdn;
+import co.cuidamos.migracion.ds.api.model.certif.SstAmenazasCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstAtelCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstAtelGestionCertif;
+import co.cuidamos.migracion.ds.api.model.certif.SstCapacitacionCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstControlesCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstEmpresaEspecDataCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstEmpresaGralDataCertif;
+import co.cuidamos.migracion.ds.api.model.certif.SstEncuestasCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstEncuestasFormCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstEppCertif;
+import co.cuidamos.migracion.ds.api.model.certif.SstMatrizLegalCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstObjetivosCertif;
+import co.cuidamos.migracion.ds.api.model.certif.SstPlanTrabajoCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstPoliticaCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstResponsableCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstRiesgosTipoCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstRiesgosValoracionCertif;
+import co.cuidamos.migracion.ds.api.certif.repository.SstAmenazasDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstAtelDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstAtelGestionDao;
+import co.cuidamos.migracion.ds.api.certif.repository.SstCapacitacionDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstControlesDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstEmpresaEspecDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstEmpresaGralDao;
+import co.cuidamos.migracion.ds.api.certif.repository.SstEncuestasDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstEncuestasFormDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstEppDao;
+import co.cuidamos.migracion.ds.api.certif.repository.SstMatrizLegalDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstObjetivosDao;
+import co.cuidamos.migracion.ds.api.certif.repository.SstPlanTrabajoDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstPoliticaDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstResponsableDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstRiesgosTipoDao;
@@ -76,6 +107,8 @@ import co.cuidamos.migracion.ds.api.certif.repository.SstRiesgosValoracionDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -176,6 +209,48 @@ public class MigrationServiceImpl implements MigrationService {
     
     @Autowired
     private SstAtelGestionPdnDao sstAtelGestionDao;
+    
+    @Autowired
+    private SstEncuestasDao sstEncuestasDaoCertif;
+    
+    @Autowired
+    private SstEncuestasDataPdnDao sstEncuestasDao;
+    
+    @Autowired
+    private SstEncuestasFieldsDao sstEncuestasFieldsDao;
+
+    @Autowired
+    private SstMatrizLegalDataPdnDao sstMatrizLegalDao;
+    
+    @Autowired
+    private SstMatrizLegalDao sstMatrizLegalDaoCertif;
+    
+    @Autowired
+    private SstPlanTrabajoDao sstPlanTrabajoDaoCertif;
+    
+    @Autowired
+    private SstPlanTrabajoDataPdnDao sstPlanTrabajoDao;
+    
+    @Autowired
+    private SstPlanTrabajoFieldsDao sstPlanTrabajoFieldsDao;
+    
+    @Autowired
+    private SstCapacitacionDao sstCapacitacionDaoCertif;
+    
+    @Autowired
+    private SstCapacitacionDataPdnDao sstCapacitacionDao;
+    
+    @Autowired
+    private SstCapacitacionFieldsDao sstCapacitacionFieldsDao;
+    
+    @Autowired
+    private SstAmenazasDao sstAmenazasDaoCertif;
+    
+    @Autowired
+    private SstAmenazasDataPdnDao sstAmenazasDao;
+    
+    @Autowired
+    private SstAmenazasFieldsDao sstAmenazasFieldsDao;
     
     
     @Override
@@ -2009,11 +2084,6 @@ public class MigrationServiceImpl implements MigrationService {
                     }
                     
                     
-                    
-                    
-                     
-                    
-                    
                    sstRiesgosValoracionDTO.setRisks(null); 
                     
                     
@@ -2329,7 +2399,743 @@ public class MigrationServiceImpl implements MigrationService {
 	}
 	
 	@Override
-	public void migrateSstEncuestas() {
+	public void migrateSstEncuestasTrabajo() {
+		
+		List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
+        coreSubdomainsList.forEach(coreSubdomains -> {
+		
+		List<SstEncuestasDataPdn> sstEncuestasDataPdnList = sstEncuestasDao.getSstEncuestasDataBySubdomain(coreSubdomains.getIdCoreSubdomain());
+            
+            sstEncuestasDataPdnList.
+                    parallelStream().collect(Collectors.groupingBy(SstEncuestasDataPdn::getModified)).forEach((date, sstEncuestasDataPdns) -> {
+                
+                SstEncuestasTrabajoDTO sstEncuestasDTO = new SstEncuestasTrabajoDTO();
+                SstEncuestasCertif sstEncuestasCertif = new SstEncuestasCertif();
+                List<RisksDTO> risks = new ArrayList<RisksDTO>();
+                
+                sstEncuestasDataPdns.parallelStream().forEach(sstEncuestasDataPdn -> {
+
+                if(sstEncuestasDataPdn.getFidSstEncuestasForm().getFidSstEncuestasTipo().getIdSstEncuestasTipo() == 2) {
+                    
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 81)
+                		sstEncuestasDTO.setCargoLaboral(sstEncuestasDataPdn.getResult());
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 82)
+                		sstEncuestasDTO.setEquiposOpera(sstEncuestasDataPdn.getResult());
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 146)
+                		sstEncuestasDTO.setSugerenciasCondTrabajo(sstEncuestasDataPdn.getResult());
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 85) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 86) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 87) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 88) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 89) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 90) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 91) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 92) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 93) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 85) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 95) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 96) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 97) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 98) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 99) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 100) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 101) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 102) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 104) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 105) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 106) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 107) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 108) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 109) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 110) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 112) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 113) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 114) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 115) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 116) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 117) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 118) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 120) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 121) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 122) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 123) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 124) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 126) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 127) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 128) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 129) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 130) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 131) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 132) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 133) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 134) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 136) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 137) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 138) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 139) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 140) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 141) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 142) {
+                		RisksDTO registro = new RisksDTO();
+                		registro.setId(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField());
+                		registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setOrder(sstEncuestasFieldsDao.getSstEncuestasFieldsOrderBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField()));
+                		registro.setParent(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(sstEncuestasFieldsDao.getSstEncuestasFieldsParentBySubdomain(sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField())));
+                		risks.add(registro);
+                	}
+                	 
+                	sstEncuestasDTO.setSubdomain(sstEncuestasDataPdn.getFidCoreSubdomain().getIdCoreSubdomain());
+                    sstEncuestasDTO.setId(Long.valueOf(sstEncuestasDataPdn.getIdSstEncuestasData()));
+                    sstEncuestasDTO.setQuantityFields(7);
+                    sstEncuestasDTO.setEncuestaForm(sstEncuestasDataPdn.getFidSstEncuestasForm().getIdSstEncuestasForm());
+                    
+                    sstEncuestasCertif.setId(Long.valueOf(sstEncuestasDataPdn.getIdSstEncuestasData().toString()));
+
+                    sstEncuestasCertif.setChecked(sstEncuestasDataPdn.getChecked());
+                    sstEncuestasCertif.setEnable(sstEncuestasDataPdn.getEnable());
+                    sstEncuestasCertif.setModified(sstEncuestasDataPdn.getModified());
+                    sstEncuestasCertif.setCreated(sstEncuestasDataPdn.getCreated());
+                }
+                
+                });
+                if (sstEncuestasDTO != null) {
+                	sstEncuestasDTO.setRisks(risks);
+                    sstEncuestasCertif.setEncuestas(JsonUtil.convertObjectToJson(sstEncuestasDTO));
+                    
+                    sstEncuestasDaoCertif.save(sstEncuestasCertif);
+                    System.out.println("------Migrando-----" + sstEncuestasCertif.getId() + "---------" + sstEncuestasDTO.getSubdomain());
+                }
+
+                
+            });
+
+
+       });
+		
+	}
+	
+	@Override
+	public void migrateSstEncuestasSalud() {
+		
+		List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
+        coreSubdomainsList.forEach(coreSubdomains -> {
+		
+		List<SstEncuestasDataPdn> sstEncuestasDataPdnList = sstEncuestasDao.getSstEncuestasDataBySubdomain(coreSubdomains.getIdCoreSubdomain());
+            
+            sstEncuestasDataPdnList.
+                    parallelStream().collect(Collectors.groupingBy(SstEncuestasDataPdn::getModified)).forEach((date, sstEncuestasDataPdns) -> {
+                
+                SstEncuestasSaludDTO sstEncuestasDTO = new SstEncuestasSaludDTO();
+                SstEncuestasCertif sstEncuestasCertif = new SstEncuestasCertif();
+                List<GenericoDTO> hobbyDeporte = new ArrayList<GenericoDTO>();
+                List<GenericoDTO> actividadesSaludEmpresa = new ArrayList<GenericoDTO>();
+                
+                sstEncuestasDataPdns.parallelStream().forEach(sstEncuestasDataPdn -> {
+
+                if(sstEncuestasDataPdn.getFidSstEncuestasForm().getFidSstEncuestasTipo().getIdSstEncuestasTipo() == 1) {
+                    
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 41)
+                		sstEncuestasDTO.setEnfermedadTratamiento(sstEncuestasDataPdn.getResult());
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 42)
+                		sstEncuestasDTO.setSintomasFisicEmocion(sstEncuestasDataPdn.getResult());
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 43)
+                		sstEncuestasDTO.setSintomTrabajo(sstEncuestasDataPdn.getResult());
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 44)
+                		sstEncuestasDTO.setSintomFuera(sstEncuestasDataPdn.getResult());
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 45) {
+                		
+                		if(Integer.valueOf(sstEncuestasDataPdn.getResult()) == 46) {
+                			GenericoDTO registro = new GenericoDTO();
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			sstEncuestasDTO.setConsultadoSalud(registro);
+                		}
+                		
+                		if(Integer.valueOf(sstEncuestasDataPdn.getResult()) == 47) {
+                			GenericoDTO registro = new GenericoDTO();
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			sstEncuestasDTO.setConsultadoSalud(registro);
+                		}
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 49)
+                		sstEncuestasDTO.setUltimAnioIncapacitado(sstEncuestasDataPdn.getResult());
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 51)
+                		sstEncuestasDTO.setUltimAnioIncapacitado(sstEncuestasDataPdn.getResult());
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 52)
+                		sstEncuestasDTO.setSugerenciasCondSalud(sstEncuestasDataPdn.getResult());
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 53) {
+                		if (Integer.valueOf(sstEncuestasDataPdn.getResult()) == 54) {
+                			GenericoDTO registro = new GenericoDTO();
+                			registro.set_id(Integer.valueOf(sstEncuestasDataPdn.getResult()));
+                			registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(Integer.valueOf(sstEncuestasDataPdn.getResult())));
+                			hobbyDeporte.add(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstEncuestasDataPdn.getResult()) == 55) {
+                			GenericoDTO registro = new GenericoDTO();
+                			registro.set_id(Integer.valueOf(sstEncuestasDataPdn.getResult()));
+                			registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(Integer.valueOf(sstEncuestasDataPdn.getResult())));
+                			hobbyDeporte.add(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstEncuestasDataPdn.getResult()) == 56) {
+                			GenericoDTO registro = new GenericoDTO();
+                			registro.set_id(Integer.valueOf(sstEncuestasDataPdn.getResult()));
+                			registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(Integer.valueOf(sstEncuestasDataPdn.getResult())));
+                			hobbyDeporte.add(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstEncuestasDataPdn.getResult()) == 57) {
+                			GenericoDTO registro = new GenericoDTO();
+                			registro.set_id(Integer.valueOf(sstEncuestasDataPdn.getResult()));
+                			registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(Integer.valueOf(sstEncuestasDataPdn.getResult())));
+                			hobbyDeporte.add(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstEncuestasDataPdn.getResult()) == 58) {
+                			GenericoDTO registro = new GenericoDTO();
+                			registro.set_id(Integer.valueOf(sstEncuestasDataPdn.getResult()));
+                			registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(Integer.valueOf(sstEncuestasDataPdn.getResult())));
+                			hobbyDeporte.add(registro);
+                		}
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 74) {
+                		
+                		if(Integer.valueOf(sstEncuestasDataPdn.getResult()) == 75) {
+                			GenericoDTO registro = new GenericoDTO();
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			sstEncuestasDTO.setPracticaAlgunDeporte(registro);
+                		}
+                		
+                		if(Integer.valueOf(sstEncuestasDataPdn.getResult()) == 76) {
+                			GenericoDTO registro = new GenericoDTO();
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			sstEncuestasDTO.setPracticaAlgunDeporte(registro);
+                		}
+                		
+                		if(Integer.valueOf(sstEncuestasDataPdn.getResult()) == 77) {
+                			GenericoDTO registro = new GenericoDTO();
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			sstEncuestasDTO.setPracticaAlgunDeporte(registro);
+                		}
+                		
+                		if(Integer.valueOf(sstEncuestasDataPdn.getResult()) == 78) {
+                			GenericoDTO registro = new GenericoDTO();
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			sstEncuestasDTO.setPracticaAlgunDeporte(registro);
+                		}
+                		
+                		if(Integer.valueOf(sstEncuestasDataPdn.getResult()) == 79) {
+                			GenericoDTO registro = new GenericoDTO();
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			sstEncuestasDTO.setPracticaAlgunDeporte(registro);
+                		}
+                		
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 59) {
+                		if(Integer.valueOf(sstEncuestasDataPdn.getResult()) == 60 ) {
+                			GenericoDTO registro = new GenericoDTO();
+                			registro.set_id(Integer.valueOf(sstEncuestasDataPdn.getResult()));
+                			registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(Integer.valueOf(sstEncuestasDataPdn.getResult())));
+                			actividadesSaludEmpresa.add(registro);
+                		}
+                		
+                		if(Integer.valueOf(sstEncuestasDataPdn.getResult()) == 61 ) {
+                			GenericoDTO registro = new GenericoDTO();
+                			registro.set_id(Integer.valueOf(sstEncuestasDataPdn.getResult()));
+                			registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(Integer.valueOf(sstEncuestasDataPdn.getResult())));
+                			actividadesSaludEmpresa.add(registro);
+                		}
+                		
+                		if(Integer.valueOf(sstEncuestasDataPdn.getResult()) == 62 ) {
+                			GenericoDTO registro = new GenericoDTO();
+                			registro.set_id(Integer.valueOf(sstEncuestasDataPdn.getResult()));
+                			registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(Integer.valueOf(sstEncuestasDataPdn.getResult())));
+                			actividadesSaludEmpresa.add(registro);
+                		}
+                		
+                		if(Integer.valueOf(sstEncuestasDataPdn.getResult()) == 63 ) {
+                			GenericoDTO registro = new GenericoDTO();
+                			registro.set_id(Integer.valueOf(sstEncuestasDataPdn.getResult()));
+                			registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(Integer.valueOf(sstEncuestasDataPdn.getResult())));
+                			actividadesSaludEmpresa.add(registro);
+                		}
+                		
+                		if(Integer.valueOf(sstEncuestasDataPdn.getResult()) == 64 ) {
+                			GenericoDTO registro = new GenericoDTO();
+                			registro.set_id(Integer.valueOf(sstEncuestasDataPdn.getResult()));
+                			registro.setLabel(sstEncuestasFieldsDao.getSstEncuestasFieldsLabelBySubdomain(Integer.valueOf(sstEncuestasDataPdn.getResult())));
+                			actividadesSaludEmpresa.add(registro);
+                		}
+                	}
+                	
+                	if (sstEncuestasDataPdn.getFidSstEncuestasField().getIdSstEncuestasField() == 50) 
+                		sstEncuestasDTO.setPorque(sstEncuestasDataPdn.getResult());
+                	
+                	
+                	sstEncuestasDTO.setSubdomain(sstEncuestasDataPdn.getFidCoreSubdomain().getIdCoreSubdomain());
+                    sstEncuestasDTO.setId(Long.valueOf(sstEncuestasDataPdn.getIdSstEncuestasData()));
+                    sstEncuestasDTO.setEncuestaForm(sstEncuestasDataPdn.getFidSstEncuestasForm().getIdSstEncuestasForm());
+                    
+                    sstEncuestasCertif.setId(Long.valueOf(sstEncuestasDataPdn.getIdSstEncuestasData().toString()));
+
+                    sstEncuestasCertif.setChecked(sstEncuestasDataPdn.getChecked());
+                    sstEncuestasCertif.setEnable(sstEncuestasDataPdn.getEnable());
+                    sstEncuestasCertif.setModified(sstEncuestasDataPdn.getModified());
+                    sstEncuestasCertif.setCreated(sstEncuestasDataPdn.getCreated());
+                }
+                
+                });
+                if (sstEncuestasDTO != null) {
+                	
+                    sstEncuestasCertif.setEncuestas(JsonUtil.convertObjectToJson(sstEncuestasDTO));
+                    
+                    sstEncuestasDaoCertif.save(sstEncuestasCertif);
+                    System.out.println("------Migrando-----" + sstEncuestasCertif.getId() + "---------" + sstEncuestasDTO.getSubdomain());
+                }
+
+                
+            });
+
+
+       });
 		
 	}
 	
@@ -2965,11 +3771,24 @@ public class MigrationServiceImpl implements MigrationService {
                     parallelStream().collect(Collectors.groupingBy(SstAtelGestionPdn::getModified)).forEach((date, sstAtelGestionPdns) -> {
                 SstAtelGestionDTO sstAtelGestionDTO = new SstAtelGestionDTO();
                 SstAtelGestionCertif sstAtelGestionCertif = new SstAtelGestionCertif();
-
+                List<IntegranteDTO> users = new ArrayList<IntegranteDTO>();
                 
                 sstAtelGestionPdns.parallelStream().forEach(sstAtelGestionPdn -> {
-
+                	sstAtelGestionDTO.setId(Long.valueOf(sstAtelGestionPdn.getIdSstAtElGestion().toString()));
                 	
+                	sstAtelGestionDTO.setEventoFec(sstAtelGestionPdn.getEventoFecha());
+                	
+                	IntegranteDTO user = new IntegranteDTO();
+                	user.setId(sstAtelGestionPdn.getUser());
+                	user.setUser(coreUsuarioDao.getFirstNameCoreUsuarioByIdUser(sstAtelGestionPdn.getUser())+  " " + coreUsuarioDao.getLastNameCoreUsuarioByIdUser(sstAtelGestionPdn.getUser()));
+                	users.add(user);
+                	
+                	sstAtelGestionDTO.setIndisFin(sstAtelGestionPdn.getIndisponibInicio());
+                	sstAtelGestionDTO.setIndisFin(sstAtelGestionPdn.getIndisponibFin());
+                	sstAtelGestionDTO.setEventLugar(sstAtelGestionPdn.getEventoLugar());
+                	sstAtelGestionDTO.setEventDescripcion(sstAtelGestionPdn.getEventoDescripcion());
+                	sstAtelGestionDTO.setMedidasTomadas(sstAtelGestionPdn.getMedidasTomadas());
+                	sstAtelGestionDTO.setDifuncionTrabajadores(sstAtelGestionPdn.getDifusionTrabajadores());
                 	
                     sstAtelGestionCertif.setId(Long.valueOf(sstAtelGestionPdn.getIdSstAtElGestion().toString()));
 
@@ -2981,7 +3800,7 @@ public class MigrationServiceImpl implements MigrationService {
                     
                     
                 });
-                
+                sstAtelGestionDTO.setUserAfectado(users);
                 sstAtelGestionCertif.setAtelGestion(JsonUtil.convertObjectToJson(sstAtelGestionDTO));
                 
                 sstAtelGestionDaoCertif.save(sstAtelGestionCertif);
@@ -3009,6 +3828,1554 @@ public class MigrationServiceImpl implements MigrationService {
                 .append("}");
         return query.toString();
     }
+
+
+
+	@Override
+	public void migrateSstMatrizLegal() {
+	List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
+		
+
+        coreSubdomainsList.forEach(coreSubdomains -> {
+            List<SstMatrizLegalDataPdn> sstMatrizLegalDataPdnList = sstMatrizLegalDao.getSstMatrizLegalDataBySubdomain(coreSubdomains.getIdCoreSubdomain());
+            sstMatrizLegalDataPdnList.
+                    parallelStream().collect(Collectors.groupingBy(SstMatrizLegalDataPdn::getModified)).forEach((date, sstMatrizLegalDataPdns) -> {
+                SstMatrizLegalDTO sstMatrizLegalDTO = new SstMatrizLegalDTO();
+                SstMatrizLegalCertif sstMatrizLegalCertif = new SstMatrizLegalCertif();
+                MatrizLegalDTO matriz = new MatrizLegalDTO();
+                
+                sstMatrizLegalDataPdns.parallelStream().forEach(sstMatrizLegalDataPdn -> {
+                	
+                	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 1) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 4) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica1443del2014(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 5) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica1443del2014(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 6) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica1443del2014(registro);
+                		}
+                	}
+                	
+                	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 3) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 10) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica1335del1987(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 11) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica1335del1987(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 12) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica1335del1987(registro);
+                		}
+                	}
+                	
+                	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 13) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 14) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica9del1979(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 15) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica9del1979(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 16) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica9del1979(registro);
+                		}
+                	}
+                	
+                	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 25) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 26) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica181del1995(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 27) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica181del1995(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 28) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica181del1995(registro);
+                		}
+                	}
+              
+                	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 21) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 22) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica55del1993(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 23) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica55del1993(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 24) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica55del1993(registro);
+                		}
+                	}
+                	
+                	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 29) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 30) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica336del1996(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 31) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica336del1996(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 32) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica336del1996(registro);
+                		}
+                	}
+                	
+                	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 33) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 34) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica361del1997(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 35) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica361del1997(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 36) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica361del1997(registro);
+                		}
+                	}
+                	
+                	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 37) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 38) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica685del2001(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 39) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica685del2001(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 40) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica685del2001(registro);
+                		}
+                	}
+                	
+                	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 41) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 42) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica789del2002(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 43) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica789del2002(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 44) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica789del2002(registro);
+                		}
+                	}
+                	
+                	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 45) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 46) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica797del2003(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 47) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica797del2003(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 48) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica797del2003(registro);
+                		}
+                	}
+                	
+                	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 53) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 54) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica1010del2006(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 55) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica1010del2006(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 56) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica1010del2006(registro);
+                		}
+                	}
+                	
+                	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 65) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 66) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica1221del2008(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 67) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica1221del2008(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 68) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica1221del2008(registro);
+                		}
+                	}
+                	
+                	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 69) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 70) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica1335del2009(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 71) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica1335del2009(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 72) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica1335del2009(registro);
+                		}
+                	}
+                	
+                	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 73) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 74) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica1382del2010(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 75) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica1382del2010(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 76) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica1382del2010(registro);
+                		}
+                	}
+                	
+                	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 77) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 78) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica1503del2011(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 79) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica1503del2011(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 80) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica1503del2011(registro);
+                		}
+                	}
+                	
+                	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 81) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 82) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica1562del2012(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 83) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica1562del2012(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 84) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica1562del2012(registro);
+                		}
+                	}
+                	
+                	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 85) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 86) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica1616del2012(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 87) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica1616del2012(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 88) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica1616del2012(registro);
+                		}
+                	}
+                	
+                	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 89) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 90) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica776del2012(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 91) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica776del2012(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 92) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica776del2012(registro);
+                		}
+                	}
+                
+                	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 93) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 94) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica1429del2012(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 95) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica1429del2012(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 96) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica1429del2012(registro);
+                		}
+                	}
+                	
+                	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 97) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 98) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica1539del2012(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 99) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica1539del2012(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 100) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica1539del2012(registro);
+                		}
+                	}
+                	
+                   	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 109) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 110) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica919del1989(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 111) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica919del1989(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 112) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica919del1989(registro);
+                		}
+                	}
+                   	
+                   	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 113) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 114) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica2222del1993(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 115) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica2222del1993(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 116) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica2222del1993(registro);
+                		}
+                	}
+                   	
+                   	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 125) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 126) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica1108del1994(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 127) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica1108del1994(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 128) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica1108del1994(registro);
+                		}
+                	}
+                   	
+                   	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 149) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 150) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica1607del2002(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 151) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica1607del2002(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 152) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica1607del2002(registro);
+                		}
+                	}
+                   	
+                   	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 153) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 154) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica1609del2002(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 155) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica1609del2002(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 156) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica1609del2002(registro);
+                		}
+                	}
+                   	
+                   	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 157) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 158) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica2090del2003(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 159) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica2090del2003(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 160) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica2090del2003(registro);
+                		}
+                	}
+                   	
+                   	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 161) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 162) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica3615del2005(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 163) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica3615del2005(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 164) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica3615del2005(registro);
+                		}
+                	}
+                   	
+                   	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 169) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 170) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica231del2006(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 171) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica231del2006(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 172) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica231del2006(registro);
+                		}
+                	}
+                   	
+                   	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 173) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 174) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica034del2009(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 175) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica034del2009(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 176) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica034del2009(registro);
+                		}
+                	}
+                   	
+                   	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 189) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 190) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica0019del2012(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 191) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica0019del2012(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 192) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica0019del2012(registro);
+                		}
+                	}
+                   	
+                   	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 193) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 194) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica738del2013(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 195) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica738del2013(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 196) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica738del2013(registro);
+                		}
+                	}
+                   	
+                   	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 201) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 202) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica0723del2013(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 203) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica0723del2013(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 204) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica0723del2013(registro);
+                		}
+                	}
+                   	
+                   	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 209) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 210) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica1443del2014(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 211) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica1443del2014(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 212) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica1443del2014(registro);
+                		}
+                	}
+                   	
+                   	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 217) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 218) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica1072del2015(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 219) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica1072del2015(registro);;
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 220) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica1072del2015(registro);
+                		}
+                	}
+                   	
+                   	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 221) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 222) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica055del2015(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 223) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica055del2015(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 224) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica055del2015(registro);
+                		}
+                	}
+                   	
+                   	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 233) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 234) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica2413del1979(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 235) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica2413del1979(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 236) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica055del2015(registro);
+                		}
+                	}
+                   	
+                   	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 249) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 250) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica1792del1990(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 251) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica1792del1990(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 252) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica1792del1990(registro);
+                		}
+                	}
+                   	
+                   	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 257) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 258) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica1995del1999(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 259) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica1995del1999(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 260) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica1995del1999(registro);
+                		}
+                	}
+                   	
+                   	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 261) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 262) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplicaCircularUnificadadel2004(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 263) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplicaCircularUnificadadel2004(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 264) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplicaCircularUnificadadel2004(registro);
+                		}
+                	}
+                   	
+                   	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 265) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 266) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica256del2004(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 267) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica256del2004(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 268) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica256del2004(registro);
+                		}
+                	}
+                   	
+                   	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 269) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 270) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica156del2005(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 271) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica156del2005(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 272) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica156del2005(registro);
+                		}
+                	}
+                   	
+                   	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 277) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 278) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica2346del2007(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 279) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica2346del2007(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 280) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica2346del2007(registro);
+                		}
+                	}
+                   	
+                   	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 281) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 282) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica1401del2007(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 283) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica1401del2007(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 284) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica1401del2007(registro);
+                		}
+                	}
+                   	
+                   	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 285) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 286) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica2844del2007(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 287) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica2844del2007(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 288) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica2844del2007(registro);
+                		}
+                	}
+                   	
+                   	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 289) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 290) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica2646del2008(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 291) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica2646del2008(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 292) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica2646del2008(registro);
+                		}
+                	}
+                   	
+                   	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 301) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 302) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica1013del2008(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 303) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica1013del2008(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 304) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica1013del2008(registro);
+                		}
+                	}
+                   	
+                   	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 305) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 306) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica3673del2008(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 307) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica3673del2008(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 308) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica3673del2008(registro);
+                		}
+                	}
+                   	
+                   	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 313) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 314) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica1918del2009(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 315) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica1918del2009(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 316) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica1918del2009(registro);
+                		}
+                	}
+                   	
+                   	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 317) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 318) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica1348del2009(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 319) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica1348del2009(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 320) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica1348del2009(registro);
+                		}
+                	}
+                   	
+                   	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 325) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 326) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica032del2010(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 327) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica032del2010(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 328) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica032del2010(registro);
+                		}
+                	}
+                   	
+                   	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 329) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 330) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica1409del2012(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 331) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica1409del2012(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 332) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica1409del2012(registro);
+                		}
+                	}
+                   	
+                   	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 333) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 334) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica1356del2012(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 335) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica1356del2012(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 336) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica1356del2012(registro);
+                		}
+                	}
+                   	
+                   	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 337) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 338) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica652del2012(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 339) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica652del2012(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 340) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica652del2012(registro);
+                		}
+                	}
+                   	
+                   	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 345) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 346) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica90708del2013(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 347) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica90708del2013(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 348) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica90708del2013(registro);
+                		}
+                	}
+                   	
+                   	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 349) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 350) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica1903del2013(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 351) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica1903del2013(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 352) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica1903del2013(registro);
+                		}
+                	}
+                   	
+                   	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 353) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 354) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica2087del2013(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 355) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica2087del2013(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 356) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica2087del2013(registro);
+                		}
+                	}
+                   	
+                   	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 361) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 362) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica2851del2015(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 363) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica2851del2015(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 364) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica2851del2015(registro);
+                		}
+                	}
+                   	
+                   	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 365) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 366) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica3368del2014(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 367) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica3368del2014(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 368) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica3368del2014(registro);
+                		}
+                	}
+                   	
+                   	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 369) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 370) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica1886del2015(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 371) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica1886del2015(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 372) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica1886del2015(registro);
+                		}
+                	}
+                   	
+                   	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 377) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 378) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica1655del2015(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 379) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica1655del2015(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 380) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica1655del2015(registro);
+                		}
+                	}
+                   	
+                   	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 377) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 378) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica1655del2015(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 379) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica1655del2015(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 380) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica1655del2015(registro);
+                		}
+                	}
+                   	
+                   	if (sstMatrizLegalDataPdn.getFidSstMatrizLegalField().getIdSstMatrizLegalField() == 383) {
+                		GenericoDTO registro = new GenericoDTO();
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 384) {
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			matriz.setAplica1111del2017(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 385) {
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			matriz.setAplica1111del2017(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 386) {
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			matriz.setAplica1111del2017(registro);
+                		}
+                	}
+                	
+                	sstMatrizLegalDTO.setId(Long.valueOf(sstMatrizLegalDataPdn.getIdSstMatrizLegalData()));
+                    sstMatrizLegalDTO.setQuantityFields(61);
+                	sstMatrizLegalCertif.setId(Long.valueOf(sstMatrizLegalDataPdn.getIdSstMatrizLegalData().toString()));
+
+                    sstMatrizLegalCertif.setChecked(sstMatrizLegalDataPdn.getChecked());
+                    sstMatrizLegalCertif.setEnable(sstMatrizLegalDataPdn.getEnable());
+                    sstMatrizLegalCertif.setModified(sstMatrizLegalDataPdn.getModified());
+                    sstMatrizLegalCertif.setCreated(sstMatrizLegalDataPdn.getCreated());
+                    
+                    
+                    
+                });
+                
+                sstMatrizLegalCertif.setSstMatrizRiesgos(JsonUtil.convertObjectToJson(sstMatrizLegalDTO));
+                
+                sstMatrizLegalDaoCertif.save(sstMatrizLegalCertif);
+                System.out.println("------Migrando-----" + sstMatrizLegalCertif.getId() + "---------");
+            });
+
+
+        });
+		
+	}
+
+
+
+	@Override
+	public void migrateSstPlanTrabajo() {
+		
+		
+		List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
+		
+
+        coreSubdomainsList.forEach(coreSubdomains -> {
+            List<SstPlanTrabajoDataPdn> sstPlanTrabajoDataPdnList = sstPlanTrabajoDao.getSstPLanTrabajoDataBySubdomain(coreSubdomains.getIdCoreSubdomain());
+            sstPlanTrabajoDataPdnList.
+                    parallelStream().collect(Collectors.groupingBy(SstPlanTrabajoDataPdn::getModified)).forEach((date, sstPlanTrabajoDataPdns) -> {
+
+                SstPlanTrabajoDTO sstPlanTrabajoDTO = new SstPlanTrabajoDTO();
+                SstPlanTrabajoCertif sstPlanTrabajoCertif = new SstPlanTrabajoCertif();
+
+                
+                sstPlanTrabajoDataPdns.parallelStream().forEach(sstPlanTrabajoDataPdn -> {
+
+                	if (sstPlanTrabajoDataPdn.getFidSstPlanTrabajoField().getIdSstPlanTrabajoField() == 1)
+                		sstPlanTrabajoDTO.setMetaplan1(sstPlanTrabajoDataPdn.getResult());
+                	
+                	if (sstPlanTrabajoDataPdn.getFidSstPlanTrabajoField().getIdSstPlanTrabajoField() == 2)
+                		sstPlanTrabajoDTO.setActividadPlan1(sstPlanTrabajoDataPdn.getResult());
+                	
+                	if (sstPlanTrabajoDataPdn.getFidSstPlanTrabajoField().getIdSstPlanTrabajoField() == 3) {
+                		IntegranteDTO user = new IntegranteDTO();
+                		user.setId(Integer.valueOf(sstPlanTrabajoDataPdn.getResult()));
+                		user.setUser(coreUsuarioDao.getFirstNameCoreUsuarioByIdUser(Integer.valueOf(sstPlanTrabajoDataPdn.getResult()))
+                				+" "+coreUsuarioDao.getLastNameCoreUsuarioByIdUser(Integer.valueOf(sstPlanTrabajoDataPdn.getResult())));
+                		sstPlanTrabajoDTO.setResponsablePlan1(user);
+                	}
+                	
+                	if (sstPlanTrabajoDataPdn.getFidSstPlanTrabajoField().getIdSstPlanTrabajoField() == 4)
+                		sstPlanTrabajoDTO.setRecFinanPlan1(sstPlanTrabajoDataPdn.getResult());
+                	
+                	if (sstPlanTrabajoDataPdn.getFidSstPlanTrabajoField().getIdSstPlanTrabajoField() == 5)
+                		sstPlanTrabajoDTO.setRecTecnPlan1(sstPlanTrabajoDataPdn.getResult());
+                	
+                	if (sstPlanTrabajoDataPdn.getFidSstPlanTrabajoField().getIdSstPlanTrabajoField() == 6)
+                		sstPlanTrabajoDTO.setRecPersonPlan1(sstPlanTrabajoDataPdn.getResult());
+                	
+                	if (sstPlanTrabajoDataPdn.getFidSstPlanTrabajoField().getIdSstPlanTrabajoField() == 7 )
+                		sstPlanTrabajoDTO.setFechaRealPlan1(Date.valueOf(sstPlanTrabajoDataPdn.getResult()));
+                	
+                	if (sstPlanTrabajoDataPdn.getFidSstPlanTrabajoField().getIdSstPlanTrabajoField() == 10) {
+                		GenericoDTO registro = new GenericoDTO();
+                		registro.set_id(Integer.valueOf(sstPlanTrabajoDataPdn.getResult()));
+                		registro.setLabel(sstPlanTrabajoFieldsDao.getSstPLanTrabajoFieldsLabelById(Integer.valueOf(sstPlanTrabajoDataPdn.getResult())));
+                		sstPlanTrabajoDTO.setEstadoPlanTrabajo(registro);
+                	}
+                	
+                	
+                	
+                	sstPlanTrabajoDTO.setSubdomain(sstPlanTrabajoDataPdn.getFidCoreSubdomain().getIdCoreSubdomain());
+                	sstPlanTrabajoDTO.setId(Long.valueOf(sstPlanTrabajoDataPdn.getIdSstPlanTrabajoData().toString()));
+                    sstPlanTrabajoCertif.setId(Long.valueOf(sstPlanTrabajoDataPdn.getIdSstPlanTrabajoData().toString()));
+
+                    sstPlanTrabajoCertif.setChecked(sstPlanTrabajoDataPdn.getChecked());
+                    sstPlanTrabajoCertif.setEnable(sstPlanTrabajoDataPdn.getEnable());
+                    sstPlanTrabajoCertif.setModified(sstPlanTrabajoDataPdn.getModified());
+                    sstPlanTrabajoCertif.setCreated(sstPlanTrabajoDataPdn.getCreated());
+                  
+                    
+                });
+                
+                sstPlanTrabajoCertif.setSstPlanTrabajo(JsonUtil.convertObjectToJson(sstPlanTrabajoDTO));
+                sstPlanTrabajoDaoCertif.save(sstPlanTrabajoCertif);
+                System.out.println("------Migrando-----" + sstPlanTrabajoCertif.getId() + "---------");
+            });
+
+
+        });
+
+
+		
+		
+	}
+
+
+
+	@Override
+	public void migrateSstCapacitacion() {
+		
+	List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
+		
+
+        coreSubdomainsList.forEach(coreSubdomains -> {
+            List<SstCapacitacionPlanDataPdn> sstCapacitacionPlanDataPdnList = sstCapacitacionDao.getSstCapacitacionPlanDataBySubdomain(coreSubdomains.getIdCoreSubdomain());
+            sstCapacitacionPlanDataPdnList.
+                    parallelStream().collect(Collectors.groupingBy(SstCapacitacionPlanDataPdn::getModified)).forEach((date, sstCapacitacionPlanDataPdns) -> {
+
+                SstCapacitacionDTO sstCapacitacionDTO = new SstCapacitacionDTO();
+                SstCapacitacionCertif sstCapacitacionCertif = new SstCapacitacionCertif();
+                List<IntegranteDTO> lista = new ArrayList<IntegranteDTO>();
+
+                
+                sstCapacitacionPlanDataPdns.parallelStream().forEach(sstCapacitacionPlanDataPdn -> {
+
+
+                	if (sstCapacitacionPlanDataPdn.getFidSstCapacitacionPlanField().getIdSstCapacitacionField() == 17)
+                		sstCapacitacionDTO.setNombreCapacitacion(sstCapacitacionPlanDataPdn.getResult());
+                	
+                	if (sstCapacitacionPlanDataPdn.getFidSstCapacitacionPlanField().getIdSstCapacitacionField() == 18
+                			|| sstCapacitacionPlanDataPdn.getFidSstCapacitacionPlanField().getIdSstCapacitacionField() == 100) {
+                		IntegranteDTO user = new IntegranteDTO();
+                		user.setId(Integer.valueOf(sstCapacitacionPlanDataPdn.getResult()));
+                		user.setUser(coreUsuarioDao.getFirstNameCoreUsuarioByIdUser(Integer.valueOf(sstCapacitacionPlanDataPdn.getResult()))
+                				+" "+coreUsuarioDao.getLastNameCoreUsuarioByIdUser(Integer.valueOf(sstCapacitacionPlanDataPdn.getResult())));
+                		lista.add(user);
+                	}
+                	
+                	if (sstCapacitacionPlanDataPdn.getFidSstCapacitacionPlanField().getIdSstCapacitacionField() == 101
+                			|| sstCapacitacionPlanDataPdn.getFidSstCapacitacionPlanField().getIdSstCapacitacionField() == 19)
+                		sstCapacitacionDTO.setDateInicioCapacitacion(Date.valueOf(sstCapacitacionPlanDataPdn.getResult()));
+                	
+                	if (sstCapacitacionPlanDataPdn.getFidSstCapacitacionPlanField().getIdSstCapacitacionField() == 102
+                			|| sstCapacitacionPlanDataPdn.getFidSstCapacitacionPlanField().getIdSstCapacitacionField() == 20)
+                		sstCapacitacionDTO.setDateCumpliCapacitacion(Date.valueOf(sstCapacitacionPlanDataPdn.getResult()));
+                	
+                	if (sstCapacitacionPlanDataPdn.getFidSstCapacitacionPlanField().getIdSstCapacitacionField() == 21
+                			|| sstCapacitacionPlanDataPdn.getFidSstCapacitacionPlanField().getIdSstCapacitacionField() == 103) {
+                	
+                		GenericoDTO registro = new GenericoDTO();
+                		registro.set_id(Integer.valueOf(sstCapacitacionPlanDataPdn.getResult()));
+                		registro.setLabel(sstCapacitacionFieldsDao.getSstCapacitacionFieldsLabelBySubdomain(Integer.valueOf(sstCapacitacionPlanDataPdn.getResult())));
+                		sstCapacitacionDTO.setEstadoCapacitacion(registro);
+                	}
+                	
+                	if (sstCapacitacionPlanDataPdn.getFidSstCapacitacionPlanField().getIdSstCapacitacionField() == 27) {
+                		GenericoDTO registro = new GenericoDTO();
+                		registro.set_id(Integer.valueOf(sstCapacitacionPlanDataPdn.getResult()));
+                		registro.setLabel(sstCapacitacionFieldsDao.getSstCapacitacionFieldsLabelBySubdomain(Integer.valueOf(sstCapacitacionPlanDataPdn.getResult())));
+                		sstCapacitacionDTO.setEficaciaCapacitacion(registro);
+                	}
+                	
+                	
+                	
+                	sstCapacitacionDTO.setSubdomain(sstCapacitacionPlanDataPdn.getFidCoreSubdomain().getIdCoreSubdomain());
+                	sstCapacitacionDTO.setId(Long.valueOf(sstCapacitacionPlanDataPdn.getIdSstCapacitacionPlanData().toString()));
+                    
+                	sstCapacitacionCertif.setId(Long.valueOf(sstCapacitacionPlanDataPdn.getIdSstCapacitacionPlanData().toString()));
+                    sstCapacitacionCertif.setChecked(sstCapacitacionPlanDataPdn.getChecked());
+                    sstCapacitacionCertif.setEnable(sstCapacitacionPlanDataPdn.getEnable());
+                    sstCapacitacionCertif.setModified(sstCapacitacionPlanDataPdn.getModified());
+                    sstCapacitacionCertif.setCreated(sstCapacitacionPlanDataPdn.getCreated());
+                  
+                    
+                });
+                sstCapacitacionDTO.setListaUsuarios(lista);
+                sstCapacitacionCertif.setSstCapacitacion(JsonUtil.convertObjectToJson(sstCapacitacionDTO));
+                sstCapacitacionDaoCertif.save(sstCapacitacionCertif);
+                System.out.println("------Migrando-----" + sstCapacitacionCertif.getId() + "---------");
+            });
+
+
+        });
+
+	}
+
+
+
+	@Override
+	public void migrateSstAmenazas() {
+	List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
+		
+
+        coreSubdomainsList.forEach(coreSubdomains -> {
+            List<SstAmenazasDataPdn> sstAmenazasDataPdnList = sstAmenazasDao.getSstSstAmenazasDataBySubdomain(coreSubdomains.getIdCoreSubdomain());
+            sstAmenazasDataPdnList.
+                    parallelStream().collect(Collectors.groupingBy(SstAmenazasDataPdn::getModified)).forEach((date, sstAmenazasDataPdns) -> {
+
+                SstAmenazasDTO sstAmenazasDTO = new SstAmenazasDTO();
+                SstAmenazasCertif sstAmenazasCertif = new SstAmenazasCertif();
+
+                
+                sstAmenazasDataPdns.parallelStream().forEach(sstAmenazasDataPdn -> {
+
+
+                	if (sstAmenazasDataPdn.getFidSstAmenazasField().getIdSstAmenazasField() == 17)
+     	
+                	
+                	sstAmenazasDTO.setSubdomain(sstAmenazasDataPdn.getFidCoreSubdomain().getIdCoreSubdomain());
+                	sstAmenazasDTO.setId(Long.valueOf(sstAmenazasDataPdn.getIdSstAmenazasData().toString()));
+                    
+                	sstAmenazasCertif.setId(Long.valueOf(sstAmenazasDataPdn.getIdSstAmenazasData().toString()));
+                    sstAmenazasCertif.setChecked(sstAmenazasDataPdn.getChecked());
+                    sstAmenazasCertif.setEnable(sstAmenazasDataPdn.getEnable());
+                    sstAmenazasCertif.setModified(sstAmenazasDataPdn.getModified());
+                    sstAmenazasCertif.setCreated(sstAmenazasDataPdn.getCreated());
+                  
+                    
+                });
+
+                sstAmenazasCertif.setSstAmenazas(JsonUtil.convertObjectToJson(sstAmenazasDTO));
+                sstAmenazasDaoCertif.save(sstAmenazasCertif);
+                System.out.println("------Migrando-----" + sstAmenazasCertif.getId() + "---------");
+            });
+
+
+        });
+		
+	}
 
 
 

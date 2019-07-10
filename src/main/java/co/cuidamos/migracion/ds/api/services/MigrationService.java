@@ -20,7 +20,9 @@ public interface MigrationService {
     
     void migrateSstEncuestasForm();
     
-    void migrateSstEncuestas();
+    void migrateSstEncuestasTrabajo();
+    
+    void migrateSstEncuestasSalud();
     
     void migrateSstInstructivos();
     
@@ -31,4 +33,12 @@ public interface MigrationService {
     void migrateSstAtel();
     
     void migrateSstAtelGestion();
+    
+    void migrateSstMatrizLegal();
+    
+    void migrateSstPlanTrabajo();
+    
+    void migrateSstCapacitacion();
+    
+    void migrateSstAmenazas();
 }

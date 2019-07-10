@@ -12,25 +12,21 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
-
-import co.cuidamos.migracion.ds.api.config.JsonDataUserType;
 
 @Entity
-@Table(name = "sst_encuestas",schema = "esqcore")
-@TypeDef(name = "JsonDataUserType", typeClass = JsonDataUserType.class)
-public class SstEncuestasCertif {
-	
+@Table(name = "sst_capacitacion", schema = "esqcore")
+public class SstCapacitacionCertif {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id")
+    @Column(name = "id_sst_at_el_gestion")
     private Long id;
-
+    
     @NotNull
-    @Column(name = "sstencuestas")
+    @Column(name = "sstcapacitacion")
     @Type(type = "JsonDataUserType")
-    private String encuestas;
+    private String sstCapacitacion;
 
     @Column(name = "_created")
     private Date created;
@@ -58,12 +54,12 @@ public class SstEncuestasCertif {
 		this.id = id;
 	}
 
-	public String getEncuestas() {
-		return encuestas;
+	public String getSstCapacitacion() {
+		return sstCapacitacion;
 	}
 
-	public void setEncuestas(String encuestas) {
-		this.encuestas = encuestas;
+	public void setSstCapacitacion(String sstCapacitacion) {
+		this.sstCapacitacion = sstCapacitacion;
 	}
 
 	public Date getCreated() {
@@ -115,5 +111,4 @@ public class SstEncuestasCertif {
 	}
     
     
-
 }

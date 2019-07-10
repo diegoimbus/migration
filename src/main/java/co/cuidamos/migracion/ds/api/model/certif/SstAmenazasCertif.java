@@ -17,20 +17,20 @@ import org.hibernate.annotations.TypeDef;
 import co.cuidamos.migracion.ds.api.config.JsonDataUserType;
 
 @Entity
-@Table(name = "sst_encuestas",schema = "esqcore")
+@Table(name = "sst_amenazas", schema = "esqcore")
 @TypeDef(name = "JsonDataUserType", typeClass = JsonDataUserType.class)
-public class SstEncuestasCertif {
-	
+public class SstAmenazasCertif {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Long id;
-
+    
     @NotNull
-    @Column(name = "sstencuestas")
+    @Column(name = "sstamenazas")
     @Type(type = "JsonDataUserType")
-    private String encuestas;
+    private String sstAmenazas;
 
     @Column(name = "_created")
     private Date created;
@@ -58,12 +58,12 @@ public class SstEncuestasCertif {
 		this.id = id;
 	}
 
-	public String getEncuestas() {
-		return encuestas;
+	public String getSstAmenazas() {
+		return sstAmenazas;
 	}
 
-	public void setEncuestas(String encuestas) {
-		this.encuestas = encuestas;
+	public void setSstAmenazas(String sstAmenazas) {
+		this.sstAmenazas = sstAmenazas;
 	}
 
 	public Date getCreated() {
@@ -115,5 +115,4 @@ public class SstEncuestasCertif {
 	}
     
     
-
 }
