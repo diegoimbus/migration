@@ -1,8 +1,9 @@
 package co.cuidamos.migracion.ds.api.dto;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class AmenazasDTO {
+public class AmenazasDTO implements Serializable{
 	
 	private List<RisksDTO> amenazasNaturales;
 	

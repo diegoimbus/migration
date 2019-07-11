@@ -17,6 +17,7 @@ import co.cuidamos.migracion.ds.api.pdn.repository.SstEncuestasFieldsDao;
 import co.cuidamos.migracion.ds.api.pdn.repository.SstEncuestasFormDataDao;
 import co.cuidamos.migracion.ds.api.pdn.repository.SstEppDataDao;
 import co.cuidamos.migracion.ds.api.pdn.repository.SstEppFieldsDao;
+import co.cuidamos.migracion.ds.api.pdn.repository.SstInstructivosDataDao;
 import co.cuidamos.migracion.ds.api.pdn.repository.SstMatrizLegalDataPdnDao;
 import co.cuidamos.migracion.ds.api.pdn.repository.SstObjetivosDataDao;
 import co.cuidamos.migracion.ds.api.pdn.repository.SstPlanTrabajoDataPdnDao;
@@ -27,6 +28,8 @@ import co.cuidamos.migracion.ds.api.pdn.repository.SstRiesgosTipoDataDao;
 import co.cuidamos.migracion.ds.api.pdn.repository.SstRiesgosTipoFieldsDao;
 import co.cuidamos.migracion.ds.api.pdn.repository.SstRiesgosValoracionDataDao;
 import co.cuidamos.migracion.ds.api.pdn.repository.SstRiesgosValoracionFieldsDao;
+import co.cuidamos.migracion.ds.api.pdn.repository.SstSaludTrabajDataDao;
+import co.cuidamos.migracion.ds.api.dto.AmenazasDTO;
 import co.cuidamos.migracion.ds.api.dto.EppDTO;
 import co.cuidamos.migracion.ds.api.dto.GenericoDTO;
 import co.cuidamos.migracion.ds.api.dto.IntegranteDTO;
@@ -42,6 +45,7 @@ import co.cuidamos.migracion.ds.api.dto.SstEmpresaGralDTO;
 import co.cuidamos.migracion.ds.api.dto.SstEncuestasSaludDTO;
 import co.cuidamos.migracion.ds.api.dto.SstEncuestasTrabajoDTO;
 import co.cuidamos.migracion.ds.api.dto.SstEppDTO;
+import co.cuidamos.migracion.ds.api.dto.SstInstructivosDTO;
 import co.cuidamos.migracion.ds.api.dto.SstMatrizLegalDTO;
 import co.cuidamos.migracion.ds.api.dto.SstObjetivosDTO;
 import co.cuidamos.migracion.ds.api.dto.SstPlanTrabajoDTO;
@@ -49,6 +53,7 @@ import co.cuidamos.migracion.ds.api.dto.SstPoliticaDTO;
 import co.cuidamos.migracion.ds.api.dto.SstResponsableDTO;
 import co.cuidamos.migracion.ds.api.dto.SstRiesgosTipoDTO;
 import co.cuidamos.migracion.ds.api.dto.SstRiesgosValoracionDTO;
+import co.cuidamos.migracion.ds.api.dto.SstSaludTrabajadorDTO;
 import co.cuidamos.migracion.ds.api.util.JsonUtil;
 import co.cuidamos.migracion.ds.api.pdn.repository.CoreRecursoDao;
 import co.cuidamos.migracion.ds.api.model.pdn.CoreRecurso;
@@ -62,6 +67,7 @@ import co.cuidamos.migracion.ds.api.model.pdn.SstEmpresaGralDataPdn;
 import co.cuidamos.migracion.ds.api.model.pdn.SstEncuestasDataPdn;
 import co.cuidamos.migracion.ds.api.model.pdn.SstEncuestasFormPdn;
 import co.cuidamos.migracion.ds.api.model.pdn.SstEppDataPdn;
+import co.cuidamos.migracion.ds.api.model.pdn.SstInstructivosDataPdn;
 import co.cuidamos.migracion.ds.api.model.pdn.SstMatrizLegalDataPdn;
 import co.cuidamos.migracion.ds.api.model.pdn.SstObjetivosDataPdn;
 import co.cuidamos.migracion.ds.api.model.pdn.SstPlanTrabajoDataPdn;
@@ -70,6 +76,7 @@ import co.cuidamos.migracion.ds.api.model.pdn.SstPoliticaDataPdn;
 import co.cuidamos.migracion.ds.api.model.pdn.SstResponsabDataPdn;
 import co.cuidamos.migracion.ds.api.model.pdn.SstRiesgosTipoDataPdn;
 import co.cuidamos.migracion.ds.api.model.pdn.SstRiesgosValoracionDataPdn;
+import co.cuidamos.migracion.ds.api.model.pdn.SstSaludTrabajDataPdn;
 import co.cuidamos.migracion.ds.api.model.certif.SstAmenazasCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstAtelCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstAtelGestionCertif;
@@ -80,6 +87,7 @@ import co.cuidamos.migracion.ds.api.model.certif.SstEmpresaGralDataCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstEncuestasCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstEncuestasFormCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstEppCertif;
+import co.cuidamos.migracion.ds.api.model.certif.SstInstructivosCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstMatrizLegalCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstObjetivosCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstPlanTrabajoCertif;
@@ -87,6 +95,7 @@ import co.cuidamos.migracion.ds.api.model.certif.SstPoliticaCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstResponsableCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstRiesgosTipoCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstRiesgosValoracionCertif;
+import co.cuidamos.migracion.ds.api.model.certif.SstSaludTrabajadorCertif;
 import co.cuidamos.migracion.ds.api.certif.repository.SstAmenazasDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstAtelDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstAtelGestionDao;
@@ -97,6 +106,7 @@ import co.cuidamos.migracion.ds.api.certif.repository.SstEmpresaGralDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstEncuestasDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstEncuestasFormDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstEppDao;
+import co.cuidamos.migracion.ds.api.certif.repository.SstInstructivosDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstMatrizLegalDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstObjetivosDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstPlanTrabajoDao;
@@ -104,6 +114,7 @@ import co.cuidamos.migracion.ds.api.certif.repository.SstPoliticaDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstResponsableDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstRiesgosTipoDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstRiesgosValoracionDao;
+import co.cuidamos.migracion.ds.api.certif.repository.SstSaludTrabajadorDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -252,6 +263,17 @@ public class MigrationServiceImpl implements MigrationService {
     @Autowired
     private SstAmenazasFieldsDao sstAmenazasFieldsDao;
     
+    @Autowired
+    private SstInstructivosDao sstInstructivosDaoCertif;
+    
+    @Autowired
+    private SstInstructivosDataDao sstInstructivosDao; 
+    
+    @Autowired
+    private SstSaludTrabajDataDao sstSaludTrabajDao;
+    
+    @Autowired
+    private SstSaludTrabajadorDao sstSaludTrabajadorDaoCertif;
     
     @Override
     public void migrateSstEmpresaGral() {
@@ -326,6 +348,8 @@ public class MigrationServiceImpl implements MigrationService {
 
 
         });
+        
+        System.out.println("Migracion sstEmpresaGral completada");
       
     }
 
@@ -418,6 +442,8 @@ public class MigrationServiceImpl implements MigrationService {
     
     
     	});
+    	
+    	System.out.println("Migracion sstEmpresaEspec completada");
     }
     
 	@Override
@@ -462,7 +488,7 @@ public class MigrationServiceImpl implements MigrationService {
 
        });
         
-		
+		System.out.println("Migracion sstPolitica completada");
 	}
 	
 	@Override
@@ -506,7 +532,7 @@ public class MigrationServiceImpl implements MigrationService {
 
         });
         
-		
+	System.out.println("Migracion sstObjetivos completada");	
 	}
 	
 	@Override
@@ -602,6 +628,7 @@ public class MigrationServiceImpl implements MigrationService {
     			});
             });
     
+    	System.out.println("Migracion sstResponsable completada");
 	}
 	
 	@Override
@@ -648,6 +675,7 @@ public class MigrationServiceImpl implements MigrationService {
 
         });
 
+        System.out.println("Migracion sstRiesgosTipo completada");
 		
 	}
 	
@@ -2105,7 +2133,8 @@ public class MigrationServiceImpl implements MigrationService {
 
 
         });
-		
+	
+        System.out.println("Migracion sstRiesgosValoracion completada");
 	}
 	
 	@Override
@@ -2350,7 +2379,7 @@ public class MigrationServiceImpl implements MigrationService {
     			});
             });
 
-		
+		System.out.println("Migracion sstControles completada");
 	}
 	
 	@Override
@@ -2388,13 +2417,13 @@ public class MigrationServiceImpl implements MigrationService {
                 
 
                 sstEncuestasFormDaoCertif.save(sstEncuestasFormCertif);
-                System.out.println("------Migrando-----" + sstEncuestasFormCertif.getId() + "---------");
+                System.out.println("------Migrando-----" + sstEncuestasFormCertif.getId() + "---------" + sstEncuestasFormCertif.getSubdomain());
             });
 
 
         });
 
-
+        System.out.println("Migracion sstEncuestasForm completada");
 		
 	}
 	
@@ -2931,6 +2960,8 @@ public class MigrationServiceImpl implements MigrationService {
 
 
        });
+        
+        System.out.println("Migracion sstEncuestas Trabajo completada");
 		
 	}
 	
@@ -3136,17 +3167,145 @@ public class MigrationServiceImpl implements MigrationService {
 
 
        });
-		
+		System.out.println("Migracion sstEncuestas Salud completada");
 	}
 	
 	@Override
 	public void migrateSstInstructivos() {
 		
+	List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
+		
+
+        coreSubdomainsList.forEach(coreSubdomains -> {
+            List<SstInstructivosDataPdn> sstInstructivosDataPdnList = sstInstructivosDao.getSstInstructivosBySubdomain(coreSubdomains.getIdCoreSubdomain());
+            sstInstructivosDataPdnList.
+                    parallelStream().collect(Collectors.groupingBy(SstInstructivosDataPdn::getModified)).forEach((date, sstInstructivosDataPdns) -> {
+                SstInstructivosDTO sstInstructivosDTO = new SstInstructivosDTO();
+                SstInstructivosCertif sstInstructivosCertif = new SstInstructivosCertif();
+                List<String> instructivosFile = new ArrayList<String>();
+                
+                
+                sstInstructivosDataPdns.parallelStream().forEach(sstInstructivosDataPdn -> {
+                	
+                	if (sstInstructivosDataPdn.getFidSstInstructivosField().getIdSstInstructivosField()==2) {
+                        if(sstInstructivosDataPdn.getResult() != null){
+                            Optional<CoreRecurso> coreRecurso = coreRecursoDao.findById(Integer.valueOf(sstInstructivosDataPdn.getResult()));
+                            if(coreRecurso.isPresent()){
+                                String result = coreRecurso.get().getNombreArchivo();
+                                instructivosFile.add(result);
+                            }
+
+                        }
+                	}
+                	
+                	sstInstructivosDTO.setId(Long.valueOf(sstInstructivosDataPdn.getIdSstInstructivosData().toString()));
+                	
+                    sstInstructivosCertif.setId(Long.valueOf(sstInstructivosDataPdn.getIdSstInstructivosData().toString()));
+
+                    sstInstructivosCertif.setChecked(sstInstructivosDataPdn.getChecked());
+                    sstInstructivosCertif.setEnable(sstInstructivosDataPdn.getEnable());
+                    sstInstructivosCertif.setModified(sstInstructivosDataPdn.getModified());
+                    sstInstructivosCertif.setCreated(sstInstructivosDataPdn.getCreated());
+                    
+                    
+                    
+                });
+                sstInstructivosDTO.setInstructivosFile(instructivosFile);
+                
+                sstInstructivosCertif.setSstInstructivos(JsonUtil.convertObjectToJson(sstInstructivosDTO));
+                
+                sstInstructivosDaoCertif.save(sstInstructivosCertif);
+                System.out.println("------Migrando-----" + sstInstructivosCertif.getId() + "---------" + sstInstructivosDTO.getSubdomain());
+            });
+
+
+        });
+        
+		System.out.println("Migracion sstInstructivos completada");
 	}
 	
 	@Override
 	public void migrateSstSaludTrabajador() {
 		
+	List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
+		
+
+        coreSubdomainsList.forEach(coreSubdomains -> {
+            List<SstSaludTrabajDataPdn> sstSaludTrabajDataPdnList = sstSaludTrabajDao.getSstSaludTrabajDataBySubdomain(coreSubdomains.getIdCoreSubdomain());
+            sstSaludTrabajDataPdnList.
+                    parallelStream().collect(Collectors.groupingBy(SstSaludTrabajDataPdn::getModified)).forEach((date, sstSaludTrabajDataPdns) -> {
+                SstSaludTrabajadorDTO sstSaludTrabajDTO = new SstSaludTrabajadorDTO();
+                SstSaludTrabajadorCertif sstSaludTrabajCertif = new SstSaludTrabajadorCertif();
+                List<String> certMedIng = new ArrayList<String>();
+                List<String> certPedCon = new ArrayList<String>();
+                List<String> certMedRet = new ArrayList<String>();
+                
+                
+                
+                sstSaludTrabajDataPdns.parallelStream().forEach(sstSaludTrabajDataPdn -> {
+                	
+                	
+                	if (sstSaludTrabajDataPdn.getFidSstSaludTrabajField().getIdSstSaludTrabajField() == 3) {
+                        if(sstSaludTrabajDataPdn.getResult() != null){
+                            Optional<CoreRecurso> coreRecurso = coreRecursoDao.findById(Integer.valueOf(sstSaludTrabajDataPdn.getResult()));
+                            if(coreRecurso.isPresent()){
+                                String result = coreRecurso.get().getNombreArchivo();
+                                certMedIng.add(result);
+                            }
+
+                        }
+                	}
+                	
+                	if (sstSaludTrabajDataPdn.getFidSstSaludTrabajField().getIdSstSaludTrabajField() == 4) {
+                        if(sstSaludTrabajDataPdn.getResult() != null){
+                            Optional<CoreRecurso> coreRecurso = coreRecursoDao.findById(Integer.valueOf(sstSaludTrabajDataPdn.getResult()));
+                            if(coreRecurso.isPresent()){
+                                String result = coreRecurso.get().getNombreArchivo();
+                                certPedCon.add(result);
+                            }
+
+                        }
+                	}
+                	
+                	if (sstSaludTrabajDataPdn.getFidSstSaludTrabajField().getIdSstSaludTrabajField() == 5) {
+                        if(sstSaludTrabajDataPdn.getResult() != null){
+                            Optional<CoreRecurso> coreRecurso = coreRecursoDao.findById(Integer.valueOf(sstSaludTrabajDataPdn.getResult()));
+                            if(coreRecurso.isPresent()){
+                                String result = coreRecurso.get().getNombreArchivo();
+                                certMedRet.add(result);
+                            }
+
+                        }
+                	}
+                	
+                	sstSaludTrabajDTO.setUser(String.valueOf(sstSaludTrabajDataPdn.getUser()));
+                	
+                	sstSaludTrabajDTO.setId(Long.valueOf(sstSaludTrabajDataPdn.getIdSstSaludTrabajData().toString()));
+                	
+                    sstSaludTrabajCertif.setId(Long.valueOf(sstSaludTrabajDataPdn.getIdSstSaludTrabajData().toString()));
+
+                    sstSaludTrabajCertif.setChecked(sstSaludTrabajDataPdn.getChecked());
+                    sstSaludTrabajCertif.setEnable(sstSaludTrabajDataPdn.getEnable());
+                    sstSaludTrabajCertif.setModified(sstSaludTrabajDataPdn.getModified());
+                    sstSaludTrabajCertif.setCreated(sstSaludTrabajDataPdn.getCreated());
+                    
+                    
+                    
+                });
+                
+                sstSaludTrabajDTO.setCerMedIng(certMedIng);
+                sstSaludTrabajDTO.setCerPedCon(certPedCon);
+                sstSaludTrabajDTO.setCerMedRet(certMedRet);
+                sstSaludTrabajCertif.setSstSaludTrabajador(JsonUtil.convertObjectToJson(sstSaludTrabajDTO));
+                
+                sstSaludTrabajadorDaoCertif.save(sstSaludTrabajCertif);
+                System.out.println("------Migrando-----" + sstSaludTrabajCertif.getId() + "---------" + sstSaludTrabajDTO.getSubdomain());
+            });
+
+
+        });
+        
+        System.out.println("Migracion sstSaludTrabaj completada");
 	}
 	
 	@Override
@@ -3540,6 +3699,8 @@ public class MigrationServiceImpl implements MigrationService {
 
         });
         
+        System.out.println("Migracion sstEpp completada");
+        
 	}
 	
 	@Override
@@ -3755,7 +3916,7 @@ public class MigrationServiceImpl implements MigrationService {
 
 
         });
-
+        System.out.println("Migracion sstAtel completada");
 		
 		
 	}
@@ -3804,12 +3965,12 @@ public class MigrationServiceImpl implements MigrationService {
                 sstAtelGestionCertif.setAtelGestion(JsonUtil.convertObjectToJson(sstAtelGestionDTO));
                 
                 sstAtelGestionDaoCertif.save(sstAtelGestionCertif);
-                System.out.println("------Migrando-----" + sstAtelGestionCertif.getId() + "---------");
+                System.out.println("------Migrando-----" + sstAtelGestionCertif.getId() + "---------" + sstAtelGestionDTO.getSubdomain());
             });
 
 
         });
-        
+        System.out.println("Migracion sstAtelGestion completada");
 		
 	}
 	
@@ -5164,12 +5325,12 @@ public class MigrationServiceImpl implements MigrationService {
                 sstMatrizLegalCertif.setSstMatrizRiesgos(JsonUtil.convertObjectToJson(sstMatrizLegalDTO));
                 
                 sstMatrizLegalDaoCertif.save(sstMatrizLegalCertif);
-                System.out.println("------Migrando-----" + sstMatrizLegalCertif.getId() + "---------");
+                System.out.println("------Migrando-----" + sstMatrizLegalCertif.getId() + "---------" + sstMatrizLegalDTO.getSubdomain());
             });
 
 
         });
-		
+		System.out.println("Migracion sstMatrizLegal completada");
 	}
 
 
@@ -5241,14 +5402,14 @@ public class MigrationServiceImpl implements MigrationService {
                 
                 sstPlanTrabajoCertif.setSstPlanTrabajo(JsonUtil.convertObjectToJson(sstPlanTrabajoDTO));
                 sstPlanTrabajoDaoCertif.save(sstPlanTrabajoCertif);
-                System.out.println("------Migrando-----" + sstPlanTrabajoCertif.getId() + "---------");
+                System.out.println("------Migrando-----" + sstPlanTrabajoCertif.getId() + "---------" + sstPlanTrabajoDTO.getSubdomain());
             });
 
 
         });
 
 
-		
+		System.out.println("Migración sstPlanTrabajo completada");
 		
 	}
 
@@ -5325,11 +5486,13 @@ public class MigrationServiceImpl implements MigrationService {
                 sstCapacitacionDTO.setListaUsuarios(lista);
                 sstCapacitacionCertif.setSstCapacitacion(JsonUtil.convertObjectToJson(sstCapacitacionDTO));
                 sstCapacitacionDaoCertif.save(sstCapacitacionCertif);
-                System.out.println("------Migrando-----" + sstCapacitacionCertif.getId() + "---------");
+                System.out.println("------Migrando-----" + sstCapacitacionCertif.getId() + "---------" + sstCapacitacionDTO.getSubdomain());
             });
 
 
         });
+        
+        System.out.println("Migracion sstCapacitacion completada");
 
 	}
 
@@ -5347,13 +5510,126 @@ public class MigrationServiceImpl implements MigrationService {
 
                 SstAmenazasDTO sstAmenazasDTO = new SstAmenazasDTO();
                 SstAmenazasCertif sstAmenazasCertif = new SstAmenazasCertif();
-
+                List<String> arreglo = new ArrayList<String>();
+                List<RisksDTO> amenazasNaturales = new ArrayList<RisksDTO>();
+                List<RisksDTO> amenazasTecnologicas1 = new ArrayList<RisksDTO>();
+                List<RisksDTO> amenazasSociales = new ArrayList<RisksDTO>();
+                List<RisksDTO> amenazasTecnologicas2 = new ArrayList<RisksDTO>();
+                AmenazasDTO amenazas = new AmenazasDTO();
                 
                 sstAmenazasDataPdns.parallelStream().forEach(sstAmenazasDataPdn -> {
 
 
-                	if (sstAmenazasDataPdn.getFidSstAmenazasField().getIdSstAmenazasField() == 17)
+                	if (sstAmenazasDataPdn.getFidSstAmenazasField().getIdSstAmenazasField() == 48) {
+                		if (Integer.valueOf(sstAmenazasDataPdn.getResult()) == 49) {
+                			GenericoDTO registro = new GenericoDTO();
+                			registro.set_id(1);
+                			registro.setLabel("selYes");
+                			sstAmenazasDTO.setExisteBrigadaAmenazas(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstAmenazasDataPdn.getResult()) == 50) {
+                			GenericoDTO registro = new GenericoDTO();
+                			registro.set_id(2);
+                			registro.setLabel("selNo");
+                			sstAmenazasDTO.setExisteBrigadaAmenazas(registro);
+                		}
+                		
+                		if (Integer.valueOf(sstAmenazasDataPdn.getResult()) == 51) {
+                			GenericoDTO registro = new GenericoDTO();
+                			registro.set_id(3);
+                			registro.setLabel("selNoSe");
+                			sstAmenazasDTO.setExisteBrigadaAmenazas(registro);
+                		}
+                	}
+                	
+                	if (sstAmenazasDataPdn.getFidSstAmenazasField().getIdSstAmenazasField() == 53) {
+                        if(sstAmenazasDataPdn.getResult() != null){
+                            Optional<CoreRecurso> coreRecurso = coreRecursoDao.findById(Integer.valueOf(sstAmenazasDataPdn.getResult()));
+                            if(coreRecurso.isPresent()){
+                                String result = coreRecurso.get().getNombreArchivo();
+                                arreglo.add(result);
+                            }
+
+                        }
+                	}
      	
+                	if (sstAmenazasDataPdn.getFidSstAmenazasField().getIdSstAmenazasField() == 6) {
+                		if (Integer.valueOf(sstAmenazasDataPdn.getResult()) == 7
+                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 8
+                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 9
+                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 10
+                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 11
+                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 12
+                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 13
+                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 14
+                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 15
+                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 16) {
+                			RisksDTO riesgo = new RisksDTO();
+                			riesgo.setId(Integer.valueOf(sstAmenazasDataPdn.getResult()));
+                			riesgo.setLabel(sstAmenazasFieldsDao.getSstSstAmenazasFieldsLabelBySubdomain(Integer.valueOf(sstAmenazasDataPdn.getResult())));
+                			riesgo.setOrder(sstAmenazasFieldsDao.getSstSstAmenazasFieldsOrderBySubdomain(Integer.valueOf(sstAmenazasDataPdn.getResult())));
+                			riesgo.setParent(sstAmenazasFieldsDao.getSstSstAmenazasFieldsParentBySubdomain(Integer.valueOf(sstAmenazasDataPdn.getResult())));
+                			amenazasNaturales.add(riesgo);
+                		}
+                	}
+                	
+                	if (sstAmenazasDataPdn.getFidSstAmenazasField().getIdSstAmenazasField() == 17) {
+                		if (Integer.valueOf(sstAmenazasDataPdn.getResult()) == 18
+                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 19
+                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 20
+                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 21
+                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 22
+                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 27
+                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 28
+                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 29
+                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 30
+                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 31
+                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 35) {
+                			RisksDTO riesgo = new RisksDTO();
+                			riesgo.setId(Integer.valueOf(sstAmenazasDataPdn.getResult()));
+                			riesgo.setLabel(sstAmenazasFieldsDao.getSstSstAmenazasFieldsLabelBySubdomain(Integer.valueOf(sstAmenazasDataPdn.getResult())));
+                			riesgo.setOrder(sstAmenazasFieldsDao.getSstSstAmenazasFieldsOrderBySubdomain(Integer.valueOf(sstAmenazasDataPdn.getResult())));
+                			riesgo.setParent(sstAmenazasFieldsDao.getSstSstAmenazasFieldsParentBySubdomain(Integer.valueOf(sstAmenazasDataPdn.getResult())));
+                			amenazasTecnologicas1.add(riesgo);
+                		}
+                	}
+                	
+                	if (sstAmenazasDataPdn.getFidSstAmenazasField().getIdSstAmenazasField() == 37) {
+                		if (Integer.valueOf(sstAmenazasDataPdn.getResult()) == 38
+                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 39
+                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 40
+                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 41
+                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 42
+                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 43
+                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 44) {
+                			RisksDTO riesgo = new RisksDTO();
+                			riesgo.setId(Integer.valueOf(sstAmenazasDataPdn.getResult()));
+                			riesgo.setLabel(sstAmenazasFieldsDao.getSstSstAmenazasFieldsLabelBySubdomain(Integer.valueOf(sstAmenazasDataPdn.getResult())));
+                			riesgo.setOrder(sstAmenazasFieldsDao.getSstSstAmenazasFieldsOrderBySubdomain(Integer.valueOf(sstAmenazasDataPdn.getResult())));
+                			riesgo.setParent(sstAmenazasFieldsDao.getSstSstAmenazasFieldsParentBySubdomain(Integer.valueOf(sstAmenazasDataPdn.getResult())));
+                			amenazasSociales.add(riesgo);
+                		}
+                	}
+                	
+                	if (sstAmenazasDataPdn.getFidSstAmenazasField().getIdSstAmenazasField() == 47) {
+                		if (Integer.valueOf(sstAmenazasDataPdn.getResult()) == 23
+                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 24
+                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 25
+                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 26
+                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 32
+                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 33
+                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 34
+                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 36
+                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 45) {
+                			RisksDTO riesgo = new RisksDTO();
+                			riesgo.setId(Integer.valueOf(sstAmenazasDataPdn.getResult()));
+                			riesgo.setLabel(sstAmenazasFieldsDao.getSstSstAmenazasFieldsLabelBySubdomain(Integer.valueOf(sstAmenazasDataPdn.getResult())));
+                			riesgo.setOrder(sstAmenazasFieldsDao.getSstSstAmenazasFieldsOrderBySubdomain(Integer.valueOf(sstAmenazasDataPdn.getResult())));
+                			riesgo.setParent(sstAmenazasFieldsDao.getSstSstAmenazasFieldsParentBySubdomain(Integer.valueOf(sstAmenazasDataPdn.getResult())));
+                			amenazasTecnologicas2.add(riesgo);
+                		}
+                	}
                 	
                 	sstAmenazasDTO.setSubdomain(sstAmenazasDataPdn.getFidCoreSubdomain().getIdCoreSubdomain());
                 	sstAmenazasDTO.setId(Long.valueOf(sstAmenazasDataPdn.getIdSstAmenazasData().toString()));
@@ -5367,13 +5643,20 @@ public class MigrationServiceImpl implements MigrationService {
                     
                 });
 
+                amenazas.setAmenazasNaturales(amenazasNaturales);
+                amenazas.setAmenazasTecnologicas1(amenazasTecnologicas1);
+                amenazas.setAmenazasSociales(amenazasSociales);
+                amenazas.setAmenazasTecnologicas2(amenazasTecnologicas2);
+                sstAmenazasDTO.setAmenazas(amenazas);
+                sstAmenazasDTO.setUploadPlanEmergencia(arreglo);
                 sstAmenazasCertif.setSstAmenazas(JsonUtil.convertObjectToJson(sstAmenazasDTO));
                 sstAmenazasDaoCertif.save(sstAmenazasCertif);
-                System.out.println("------Migrando-----" + sstAmenazasCertif.getId() + "---------");
+                System.out.println("------Migrando-----" + sstAmenazasCertif.getId() + "---------" + sstAmenazasDTO.getSubdomain());
             });
 
 
         });
+        System.out.println("Migracion sstAmenzas completada");
 		
 	}
 

@@ -20,6 +20,16 @@ public class MigrationTest {
         migrationService.migrateSstReponsable();
         migrationService.migrateSstRiegosTipo();
         migrationService.migrateSstControles();
+        migrationService.migrateSstEncuestasForm();
+        migrationService.migrateSstEncuestasTrabajo();
+        migrationService.migrateSstEncuestasSalud();
+        migrationService.migrateSstEpp();
+        migrationService.migrateSstAtel();
+        migrationService.migrateSstAtelGestion();
+        migrationService.migrateSstMatrizLegal();
+        migrationService.migrateSstPlanTrabajo();
+        migrationService.migrateSstCapacitacion();
+        migrationService.migrateSstAmenazas();
     }
     
     

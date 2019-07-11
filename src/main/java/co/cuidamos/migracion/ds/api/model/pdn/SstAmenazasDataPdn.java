@@ -1,15 +1,17 @@
 package co.cuidamos.migracion.ds.api.model.pdn;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.persistence.*;
-
 
 @Entity
 @Table(name = "sst_amenazas_data")
 public class SstAmenazasDataPdn implements Serializable {
 
+	
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,7 +46,6 @@ public class SstAmenazasDataPdn implements Serializable {
     @JoinColumn(name = "fid_sst_amenazas_field", referencedColumnName = "id_sst_amenazas_field")
     @ManyToOne
     private SstAmenazasFields fidSstAmenazasField;
-    
 	public Integer getIdSstAmenazasData() {
 		return idSstAmenazasData;
 	}
@@ -70,7 +71,13 @@ public class SstAmenazasDataPdn implements Serializable {
 		this.created = created;
 	}
 	public Date getModified() {
-		return modified;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            return simpleDateFormat.parse(simpleDateFormat.format(modified));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
 	}
 	public void setModified(Date modified) {
 		this.modified = modified;
@@ -126,6 +133,7 @@ public class SstAmenazasDataPdn implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
     
     
 }

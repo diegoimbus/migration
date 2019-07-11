@@ -10,4 +10,30 @@ public class SstInstructivosDTO {
 	
 	private String Subdomain;
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public List<String> getInstructivosFile() {
+		return instructivosFile;
+	}
+
+	public void setInstructivosFile(List<String> instructivosFile) {
+		this.instructivosFile = instructivosFile;
+	}
+
+	public String getSubdomain() {
+		return Subdomain;
+	}
+
+	public void setSubdomain(String subdomain) {
+		Subdomain = subdomain;
+	}
+	
+	
+
 }

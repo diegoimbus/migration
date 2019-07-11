@@ -1,6 +1,8 @@
 package co.cuidamos.migracion.ds.api.model.pdn;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.*;
@@ -68,7 +70,13 @@ public class SstMatrizLegalDataPdn implements Serializable {
 		this.created = created;
 	}
 	public Date getModified() {
-		return modified;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            return simpleDateFormat.parse(simpleDateFormat.format(modified));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
 	}
 	public void setModified(Date modified) {
 		this.modified = modified;

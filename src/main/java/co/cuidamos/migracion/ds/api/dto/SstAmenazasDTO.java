@@ -1,6 +1,7 @@
 package co.cuidamos.migracion.ds.api.dto;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class SstAmenazasDTO implements Serializable {
 	
@@ -8,7 +9,9 @@ public class SstAmenazasDTO implements Serializable {
 	
 	private GenericoDTO existeBrigadaAmenazas;
 	
-	private String[] uploadPlanEmergencia;
+	private List<String> uploadPlanEmergencia;
+	
+	private AmenazasDTO amenazas;
 	
 	private String subdomain;
 
@@ -28,11 +31,13 @@ public class SstAmenazasDTO implements Serializable {
 		this.existeBrigadaAmenazas = existeBrigadaAmenazas;
 	}
 
-	public String[] getUploadPlanEmergencia() {
+
+
+	public List<String> getUploadPlanEmergencia() {
 		return uploadPlanEmergencia;
 	}
 
-	public void setUploadPlanEmergencia(String[] uploadPlanEmergencia) {
+	public void setUploadPlanEmergencia(List<String> uploadPlanEmergencia) {
 		this.uploadPlanEmergencia = uploadPlanEmergencia;
 	}
 
@@ -42,6 +47,14 @@ public class SstAmenazasDTO implements Serializable {
 
 	public void setSubdomain(String subdomain) {
 		this.subdomain = subdomain;
+	}
+
+	public AmenazasDTO getAmenazas() {
+		return amenazas;
+	}
+
+	public void setAmenazas(AmenazasDTO amenazas) {
+		this.amenazas = amenazas;
 	}
 	
 	

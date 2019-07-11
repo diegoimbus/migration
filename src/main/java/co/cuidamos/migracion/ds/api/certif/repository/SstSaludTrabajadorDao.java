@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import co.cuidamos.migracion.ds.api.model.certif.SstSaludTrabajadorCertif;
 
 @Repository
-public interface SstSaludTrabajador extends JpaRepository<SstSaludTrabajadorCertif, Long> {
+public interface SstSaludTrabajadorDao extends JpaRepository<SstSaludTrabajadorCertif, Long> {
 
 	
 }
