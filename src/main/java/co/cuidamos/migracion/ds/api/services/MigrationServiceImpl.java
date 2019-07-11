@@ -277,11 +277,11 @@ public class MigrationServiceImpl implements MigrationService {
     
     @Override
     public void migrateSstEmpresaGral() {
-        List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
+        //List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
 
         
-        coreSubdomainsList.forEach(coreSubdomains -> {
-            List<SstEmpresaGralDataPdn> sstEmpresaGralDataPdnList = sstEmpresaGralDao.getSstEmpresaGralDataBySubdomain(coreSubdomains.getIdCoreSubdomain());
+        //coreSubdomainsList.forEach(coreSubdomains -> {
+            List<SstEmpresaGralDataPdn> sstEmpresaGralDataPdnList = sstEmpresaGralDao.getSstEmpresaGralDataBySubdomain("c8c9e081-31a3-4b64-970b-2494463c50a9");
             sstEmpresaGralDataPdnList.
                     parallelStream().collect(Collectors.groupingBy(SstEmpresaGralDataPdn::getModified)).forEach((date, sstEmpresaGralDataPdns) -> {
                 SstEmpresaGralDTO sstEmpresaGralDTO = new SstEmpresaGralDTO();
@@ -347,7 +347,7 @@ public class MigrationServiceImpl implements MigrationService {
             });
 
 
-        });
+       // });
         
         System.out.println("Migracion sstEmpresaGral completada");
       
@@ -357,10 +357,10 @@ public class MigrationServiceImpl implements MigrationService {
  
 	@Override
     public void migrateSstEmpresaEspec() {
-    	List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
+    	//List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
     	
-    	coreSubdomainsList.forEach(coreSubdomains -> {
-    		List<SstEmpresaEspecDataPdn> sstEmpresaEspecDataPdnList = sstEmpresaEspecDao.getSstEmpresaEspecDataBySubdomain(coreSubdomains.getIdCoreSubdomain());
+    	//coreSubdomainsList.forEach(coreSubdomains -> {
+    		List<SstEmpresaEspecDataPdn> sstEmpresaEspecDataPdnList = sstEmpresaEspecDao.getSstEmpresaEspecDataBySubdomain("c8c9e081-31a3-4b64-970b-2494463c50a9");
     		sstEmpresaEspecDataPdnList.
     			parallelStream().collect(Collectors.groupingBy(SstEmpresaEspecDataPdn::getModified)).forEach((date, sstEmpresaEspecDataPdns) -> {
                     SstEmpresaEspecDTO sstEmpresaEspecDTO = new SstEmpresaEspecDTO();
@@ -441,17 +441,17 @@ public class MigrationServiceImpl implements MigrationService {
     			});
     
     
-    	});
+    	//});
     	
     	System.out.println("Migracion sstEmpresaEspec completada");
     }
     
 	@Override
 	public void migrateSstPolitica() {
-		List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
-        coreSubdomainsList.forEach(coreSubdomains -> {
+		//List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
+        //coreSubdomainsList.forEach(coreSubdomains -> {
 		
-		List<SstPoliticaDataPdn> sstPoliticaDataPdnList = sstPoliticaDao.getSstPoliticaDataBySubdomain(coreSubdomains.getIdCoreSubdomain());
+		List<SstPoliticaDataPdn> sstPoliticaDataPdnList = sstPoliticaDao.getSstPoliticaDataBySubdomain("c8c9e081-31a3-4b64-970b-2494463c50a9");
             
             sstPoliticaDataPdnList.
                     parallelStream().collect(Collectors.groupingBy(SstPoliticaDataPdn::getModified)).forEach((date, sstPoliticaDataPdns) -> {
@@ -486,17 +486,17 @@ public class MigrationServiceImpl implements MigrationService {
             });
 
 
-       });
+       //});
         
 		System.out.println("Migracion sstPolitica completada");
 	}
 	
 	@Override
 	public void migrateSstObjetivos() {
-		List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
+		//List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
         
-        coreSubdomainsList.forEach(coreSubdomains -> {
-            List<SstObjetivosDataPdn> sstObjetivosDataPdnList = sstObjetivosDao.getSstObjetivosDataBySubdomain(coreSubdomains.getIdCoreSubdomain());
+        //coreSubdomainsList.forEach(coreSubdomains -> {
+            List<SstObjetivosDataPdn> sstObjetivosDataPdnList = sstObjetivosDao.getSstObjetivosDataBySubdomain("c8c9e081-31a3-4b64-970b-2494463c50a9");
             sstObjetivosDataPdnList.
                     parallelStream().collect(Collectors.groupingBy(SstObjetivosDataPdn::getModified)).forEach((date, sstObjetivosDataPdns) -> {
                 SstObjetivosDTO sstObjetivosDTO = new SstObjetivosDTO();
@@ -530,7 +530,7 @@ public class MigrationServiceImpl implements MigrationService {
             });
 
 
-        });
+        //});
         
 	System.out.println("Migracion sstObjetivos completada");	
 	}
@@ -633,11 +633,11 @@ public class MigrationServiceImpl implements MigrationService {
 	
 	@Override
 	public void migrateSstRiegosTipo() {
-		List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
+		//List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
 		List<RisksDTO> risks = new ArrayList<RisksDTO>();
 
-        coreSubdomainsList.forEach(coreSubdomains -> {
-            List<SstRiesgosTipoDataPdn> sstRiesgosTipoDataPdnList = sstRiesgosTipoDao.getSstRiesgosTipoDataBySubdomain(coreSubdomains.getIdCoreSubdomain());
+       // coreSubdomainsList.forEach(coreSubdomains -> {
+            List<SstRiesgosTipoDataPdn> sstRiesgosTipoDataPdnList = sstRiesgosTipoDao.getSstRiesgosTipoDataBySubdomain("c8c9e081-31a3-4b64-970b-2494463c50a9");
             sstRiesgosTipoDataPdnList.
                     parallelStream().collect(Collectors.groupingBy(SstRiesgosTipoDataPdn::getModified)).forEach((date, sstRiesgosTipoDataPdns) -> {
                 SstRiesgosTipoDTO sstRiesgosTipoDTO = new SstRiesgosTipoDTO();
@@ -673,7 +673,7 @@ public class MigrationServiceImpl implements MigrationService {
             });
 
 
-        });
+        //});
 
         System.out.println("Migracion sstRiesgosTipo completada");
 		
@@ -681,9 +681,9 @@ public class MigrationServiceImpl implements MigrationService {
 	
 	
 	public void migrateSstRiesgosValoracion() {
-		List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
-        coreSubdomainsList.forEach(coreSubdomains -> {
-            List<SstRiesgosValoracionDataPdn> sstRiesgosValoracionDataPdnList = sstRiesgosValoracionDao.getSstRiesgosValoracionDataBySubdomain(coreSubdomains.getIdCoreSubdomain());
+		//List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
+       // coreSubdomainsList.forEach(coreSubdomains -> {
+            List<SstRiesgosValoracionDataPdn> sstRiesgosValoracionDataPdnList = sstRiesgosValoracionDao.getSstRiesgosValoracionDataBySubdomain("c8c9e081-31a3-4b64-970b-2494463c50a9");
             sstRiesgosValoracionDataPdnList.
                     parallelStream().collect(Collectors.groupingBy(SstRiesgosValoracionDataPdn::getModified)).forEach((date, sstRiesgosValoracionDataPdns) -> {
                 SstRiesgosValoracionDTO sstRiesgosValoracionDTO = new SstRiesgosValoracionDTO();
@@ -2132,7 +2132,7 @@ public class MigrationServiceImpl implements MigrationService {
             });
 
 
-        });
+        //});
 	
         System.out.println("Migracion sstRiesgosValoracion completada");
 	}
@@ -2140,11 +2140,11 @@ public class MigrationServiceImpl implements MigrationService {
 	@Override
 	public void migrateSstControles () {
 		
-		List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
+		//List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
     	
     	
-    	coreSubdomainsList.forEach(coreSubdomains -> {
-    		List<SstControlesDataPdn> sstControlesDataPdnList = sstControlesDao.getSstControlesDataBySubdomain(coreSubdomains.getIdCoreSubdomain());
+    	//coreSubdomainsList.forEach(coreSubdomains -> {
+    		List<SstControlesDataPdn> sstControlesDataPdnList = sstControlesDao.getSstControlesDataBySubdomain("c8c9e081-31a3-4b64-970b-2494463c50a9");
     		sstControlesDataPdnList.
     			parallelStream().collect(Collectors.groupingBy(SstControlesDataPdn::getModified)).forEach((date, sstControlesDataPdns) -> {
                     
@@ -2377,7 +2377,7 @@ public class MigrationServiceImpl implements MigrationService {
                     sstControlesDaoCertif.save(sstControlesCertif);
                     System.out.println("------Migrando-----" + sstControlesCertif.getId() + "---------" + sstControlesDTO.getSubdomain());
     			});
-            });
+            //});
 
 		System.out.println("Migracion sstControles completada");
 	}
@@ -2385,11 +2385,11 @@ public class MigrationServiceImpl implements MigrationService {
 	@Override
 	public void migrateSstEncuestasForm() {
 		
-		List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
+		//List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
 		
 
-        coreSubdomainsList.forEach(coreSubdomains -> {
-            List<SstEncuestasFormPdn> sstEncuestasFormPdnList = sstEncuestasFormDao.getSstEncuestasFormBySubdomain(coreSubdomains.getIdCoreSubdomain());
+        //coreSubdomainsList.forEach(coreSubdomains -> {
+            List<SstEncuestasFormPdn> sstEncuestasFormPdnList = sstEncuestasFormDao.getSstEncuestasFormBySubdomain("c8c9e081-31a3-4b64-970b-2494463c50a9");
             sstEncuestasFormPdnList.
                     parallelStream().collect(Collectors.groupingBy(SstEncuestasFormPdn::getModified)).forEach((date, sstEncuestasFormPdns) -> {
 
@@ -2421,7 +2421,7 @@ public class MigrationServiceImpl implements MigrationService {
             });
 
 
-        });
+        //});
 
         System.out.println("Migracion sstEncuestasForm completada");
 		
@@ -2430,10 +2430,10 @@ public class MigrationServiceImpl implements MigrationService {
 	@Override
 	public void migrateSstEncuestasTrabajo() {
 		
-		List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
-        coreSubdomainsList.forEach(coreSubdomains -> {
+		//List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
+        //coreSubdomainsList.forEach(coreSubdomains -> {
 		
-		List<SstEncuestasDataPdn> sstEncuestasDataPdnList = sstEncuestasDao.getSstEncuestasDataBySubdomain(coreSubdomains.getIdCoreSubdomain());
+		List<SstEncuestasDataPdn> sstEncuestasDataPdnList = sstEncuestasDao.getSstEncuestasDataBySubdomain("c8c9e081-31a3-4b64-970b-2494463c50a9");
             
             sstEncuestasDataPdnList.
                     parallelStream().collect(Collectors.groupingBy(SstEncuestasDataPdn::getModified)).forEach((date, sstEncuestasDataPdns) -> {
@@ -2959,7 +2959,7 @@ public class MigrationServiceImpl implements MigrationService {
             });
 
 
-       });
+       //});
         
         System.out.println("Migracion sstEncuestas Trabajo completada");
 		
@@ -2968,10 +2968,10 @@ public class MigrationServiceImpl implements MigrationService {
 	@Override
 	public void migrateSstEncuestasSalud() {
 		
-		List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
-        coreSubdomainsList.forEach(coreSubdomains -> {
+		//List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
+        //coreSubdomainsList.forEach(coreSubdomains -> {
 		
-		List<SstEncuestasDataPdn> sstEncuestasDataPdnList = sstEncuestasDao.getSstEncuestasDataBySubdomain(coreSubdomains.getIdCoreSubdomain());
+		List<SstEncuestasDataPdn> sstEncuestasDataPdnList = sstEncuestasDao.getSstEncuestasDataBySubdomain("c8c9e081-31a3-4b64-970b-2494463c50a9");
             
             sstEncuestasDataPdnList.
                     parallelStream().collect(Collectors.groupingBy(SstEncuestasDataPdn::getModified)).forEach((date, sstEncuestasDataPdns) -> {
@@ -3166,18 +3166,18 @@ public class MigrationServiceImpl implements MigrationService {
             });
 
 
-       });
+       //});
 		System.out.println("Migracion sstEncuestas Salud completada");
 	}
 	
 	@Override
 	public void migrateSstInstructivos() {
 		
-	List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
+	//List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
 		
 
-        coreSubdomainsList.forEach(coreSubdomains -> {
-            List<SstInstructivosDataPdn> sstInstructivosDataPdnList = sstInstructivosDao.getSstInstructivosBySubdomain(coreSubdomains.getIdCoreSubdomain());
+      //  coreSubdomainsList.forEach(coreSubdomains -> {
+            List<SstInstructivosDataPdn> sstInstructivosDataPdnList = sstInstructivosDao.getSstInstructivosBySubdomain("c8c9e081-31a3-4b64-970b-2494463c50a9");
             sstInstructivosDataPdnList.
                     parallelStream().collect(Collectors.groupingBy(SstInstructivosDataPdn::getModified)).forEach((date, sstInstructivosDataPdns) -> {
                 SstInstructivosDTO sstInstructivosDTO = new SstInstructivosDTO();
@@ -3219,7 +3219,7 @@ public class MigrationServiceImpl implements MigrationService {
             });
 
 
-        });
+        //});
         
 		System.out.println("Migracion sstInstructivos completada");
 	}
@@ -3227,11 +3227,11 @@ public class MigrationServiceImpl implements MigrationService {
 	@Override
 	public void migrateSstSaludTrabajador() {
 		
-	List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
+	//List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
 		
 
-        coreSubdomainsList.forEach(coreSubdomains -> {
-            List<SstSaludTrabajDataPdn> sstSaludTrabajDataPdnList = sstSaludTrabajDao.getSstSaludTrabajDataBySubdomain(coreSubdomains.getIdCoreSubdomain());
+        //coreSubdomainsList.forEach(coreSubdomains -> {
+            List<SstSaludTrabajDataPdn> sstSaludTrabajDataPdnList = sstSaludTrabajDao.getSstSaludTrabajDataBySubdomain("c8c9e081-31a3-4b64-970b-2494463c50a9");
             sstSaludTrabajDataPdnList.
                     parallelStream().collect(Collectors.groupingBy(SstSaludTrabajDataPdn::getModified)).forEach((date, sstSaludTrabajDataPdns) -> {
                 SstSaludTrabajadorDTO sstSaludTrabajDTO = new SstSaludTrabajadorDTO();
@@ -3303,18 +3303,18 @@ public class MigrationServiceImpl implements MigrationService {
             });
 
 
-        });
+        //});
         
         System.out.println("Migracion sstSaludTrabaj completada");
 	}
 	
 	@Override
 	public void migrateSstEpp() {
-		List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
+		//List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
 		
        
-        coreSubdomainsList.forEach(coreSubdomains -> {
-            List<SstEppDataPdn> sstEppDataPdnList = sstEppDao.getSstEppDataBySubdomain(coreSubdomains.getIdCoreSubdomain());
+        //coreSubdomainsList.forEach(coreSubdomains -> {
+            List<SstEppDataPdn> sstEppDataPdnList = sstEppDao.getSstEppDataBySubdomain("c8c9e081-31a3-4b64-970b-2494463c50a9");
             sstEppDataPdnList.
                     parallelStream().collect(Collectors.groupingBy(SstEppDataPdn::getModified)).forEach((date, sstEppDataPdns) -> {
                 SstEppDTO sstEppDTO = new SstEppDTO();
@@ -3697,7 +3697,7 @@ public class MigrationServiceImpl implements MigrationService {
             });
 
 
-        });
+        //});
         
         System.out.println("Migracion sstEpp completada");
         
@@ -3705,10 +3705,10 @@ public class MigrationServiceImpl implements MigrationService {
 	
 	@Override
 	public void migrateSstAtel() {
-		List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
+		//List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
 
-        coreSubdomainsList.forEach(coreSubdomains -> {
-            List<SstAtelDataPdn> sstAtelDataPdnList = sstAtelDao.getSstAtelDataBySubdomain(coreSubdomains.getIdCoreSubdomain());
+        //coreSubdomainsList.forEach(coreSubdomains -> {
+            List<SstAtelDataPdn> sstAtelDataPdnList = sstAtelDao.getSstAtelDataBySubdomain("c8c9e081-31a3-4b64-970b-2494463c50a9");
             sstAtelDataPdnList.
                     parallelStream().collect(Collectors.groupingBy(SstAtelDataPdn::getModified)).forEach((date, sstAtelDataPdns) -> {
                 SstAtelDTO sstAtelDTO = new SstAtelDTO();
@@ -3915,7 +3915,7 @@ public class MigrationServiceImpl implements MigrationService {
             });
 
 
-        });
+        //});
         System.out.println("Migracion sstAtel completada");
 		
 		
@@ -3923,11 +3923,11 @@ public class MigrationServiceImpl implements MigrationService {
 	
 	@Override
 	public void migrateSstAtelGestion() {
-	List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
+	//List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
 		
 
-        coreSubdomainsList.forEach(coreSubdomains -> {
-            List<SstAtelGestionPdn> sstAtelGestionPdnList = sstAtelGestionDao.getSstAtelGestionBySubdomain(coreSubdomains.getIdCoreSubdomain());
+        //coreSubdomainsList.forEach(coreSubdomains -> {
+            List<SstAtelGestionPdn> sstAtelGestionPdnList = sstAtelGestionDao.getSstAtelGestionBySubdomain("c8c9e081-31a3-4b64-970b-2494463c50a9");
             sstAtelGestionPdnList.
                     parallelStream().collect(Collectors.groupingBy(SstAtelGestionPdn::getModified)).forEach((date, sstAtelGestionPdns) -> {
                 SstAtelGestionDTO sstAtelGestionDTO = new SstAtelGestionDTO();
@@ -3969,7 +3969,7 @@ public class MigrationServiceImpl implements MigrationService {
             });
 
 
-        });
+        //});
         System.out.println("Migracion sstAtelGestion completada");
 		
 	}
@@ -3994,11 +3994,11 @@ public class MigrationServiceImpl implements MigrationService {
 
 	@Override
 	public void migrateSstMatrizLegal() {
-	List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
+	//List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
 		
 
-        coreSubdomainsList.forEach(coreSubdomains -> {
-            List<SstMatrizLegalDataPdn> sstMatrizLegalDataPdnList = sstMatrizLegalDao.getSstMatrizLegalDataBySubdomain(coreSubdomains.getIdCoreSubdomain());
+      //  coreSubdomainsList.forEach(coreSubdomains -> {
+            List<SstMatrizLegalDataPdn> sstMatrizLegalDataPdnList = sstMatrizLegalDao.getSstMatrizLegalDataBySubdomain("c8c9e081-31a3-4b64-970b-2494463c50a9");
             sstMatrizLegalDataPdnList.
                     parallelStream().collect(Collectors.groupingBy(SstMatrizLegalDataPdn::getModified)).forEach((date, sstMatrizLegalDataPdns) -> {
                 SstMatrizLegalDTO sstMatrizLegalDTO = new SstMatrizLegalDTO();
@@ -5329,7 +5329,7 @@ public class MigrationServiceImpl implements MigrationService {
             });
 
 
-        });
+        //});
 		System.out.println("Migracion sstMatrizLegal completada");
 	}
 
@@ -5339,11 +5339,11 @@ public class MigrationServiceImpl implements MigrationService {
 	public void migrateSstPlanTrabajo() {
 		
 		
-		List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
+		//List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
 		
 
-        coreSubdomainsList.forEach(coreSubdomains -> {
-            List<SstPlanTrabajoDataPdn> sstPlanTrabajoDataPdnList = sstPlanTrabajoDao.getSstPLanTrabajoDataBySubdomain(coreSubdomains.getIdCoreSubdomain());
+        //coreSubdomainsList.forEach(coreSubdomains -> {
+            List<SstPlanTrabajoDataPdn> sstPlanTrabajoDataPdnList = sstPlanTrabajoDao.getSstPLanTrabajoDataBySubdomain("c8c9e081-31a3-4b64-970b-2494463c50a9");
             sstPlanTrabajoDataPdnList.
                     parallelStream().collect(Collectors.groupingBy(SstPlanTrabajoDataPdn::getModified)).forEach((date, sstPlanTrabajoDataPdns) -> {
 
@@ -5406,7 +5406,7 @@ public class MigrationServiceImpl implements MigrationService {
             });
 
 
-        });
+        //});
 
 
 		System.out.println("Migración sstPlanTrabajo completada");
@@ -5418,11 +5418,11 @@ public class MigrationServiceImpl implements MigrationService {
 	@Override
 	public void migrateSstCapacitacion() {
 		
-	List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
+	//List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
 		
 
-        coreSubdomainsList.forEach(coreSubdomains -> {
-            List<SstCapacitacionPlanDataPdn> sstCapacitacionPlanDataPdnList = sstCapacitacionDao.getSstCapacitacionPlanDataBySubdomain(coreSubdomains.getIdCoreSubdomain());
+      //  coreSubdomainsList.forEach(coreSubdomains -> {
+            List<SstCapacitacionPlanDataPdn> sstCapacitacionPlanDataPdnList = sstCapacitacionDao.getSstCapacitacionPlanDataBySubdomain("c8c9e081-31a3-4b64-970b-2494463c50a9");
             sstCapacitacionPlanDataPdnList.
                     parallelStream().collect(Collectors.groupingBy(SstCapacitacionPlanDataPdn::getModified)).forEach((date, sstCapacitacionPlanDataPdns) -> {
 
@@ -5490,7 +5490,7 @@ public class MigrationServiceImpl implements MigrationService {
             });
 
 
-        });
+        //});
         
         System.out.println("Migracion sstCapacitacion completada");
 
@@ -5500,11 +5500,11 @@ public class MigrationServiceImpl implements MigrationService {
 
 	@Override
 	public void migrateSstAmenazas() {
-	List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
+	//List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
 		
 
-        coreSubdomainsList.forEach(coreSubdomains -> {
-            List<SstAmenazasDataPdn> sstAmenazasDataPdnList = sstAmenazasDao.getSstSstAmenazasDataBySubdomain(coreSubdomains.getIdCoreSubdomain());
+      //  coreSubdomainsList.forEach(coreSubdomains -> {
+            List<SstAmenazasDataPdn> sstAmenazasDataPdnList = sstAmenazasDao.getSstSstAmenazasDataBySubdomain("c8c9e081-31a3-4b64-970b-2494463c50a9");
             sstAmenazasDataPdnList.
                     parallelStream().collect(Collectors.groupingBy(SstAmenazasDataPdn::getModified)).forEach((date, sstAmenazasDataPdns) -> {
 
@@ -5655,7 +5655,7 @@ public class MigrationServiceImpl implements MigrationService {
             });
 
 
-        });
+        //});
         System.out.println("Migracion sstAmenzas completada");
 		
 	}
