@@ -1,8 +1,9 @@
 package co.cuidamos.migracion.ds.api.dto;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class SstInstructivosDTO {
+public class SstInstructivosDTO implements Serializable {
 	
 	private Long id;
 	

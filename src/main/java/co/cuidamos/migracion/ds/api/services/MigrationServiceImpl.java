@@ -8,6 +8,7 @@ import co.cuidamos.migracion.ds.api.pdn.repository.SstAtelDataDao;
 import co.cuidamos.migracion.ds.api.pdn.repository.SstAtelGestionPdnDao;
 import co.cuidamos.migracion.ds.api.pdn.repository.SstCapacitacionDataPdnDao;
 import co.cuidamos.migracion.ds.api.pdn.repository.SstCapacitacionFieldsDao;
+import co.cuidamos.migracion.ds.api.pdn.repository.SstComitesDataPdnDao;
 import co.cuidamos.migracion.ds.api.pdn.repository.SstControlesDataDao;
 import co.cuidamos.migracion.ds.api.pdn.repository.SstEmpresaEspecDataDao;
 import co.cuidamos.migracion.ds.api.pdn.repository.SstEmpresaEspecFieldsDao;
@@ -39,6 +40,7 @@ import co.cuidamos.migracion.ds.api.dto.SstAmenazasDTO;
 import co.cuidamos.migracion.ds.api.dto.SstAtelDTO;
 import co.cuidamos.migracion.ds.api.dto.SstAtelGestionDTO;
 import co.cuidamos.migracion.ds.api.dto.SstCapacitacionDTO;
+import co.cuidamos.migracion.ds.api.dto.SstComitedDataReunionVigiaDTO;
 import co.cuidamos.migracion.ds.api.dto.SstControlesDTO;
 import co.cuidamos.migracion.ds.api.dto.SstEmpresaEspecDTO;
 import co.cuidamos.migracion.ds.api.dto.SstEmpresaGralDTO;
@@ -62,6 +64,7 @@ import co.cuidamos.migracion.ds.api.model.pdn.SstAmenazasDataPdn;
 import co.cuidamos.migracion.ds.api.model.pdn.SstAtelDataPdn;
 import co.cuidamos.migracion.ds.api.model.pdn.SstAtelGestionPdn;
 import co.cuidamos.migracion.ds.api.model.pdn.SstCapacitacionPlanDataPdn;
+import co.cuidamos.migracion.ds.api.model.pdn.SstComitesDataPdn;
 import co.cuidamos.migracion.ds.api.model.pdn.SstControlesDataPdn;
 import co.cuidamos.migracion.ds.api.model.pdn.SstEmpresaGralDataPdn;
 import co.cuidamos.migracion.ds.api.model.pdn.SstEncuestasDataPdn;
@@ -81,6 +84,7 @@ import co.cuidamos.migracion.ds.api.model.certif.SstAmenazasCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstAtelCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstAtelGestionCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstCapacitacionCertif;
+import co.cuidamos.migracion.ds.api.model.certif.SstComitesCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstControlesCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstEmpresaEspecDataCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstEmpresaGralDataCertif;
@@ -100,6 +104,7 @@ import co.cuidamos.migracion.ds.api.certif.repository.SstAmenazasDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstAtelDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstAtelGestionDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstCapacitacionDao;
+import co.cuidamos.migracion.ds.api.certif.repository.SstComitesDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstControlesDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstEmpresaEspecDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstEmpresaGralDao;
@@ -274,6 +279,12 @@ public class MigrationServiceImpl implements MigrationService {
     
     @Autowired
     private SstSaludTrabajadorDao sstSaludTrabajadorDaoCertif;
+    
+    @Autowired
+    private SstComitesDataPdnDao sstComitesDao;
+    
+    @Autowired
+    private SstComitesDao sstComitesDaoCertif;
     
     @Override
     public void migrateSstEmpresaGral() {
@@ -5657,6 +5668,90 @@ public class MigrationServiceImpl implements MigrationService {
 
         });
         System.out.println("Migracion sstAmenzas completada");
+		
+	}
+
+
+
+	@Override
+	public void migrateSstComitesDataReunionVigia() {
+		
+	List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
+		
+
+        coreSubdomainsList.forEach(coreSubdomains -> {
+            List<SstComitesDataPdn> sstComitesDataPdnList = sstComitesDao.getSstComitesDataBySubdomain(coreSubdomains.getIdCoreSubdomain());
+            sstComitesDataPdnList.
+                    parallelStream().collect(Collectors.groupingBy(SstComitesDataPdn::getModified)).forEach((date, sstComitesDataPdns) -> {
+
+                SstComitedDataReunionVigiaDTO sstComitesDTO = new SstComitedDataReunionVigiaDTO();
+                SstComitesCertif sstComitesCertif = new SstComitesCertif();
+
+                sstComitesDataPdns.parallelStream().forEach(sstComitesDataPdn -> {
+
+
+                	
+                	sstComitesDTO.setSubdomain(sstComitesDataPdn.getFidCoreSubdomain().getIdCoreSubdomain());
+                	sstComitesDTO.setId(Long.valueOf(sstComitesDataPdn.getIdSstComitesData().toString()));
+                    
+                	sstComitesCertif.setId(Long.valueOf(sstComitesDataPdn.getIdSstComitesData().toString()));
+                    sstComitesCertif.setChecked(sstComitesDataPdn.getChecked());
+                    sstComitesCertif.setEnable(sstComitesDataPdn.getEnable());
+                    sstComitesCertif.setModified(sstComitesDataPdn.getModified());
+                    sstComitesCertif.setCreated(sstComitesDataPdn.getCreated());
+                  
+                    
+                });
+
+
+                sstComitesCertif.setComitesData(JsonUtil.convertObjectToJson(sstComitesDTO));
+                sstComitesDaoCertif.save(sstComitesCertif);
+                System.out.println("------Migrando-----" + sstComitesCertif.getId() + "---------" + sstComitesDTO.getSubdomain());
+            });
+
+
+        });
+        System.out.println("Migracion comites reunion vigia completada");
+		
+	}
+
+
+
+	@Override
+	public void migrateSstComitesDataDesignacionVigia() {
+		
+		
+	}
+
+
+
+	@Override
+	public void migrateSstComitesDataReunionCopasst() {
+		
+		
+	}
+
+
+
+	@Override
+	public void migrateSstComitesDataConformacionCopasst() {
+		
+		
+	}
+
+
+
+	@Override
+	public void migrateSstComitesDataConformacionComiteConvivencia() {
+		
+		
+	}
+
+
+
+	@Override
+	public void migrateSstComitesDataReunionComiteConvivencia() {
+		
 		
 	}
 

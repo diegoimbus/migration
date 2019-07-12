@@ -41,4 +41,16 @@ public interface MigrationService {
     void migrateSstCapacitacion();
     
     void migrateSstAmenazas();
+    
+    void migrateSstComitesDataReunionVigia();
+    
+    void migrateSstComitesDataDesignacionVigia();
+    
+    void migrateSstComitesDataReunionCopasst();
+    
+    void migrateSstComitesDataConformacionCopasst();
+    
+    void migrateSstComitesDataConformacionComiteConvivencia();
+    
+    void migrateSstComitesDataReunionComiteConvivencia();
 }
