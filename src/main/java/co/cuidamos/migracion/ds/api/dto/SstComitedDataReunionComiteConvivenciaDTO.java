@@ -14,7 +14,7 @@ public class SstComitedDataReunionComiteConvivenciaDTO implements Serializable {
 	
 	private String horaProxReunionConvivencia;
 	
-	private List<ReunionDTO> temasTratados;
+	private ReunionConvivenciaDTO temasTratados;
 	
 	private String subdomain;
 	
@@ -52,11 +52,12 @@ public class SstComitedDataReunionComiteConvivenciaDTO implements Serializable {
 		this.horaProxReunionConvivencia = horaProxReunionConvivencia;
 	}
 
-	public List<ReunionDTO> getTemasTratados() {
+
+	public ReunionConvivenciaDTO getTemasTratados() {
 		return temasTratados;
 	}
 
-	public void setTemasTratados(List<ReunionDTO> temasTratados) {
+	public void setTemasTratados(ReunionConvivenciaDTO temasTratados) {
 		this.temasTratados = temasTratados;
 	}
 

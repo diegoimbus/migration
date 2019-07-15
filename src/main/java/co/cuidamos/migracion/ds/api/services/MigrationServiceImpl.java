@@ -9,6 +9,7 @@ import co.cuidamos.migracion.ds.api.pdn.repository.SstAtelGestionPdnDao;
 import co.cuidamos.migracion.ds.api.pdn.repository.SstCapacitacionDataPdnDao;
 import co.cuidamos.migracion.ds.api.pdn.repository.SstCapacitacionFieldsDao;
 import co.cuidamos.migracion.ds.api.pdn.repository.SstComitesDataPdnDao;
+import co.cuidamos.migracion.ds.api.pdn.repository.SstComitesFormPdnDao;
 import co.cuidamos.migracion.ds.api.pdn.repository.SstControlesDataDao;
 import co.cuidamos.migracion.ds.api.pdn.repository.SstEmpresaEspecDataDao;
 import co.cuidamos.migracion.ds.api.pdn.repository.SstEmpresaEspecFieldsDao;
@@ -30,32 +31,7 @@ import co.cuidamos.migracion.ds.api.pdn.repository.SstRiesgosTipoFieldsDao;
 import co.cuidamos.migracion.ds.api.pdn.repository.SstRiesgosValoracionDataDao;
 import co.cuidamos.migracion.ds.api.pdn.repository.SstRiesgosValoracionFieldsDao;
 import co.cuidamos.migracion.ds.api.pdn.repository.SstSaludTrabajDataDao;
-import co.cuidamos.migracion.ds.api.dto.AmenazasDTO;
-import co.cuidamos.migracion.ds.api.dto.EppDTO;
-import co.cuidamos.migracion.ds.api.dto.GenericoDTO;
-import co.cuidamos.migracion.ds.api.dto.IntegranteDTO;
-import co.cuidamos.migracion.ds.api.dto.MatrizLegalDTO;
-import co.cuidamos.migracion.ds.api.dto.RisksDTO;
-import co.cuidamos.migracion.ds.api.dto.SstAmenazasDTO;
-import co.cuidamos.migracion.ds.api.dto.SstAtelDTO;
-import co.cuidamos.migracion.ds.api.dto.SstAtelGestionDTO;
-import co.cuidamos.migracion.ds.api.dto.SstCapacitacionDTO;
-import co.cuidamos.migracion.ds.api.dto.SstComitedDataReunionVigiaDTO;
-import co.cuidamos.migracion.ds.api.dto.SstControlesDTO;
-import co.cuidamos.migracion.ds.api.dto.SstEmpresaEspecDTO;
-import co.cuidamos.migracion.ds.api.dto.SstEmpresaGralDTO;
-import co.cuidamos.migracion.ds.api.dto.SstEncuestasSaludDTO;
-import co.cuidamos.migracion.ds.api.dto.SstEncuestasTrabajoDTO;
-import co.cuidamos.migracion.ds.api.dto.SstEppDTO;
-import co.cuidamos.migracion.ds.api.dto.SstInstructivosDTO;
-import co.cuidamos.migracion.ds.api.dto.SstMatrizLegalDTO;
-import co.cuidamos.migracion.ds.api.dto.SstObjetivosDTO;
-import co.cuidamos.migracion.ds.api.dto.SstPlanTrabajoDTO;
-import co.cuidamos.migracion.ds.api.dto.SstPoliticaDTO;
-import co.cuidamos.migracion.ds.api.dto.SstResponsableDTO;
-import co.cuidamos.migracion.ds.api.dto.SstRiesgosTipoDTO;
-import co.cuidamos.migracion.ds.api.dto.SstRiesgosValoracionDTO;
-import co.cuidamos.migracion.ds.api.dto.SstSaludTrabajadorDTO;
+import co.cuidamos.migracion.ds.api.dto.*;
 import co.cuidamos.migracion.ds.api.util.JsonUtil;
 import co.cuidamos.migracion.ds.api.pdn.repository.CoreRecursoDao;
 import co.cuidamos.migracion.ds.api.model.pdn.CoreRecurso;
@@ -65,6 +41,7 @@ import co.cuidamos.migracion.ds.api.model.pdn.SstAtelDataPdn;
 import co.cuidamos.migracion.ds.api.model.pdn.SstAtelGestionPdn;
 import co.cuidamos.migracion.ds.api.model.pdn.SstCapacitacionPlanDataPdn;
 import co.cuidamos.migracion.ds.api.model.pdn.SstComitesDataPdn;
+import co.cuidamos.migracion.ds.api.model.pdn.SstComitesFormPdn;
 import co.cuidamos.migracion.ds.api.model.pdn.SstControlesDataPdn;
 import co.cuidamos.migracion.ds.api.model.pdn.SstEmpresaGralDataPdn;
 import co.cuidamos.migracion.ds.api.model.pdn.SstEncuestasDataPdn;
@@ -85,6 +62,7 @@ import co.cuidamos.migracion.ds.api.model.certif.SstAtelCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstAtelGestionCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstCapacitacionCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstComitesCertif;
+import co.cuidamos.migracion.ds.api.model.certif.SstComitesFormCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstControlesCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstEmpresaEspecDataCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstEmpresaGralDataCertif;
@@ -105,6 +83,7 @@ import co.cuidamos.migracion.ds.api.certif.repository.SstAtelDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstAtelGestionDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstCapacitacionDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstComitesDao;
+import co.cuidamos.migracion.ds.api.certif.repository.SstComitesFormDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstControlesDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstEmpresaEspecDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstEmpresaGralDao;
@@ -285,6 +264,12 @@ public class MigrationServiceImpl implements MigrationService {
     
     @Autowired
     private SstComitesDao sstComitesDaoCertif;
+    
+    @Autowired
+    private SstComitesFormPdnDao sstComitesFormDao;
+    
+    @Autowired
+    private SstComitesFormDao sstComitesFormDaoCertif;
     
     @Override
     public void migrateSstEmpresaGral() {
@@ -5689,7 +5674,28 @@ public class MigrationServiceImpl implements MigrationService {
 
                 sstComitesDataPdns.parallelStream().forEach(sstComitesDataPdn -> {
 
-
+                	if(sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 65)
+                		sstComitesDTO.setFechaReunionVigia(Date.valueOf(sstComitesDataPdn.getResult()));
+                	
+                	if(sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 66)
+                		sstComitesDTO.setOtrosUsuariosReunionVigia(sstComitesDataPdn.getResult());
+                	
+                	if(sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 67)
+                		sstComitesDTO.setRevisionPlanTrabajoReuVigia(sstComitesDataPdn.getResult());
+                	
+                	if(sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 68)
+                		sstComitesDTO.setRevisionProgramaCapacitReuVigia(sstComitesDataPdn.getResult());
+                	
+                	if(sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 69)
+                		sstComitesDTO.setRevisionInspeccionReuVigia(sstComitesDataPdn.getResult());
+                	
+                	if(sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 70)
+                		sstComitesDTO.setOtrosPuntosReuVigia(sstComitesDataPdn.getResult());
+                	
+                	if (sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 71)
+                		sstComitesDTO.setFechaProxReunionVigia(Date.valueOf(sstComitesDataPdn.getResult()));
+                	
+                	sstComitesDTO.setTipComite(sstComitesDataPdn.getFidSstComitesField().getFidSstComitesTipo().getIdSstComitesTipo());
                 	
                 	sstComitesDTO.setSubdomain(sstComitesDataPdn.getFidCoreSubdomain().getIdCoreSubdomain());
                 	sstComitesDTO.setId(Long.valueOf(sstComitesDataPdn.getIdSstComitesData().toString()));
@@ -5720,14 +5726,153 @@ public class MigrationServiceImpl implements MigrationService {
 	@Override
 	public void migrateSstComitesDataDesignacionVigia() {
 		
+	List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
 		
+
+        coreSubdomainsList.forEach(coreSubdomains -> {
+            List<SstComitesDataPdn> sstComitesDataPdnList = sstComitesDao.getSstComitesDataBySubdomain(coreSubdomains.getIdCoreSubdomain());
+            sstComitesDataPdnList.
+                    parallelStream().collect(Collectors.groupingBy(SstComitesDataPdn::getModified)).forEach((date, sstComitesDataPdns) -> {
+
+                SstComitedDataDesignacionVigiaDTO sstComitesDTO = new SstComitedDataDesignacionVigiaDTO();
+                SstComitesCertif sstComitesCertif = new SstComitesCertif();
+                List<IntegranteDTO> lista = new ArrayList<IntegranteDTO>();
+                
+                sstComitesDataPdns.parallelStream().forEach(sstComitesDataPdn -> {
+                	
+                	if (sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 61)
+                		sstComitesDTO.setFechaActaDesignacionVigia(Date.valueOf(sstComitesDataPdn.getResult()));
+                	
+                	if (sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 62) {
+                		IntegranteDTO user = new IntegranteDTO();
+                		user.setId(Integer.valueOf(sstComitesDataPdn.getResult()));
+                		user.setUser(coreUsuarioDao.getFirstNameCoreUsuarioByIdUser(Integer.valueOf(sstComitesDataPdn.getResult()
+                				+ " " + coreUsuarioDao.getLastNameCoreUsuarioByIdUser(Integer.valueOf(sstComitesDataPdn.getResult())))));
+                		lista.add(user);
+                		
+                	}
+                		
+                	
+                	sstComitesDTO.setTipComite(sstComitesDataPdn.getFidSstComitesField().getFidSstComitesTipo().getIdSstComitesTipo());
+
+                	
+                	sstComitesDTO.setSubdomain(sstComitesDataPdn.getFidCoreSubdomain().getIdCoreSubdomain());
+                	sstComitesDTO.setId(Long.valueOf(sstComitesDataPdn.getIdSstComitesData().toString()));
+                    
+                	sstComitesCertif.setId(Long.valueOf(sstComitesDataPdn.getIdSstComitesData().toString()));
+                    sstComitesCertif.setChecked(sstComitesDataPdn.getChecked());
+                    sstComitesCertif.setEnable(sstComitesDataPdn.getEnable());
+                    sstComitesCertif.setModified(sstComitesDataPdn.getModified());
+                    sstComitesCertif.setCreated(sstComitesDataPdn.getCreated());
+                  
+                    
+                });
+
+                sstComitesDTO.setListadoUsuarios_Vigia(lista);
+                sstComitesCertif.setComitesData(JsonUtil.convertObjectToJson(sstComitesDTO));
+                sstComitesDaoCertif.save(sstComitesCertif);
+                System.out.println("------Migrando-----" + sstComitesCertif.getId() + "---------" + sstComitesDTO.getSubdomain());
+            });
+
+
+        });
+        System.out.println("Migracion comites designacion vigia completada");
 	}
 
 
 
 	@Override
 	public void migrateSstComitesDataReunionCopasst() {
+	List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
 		
+
+        coreSubdomainsList.forEach(coreSubdomains -> {
+            List<SstComitesDataPdn> sstComitesDataPdnList = sstComitesDao.getSstComitesDataBySubdomain(coreSubdomains.getIdCoreSubdomain());
+            sstComitesDataPdnList.
+                    parallelStream().collect(Collectors.groupingBy(SstComitesDataPdn::getModified)).forEach((date, sstComitesDataPdns) -> {
+
+                SstComitedDataReunionCopasstDTO sstComitesDTO = new SstComitedDataReunionCopasstDTO();
+                SstComitesCertif sstComitesCertif = new SstComitesCertif();
+                List<IntegranteDTO> lista = new ArrayList<IntegranteDTO>();
+                List<IntegranteDTO> lista1 = new ArrayList<IntegranteDTO>();
+                ReunionDTO temas = new ReunionDTO();
+
+                sstComitesDataPdns.parallelStream().forEach(sstComitesDataPdn -> {
+
+                	if (sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 21)
+                		sstComitesDTO.setPersonasOtrosReuCopasst(sstComitesDataPdn.getResult());
+                	
+                	if (sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 20) {
+                		IntegranteDTO user = new IntegranteDTO();
+                		user.setId(Integer.valueOf(sstComitesDataPdn.getResult()));
+                		user.setUser(coreUsuarioDao.getFirstNameCoreUsuarioByIdUser(Integer.valueOf(sstComitesDataPdn.getResult()
+                				+ " " + coreUsuarioDao.getLastNameCoreUsuarioByIdUser(Integer.valueOf(sstComitesDataPdn.getResult())))));
+                		lista.add(user);
+                	}
+                	
+                	if (sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 26)
+                		sstComitesDTO.setHoraProxReunionCopasst(sstComitesDataPdn.getResult());
+                	
+                	if (sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 19)
+                		sstComitesDTO.setHoraInicioReunionCopasst(sstComitesDataPdn.getResult());
+                	
+                	if (sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 24)
+                		sstComitesDTO.setHoraFinReunionCopasst(sstComitesDataPdn.getResult());
+                	
+                	if (sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 18)
+                		sstComitesDTO.setFechaReunion_Copasst(Date.valueOf(sstComitesDataPdn.getResult()));
+                	
+                	if (sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 25)
+                		sstComitesDTO.setFechaProxReunionCopasst(Date.valueOf(sstComitesDataPdn.getResult()));
+                	
+                	if (sstComitesDataPdn.getFidSstComitesField().getFidCoreTipoRecurso() == 30) 
+                		temas.setTemaTratado(sstComitesDataPdn.getResult());
+                	
+                	if (sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 31)
+                		temas.setPlanAccion(sstComitesDataPdn.getResult());
+                	
+                	if (sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 32) {
+                		IntegranteDTO user = new IntegranteDTO();
+                		user.setId(Integer.valueOf(sstComitesDataPdn.getResult()));
+                		user.setUser(coreUsuarioDao.getFirstNameCoreUsuarioByIdUser(Integer.valueOf(sstComitesDataPdn.getResult()
+                				+ " " + coreUsuarioDao.getLastNameCoreUsuarioByIdUser(Integer.valueOf(sstComitesDataPdn.getResult())))));
+                		lista1.add(user);
+                	}
+                	
+                	if (sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 33) 
+                		temas.setFechaEjecucion(Date.valueOf(sstComitesDataPdn.getResult()));
+                	
+                	if (sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 34)
+                		temas.setObservacion(sstComitesDataPdn.getResult());
+                	
+                	if (sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 23)
+                		sstComitesDTO.setObservacionesReuCopasst(sstComitesDataPdn.getResult());
+
+                	sstComitesDTO.setTipComite(sstComitesDataPdn.getFidSstComitesField().getFidSstComitesTipo().getIdSstComitesTipo());
+
+                	sstComitesDTO.setSubdomain(sstComitesDataPdn.getFidCoreSubdomain().getIdCoreSubdomain());
+                	sstComitesDTO.setId(Long.valueOf(sstComitesDataPdn.getIdSstComitesData().toString()));
+                    
+                	sstComitesCertif.setId(Long.valueOf(sstComitesDataPdn.getIdSstComitesData().toString()));
+                    sstComitesCertif.setChecked(sstComitesDataPdn.getChecked());
+                    sstComitesCertif.setEnable(sstComitesDataPdn.getEnable());
+                    sstComitesCertif.setModified(sstComitesDataPdn.getModified());
+                    sstComitesCertif.setCreated(sstComitesDataPdn.getCreated());
+                  
+                    
+                });
+
+                temas.setListadoUsuarios_responsable(lista1);
+                sstComitesDTO.setTemasTratados(temas);
+                sstComitesDTO.setListadoUsuarios_ReuCopasst(lista);
+                sstComitesCertif.setComitesData(JsonUtil.convertObjectToJson(sstComitesDTO));
+                sstComitesDaoCertif.save(sstComitesCertif);
+                System.out.println("------Migrando-----" + sstComitesCertif.getId() + "---------" + sstComitesDTO.getSubdomain());
+            });
+
+
+        });
+        System.out.println("Migracion comites reunion copasst completada");
 		
 	}
 
@@ -5736,7 +5881,68 @@ public class MigrationServiceImpl implements MigrationService {
 	@Override
 	public void migrateSstComitesDataConformacionCopasst() {
 		
+	List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
 		
+
+        coreSubdomainsList.forEach(coreSubdomains -> {
+            List<SstComitesDataPdn> sstComitesDataPdnList = sstComitesDao.getSstComitesDataBySubdomain(coreSubdomains.getIdCoreSubdomain());
+            sstComitesDataPdnList.
+                    parallelStream().collect(Collectors.groupingBy(SstComitesDataPdn::getModified)).forEach((date, sstComitesDataPdns) -> {
+
+                SstComitedDataDesignacionCopasstDTO sstComitesDTO = new SstComitedDataDesignacionCopasstDTO();
+                SstComitesCertif sstComitesCertif = new SstComitesCertif();
+                List<IntegranteDTO> lista = new ArrayList<IntegranteDTO>();
+                List<IntegranteDTO> lista1 = new ArrayList<IntegranteDTO>();
+
+                sstComitesDataPdns.parallelStream().forEach(sstComitesDataPdn -> {
+
+                	if (sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 6)
+                		sstComitesDTO.setFechaActa_Copasst(Date.valueOf(sstComitesDataPdn.getResult()));
+                	
+                	if (sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 13) {
+                		IntegranteDTO user = new IntegranteDTO();
+                		user.setId(Integer.valueOf(sstComitesDataPdn.getResult()));
+                		user.setUser(coreUsuarioDao.getFirstNameCoreUsuarioByIdUser(Integer.valueOf(sstComitesDataPdn.getResult()
+                				+ " " + coreUsuarioDao.getLastNameCoreUsuarioByIdUser(Integer.valueOf(sstComitesDataPdn.getResult())))));
+                		lista.add(user);
+                	}
+                	
+                	if (sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 15) {
+                		IntegranteDTO user = new IntegranteDTO();
+                		user.setId(Integer.valueOf(sstComitesDataPdn.getResult()));
+                		user.setUser(coreUsuarioDao.getFirstNameCoreUsuarioByIdUser(Integer.valueOf(sstComitesDataPdn.getResult()
+                				+ " " + coreUsuarioDao.getLastNameCoreUsuarioByIdUser(Integer.valueOf(sstComitesDataPdn.getResult())))));
+                		lista1.add(user);
+                	}
+                	
+                	if (sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 9)
+                		sstComitesDTO.setModalidadRepresentTrabajCopasst(Integer.valueOf(sstComitesDataPdn.getResult()));
+                	
+                	
+
+                	sstComitesDTO.setTipComite(sstComitesDataPdn.getFidSstComitesField().getFidSstComitesTipo().getIdSstComitesTipo());
+                	sstComitesDTO.setSubdomain(sstComitesDataPdn.getFidCoreSubdomain().getIdCoreSubdomain());
+                	sstComitesDTO.setId(Long.valueOf(sstComitesDataPdn.getIdSstComitesData().toString()));
+                    
+                	sstComitesCertif.setId(Long.valueOf(sstComitesDataPdn.getIdSstComitesData().toString()));
+                    sstComitesCertif.setChecked(sstComitesDataPdn.getChecked());
+                    sstComitesCertif.setEnable(sstComitesDataPdn.getEnable());
+                    sstComitesCertif.setModified(sstComitesDataPdn.getModified());
+                    sstComitesCertif.setCreated(sstComitesDataPdn.getCreated());
+                  
+                    
+                });
+
+                sstComitesDTO.setListadoUsuarios_Emplea(lista1);
+                sstComitesDTO.setListadoUsuarios_Trabaj(lista);
+                sstComitesCertif.setComitesData(JsonUtil.convertObjectToJson(sstComitesDTO));
+                sstComitesDaoCertif.save(sstComitesCertif);
+                System.out.println("------Migrando-----" + sstComitesCertif.getId() + "---------" + sstComitesDTO.getSubdomain());
+            });
+
+
+        });
+        System.out.println("Migracion comites conformacion copasst completada");
 	}
 
 
@@ -5744,15 +5950,184 @@ public class MigrationServiceImpl implements MigrationService {
 	@Override
 	public void migrateSstComitesDataConformacionComiteConvivencia() {
 		
+	List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
 		
+
+        coreSubdomainsList.forEach(coreSubdomains -> {
+            List<SstComitesDataPdn> sstComitesDataPdnList = sstComitesDao.getSstComitesDataBySubdomain(coreSubdomains.getIdCoreSubdomain());
+            sstComitesDataPdnList.
+                    parallelStream().collect(Collectors.groupingBy(SstComitesDataPdn::getModified)).forEach((date, sstComitesDataPdns) -> {
+
+                SstComitedDataConformacionComiteConvivenciaDTO sstComitesDTO = new SstComitedDataConformacionComiteConvivenciaDTO();
+                SstComitesCertif sstComitesCertif = new SstComitesCertif();
+                List<IntegranteDTO> lista = new ArrayList<IntegranteDTO>();
+                List<IntegranteDTO> lista1 = new ArrayList<IntegranteDTO>();
+
+                sstComitesDataPdns.parallelStream().forEach(sstComitesDataPdn -> {
+
+                	if (sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 37)
+                		sstComitesDTO.setFechaActa_ConvivenciaM(Date.valueOf(sstComitesDataPdn.getResult()));
+                	
+                	if (sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 39) {
+                		IntegranteDTO user = new IntegranteDTO();
+                		user.setId(Integer.valueOf(sstComitesDataPdn.getResult()));
+                		user.setUser(coreUsuarioDao.getFirstNameCoreUsuarioByIdUser(Integer.valueOf(sstComitesDataPdn.getResult()
+                				+ " " + coreUsuarioDao.getLastNameCoreUsuarioByIdUser(Integer.valueOf(sstComitesDataPdn.getResult())))));
+                		lista.add(user);
+                	}
+                	
+                	if (sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 40)
+                		sstComitesDTO.setModalidadRepresentTrabajConviv(Integer.valueOf(sstComitesDataPdn.getResult()));
+                	
+                	if (sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 46) {
+                		IntegranteDTO user = new IntegranteDTO();
+                		user.setId(Integer.valueOf(sstComitesDataPdn.getResult()));
+                		user.setUser(coreUsuarioDao.getFirstNameCoreUsuarioByIdUser(Integer.valueOf(sstComitesDataPdn.getResult()
+                				+ " " + coreUsuarioDao.getLastNameCoreUsuarioByIdUser(Integer.valueOf(sstComitesDataPdn.getResult())))));
+                		lista1.add(user);
+                	}
+
+                	sstComitesDTO.setTipComite(sstComitesDataPdn.getFidSstComitesField().getFidSstComitesTipo().getIdSstComitesTipo());
+                	sstComitesDTO.setSubdomain(sstComitesDataPdn.getFidCoreSubdomain().getIdCoreSubdomain());
+                	sstComitesDTO.setId(Long.valueOf(sstComitesDataPdn.getIdSstComitesData().toString()));
+                    
+                	sstComitesCertif.setId(Long.valueOf(sstComitesDataPdn.getIdSstComitesData().toString()));
+                    sstComitesCertif.setChecked(sstComitesDataPdn.getChecked());
+                    sstComitesCertif.setEnable(sstComitesDataPdn.getEnable());
+                    sstComitesCertif.setModified(sstComitesDataPdn.getModified());
+                    sstComitesCertif.setCreated(sstComitesDataPdn.getCreated());
+                  
+                    
+                });
+                sstComitesDTO.setListadoUsuarios_EmpleaConviv(lista1);
+                sstComitesDTO.setListadoUsuarios_ConvivTrabaj(lista);
+                sstComitesCertif.setComitesData(JsonUtil.convertObjectToJson(sstComitesDTO));
+                sstComitesDaoCertif.save(sstComitesCertif);
+                System.out.println("------Migrando-----" + sstComitesCertif.getId() + "---------" + sstComitesDTO.getSubdomain());
+            });
+
+
+        });
+        System.out.println("Migracion comites conformacion comite convivencia completada");
 	}
 
 
 
 	@Override
 	public void migrateSstComitesDataReunionComiteConvivencia() {
+	List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
 		
+
+        coreSubdomainsList.forEach(coreSubdomains -> {
+            List<SstComitesDataPdn> sstComitesDataPdnList = sstComitesDao.getSstComitesDataBySubdomain(coreSubdomains.getIdCoreSubdomain());
+            sstComitesDataPdnList.
+                    parallelStream().collect(Collectors.groupingBy(SstComitesDataPdn::getModified)).forEach((date, sstComitesDataPdns) -> {
+
+                SstComitedDataReunionComiteConvivenciaDTO sstComitesDTO = new SstComitedDataReunionComiteConvivenciaDTO();
+                SstComitesCertif sstComitesCertif = new SstComitesCertif();
+                List<IntegranteDTO> lista = new ArrayList<IntegranteDTO>();
+                ReunionConvivenciaDTO temas = new ReunionConvivenciaDTO();
+
+                sstComitesDataPdns.parallelStream().forEach(sstComitesDataPdn -> {
+
+                	if (sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 50)
+                		sstComitesDTO.setFechaReunion_Convivencia(Date.valueOf(sstComitesDataPdn.getResult()));
+                	
+                	if (sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 53)
+                		sstComitesDTO.setFechaProxReunionConvivencia(Date.valueOf(sstComitesDataPdn.getResult()));
+                	
+                	if (sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 54)
+                		sstComitesDTO.setHoraProxReunionConvivencia(sstComitesDataPdn.getResult());
+                	
+                	if (sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 56) 
+                		temas.setTemaTratadoConviv(sstComitesDataPdn.getResult());
+                	
+                	if (sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 57)
+                		temas.setMedidasRecomendConviv(sstComitesDataPdn.getResult());
+                	
+                	if (sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 58) {
+                		IntegranteDTO user = new IntegranteDTO();
+                		user.setId(Integer.valueOf(sstComitesDataPdn.getResult()));
+                		user.setUser(coreUsuarioDao.getFirstNameCoreUsuarioByIdUser(Integer.valueOf(sstComitesDataPdn.getResult()
+                				+ " " + coreUsuarioDao.getLastNameCoreUsuarioByIdUser(Integer.valueOf(sstComitesDataPdn.getResult())))));
+                		lista.add(user);
+                	}
+                	
+                	if (sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 59)
+                		temas.setFechaEjecucionConviv(Date.valueOf(sstComitesDataPdn.getResult()));
+                	
+                	if (sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 60)
+                		temas.setObservacionConviv(sstComitesDataPdn.getResult());
+
+                	sstComitesDTO.setTipComite(sstComitesDataPdn.getFidSstComitesField().getFidSstComitesTipo().getIdSstComitesTipo());
+                	sstComitesDTO.setSubdomain(sstComitesDataPdn.getFidCoreSubdomain().getIdCoreSubdomain());
+                	sstComitesDTO.setId(Long.valueOf(sstComitesDataPdn.getIdSstComitesData().toString()));
+                    
+                	sstComitesCertif.setId(Long.valueOf(sstComitesDataPdn.getIdSstComitesData().toString()));
+                    sstComitesCertif.setChecked(sstComitesDataPdn.getChecked());
+                    sstComitesCertif.setEnable(sstComitesDataPdn.getEnable());
+                    sstComitesCertif.setModified(sstComitesDataPdn.getModified());
+                    sstComitesCertif.setCreated(sstComitesDataPdn.getCreated());
+                  
+                    
+                });
+
+                temas.setListadoUsuarios_responsableConviv(lista);
+                sstComitesDTO.setTemasTratados(temas);
+                sstComitesCertif.setComitesData(JsonUtil.convertObjectToJson(sstComitesDTO));
+                sstComitesDaoCertif.save(sstComitesCertif);
+                System.out.println("------Migrando-----" + sstComitesCertif.getId() + "---------" + sstComitesDTO.getSubdomain());
+            });
+
+
+        });
+        System.out.println("Migracion comites reunion comite convivencia completada");
 		
+	}
+
+
+
+	@Override
+	public void migrateSstComitesForm() {
+		
+		List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
+		
+
+        coreSubdomainsList.forEach(coreSubdomains -> {
+            List<SstComitesFormPdn> sstComitesFormPdnList = sstComitesFormDao.getSstComitesFormBySubdomain(coreSubdomains.getIdCoreSubdomain()); 
+            sstComitesFormPdnList.
+                    parallelStream().collect(Collectors.groupingBy(SstComitesFormPdn::getModified)).forEach((date, sstComitesFormPdns) -> {
+
+                
+                SstComitesFormCertif sstComitesFormCertif = new SstComitesFormCertif();
+
+                
+                sstComitesFormPdns.parallelStream().forEach(sstComitesFormPdn -> {
+
+                	
+                	sstComitesFormCertif.setFidSstComitesTipo(Integer.valueOf(sstComitesFormPdn.getFidSstComitesTipo()));
+                	
+                    sstComitesFormCertif.setIdSstComitesForm(Long.valueOf(sstComitesFormPdn.getIdSstComitesForm().toString())); 
+
+                    sstComitesFormCertif.setChecked(sstComitesFormPdn.getChecked());
+                    sstComitesFormCertif.setEnable(sstComitesFormPdn.getEnable());
+                    sstComitesFormCertif.setModified(sstComitesFormPdn.getModified());
+                    sstComitesFormCertif.setCreated(sstComitesFormPdn.getCreated());
+                    
+                    sstComitesFormCertif.setFidCoreSubdomain(sstComitesFormPdn.getFidCoreSubdomain().getIdCoreSubdomain());
+
+                    
+                });
+                
+
+                sstComitesFormDaoCertif.save(sstComitesFormCertif);
+                System.out.println("------Migrando-----" + sstComitesFormCertif.getIdSstComitesForm() + "---------" + sstComitesFormCertif.getFidCoreSubdomain());
+            });
+
+
+        });
+
+        System.out.println("Migracion sstComitesForm completada");
 	}
 
 

@@ -22,13 +22,13 @@ public class SstComitedDataReunionCopasstDTO implements Serializable {
 	
 	private Date fechaProxReunionCopasst;
 	
-	private List<ReunionDTO> temasTratados;
+	private ReunionDTO temasTratados;
 	
 	private String ObservacionesReuCopasst;
 	
 	private String subdomain;
 	
-	private String tipComite;
+	private Integer tipComite;
 
 	public Long getId() {
 		return id;
@@ -111,19 +111,19 @@ public class SstComitedDataReunionCopasstDTO implements Serializable {
 		this.subdomain = subdomain;
 	}
 
-	public String getTipComite() {
+	public Integer getTipComite() {
 		return tipComite;
 	}
 
-	public void setTipComite(String tipComite) {
+	public void setTipComite(Integer tipComite) {
 		this.tipComite = tipComite;
 	}
 
-	public List<ReunionDTO> getTemasTratados() {
+	public ReunionDTO getTemasTratados() {
 		return temasTratados;
 	}
 
-	public void setTemasTratados(List<ReunionDTO> temasTratados) {
+	public void setTemasTratados(ReunionDTO temasTratados) {
 		this.temasTratados = temasTratados;
 	}
 	

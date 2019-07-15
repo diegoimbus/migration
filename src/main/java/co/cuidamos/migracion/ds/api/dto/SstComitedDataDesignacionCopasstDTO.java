@@ -14,6 +14,10 @@ public class SstComitedDataDesignacionCopasstDTO implements Serializable{
 	
 	private String subdomain;
 	
+	private Integer modalidadRepresentTrabajCopasst;
+	
+	private List<IntegranteDTO> listadoUsuarios_Emplea;
+	
 	private Integer tipComite;
 
 	public Long getId() {
@@ -54,6 +58,22 @@ public class SstComitedDataDesignacionCopasstDTO implements Serializable{
 
 	public void setTipComite(Integer tipComite) {
 		this.tipComite = tipComite;
+	}
+
+	public Integer getModalidadRepresentTrabajCopasst() {
+		return modalidadRepresentTrabajCopasst;
+	}
+
+	public void setModalidadRepresentTrabajCopasst(Integer modalidadRepresentTrabajCopasst) {
+		this.modalidadRepresentTrabajCopasst = modalidadRepresentTrabajCopasst;
+	}
+
+	public List<IntegranteDTO> getListadoUsuarios_Emplea() {
+		return listadoUsuarios_Emplea;
+	}
+
+	public void setListadoUsuarios_Emplea(List<IntegranteDTO> listadoUsuarios_Emplea) {
+		this.listadoUsuarios_Emplea = listadoUsuarios_Emplea;
 	}
 	
 	

@@ -2,6 +2,7 @@ package co.cuidamos.migracion.ds.api.dto;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class ReunionDTO implements Serializable {
 
@@ -9,7 +10,7 @@ public class ReunionDTO implements Serializable {
 	
 	private String planAccion;
 	
-	private Integer listadoUsuarios_responsable;
+	private List<IntegranteDTO> listadoUsuarios_responsable;
 	
 	private Date fechaEjecucion;
 	
@@ -31,11 +32,14 @@ public class ReunionDTO implements Serializable {
 		this.planAccion = planAccion;
 	}
 
-	public Integer getListadoUsuarios_responsable() {
+
+	
+
+	public List<IntegranteDTO> getListadoUsuarios_responsable() {
 		return listadoUsuarios_responsable;
 	}
 
-	public void setListadoUsuarios_responsable(Integer listadoUsuarios_responsable) {
+	public void setListadoUsuarios_responsable(List<IntegranteDTO> listadoUsuarios_responsable) {
 		this.listadoUsuarios_responsable = listadoUsuarios_responsable;
 	}
 

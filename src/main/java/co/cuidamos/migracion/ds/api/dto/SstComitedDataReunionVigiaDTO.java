@@ -17,6 +17,8 @@ public class SstComitedDataReunionVigiaDTO implements Serializable{
 	
 	private String revisionInspeccionReuVigia;
 	
+	private String otrosPuntosReuVigia;
+	
 	private Date fechaProxReunionVigia;
 
 	private String subdomain;
@@ -93,6 +95,14 @@ public class SstComitedDataReunionVigiaDTO implements Serializable{
 
 	public void setTipComite(Integer tipComite) {
 		this.tipComite = tipComite;
+	}
+
+	public String getOtrosPuntosReuVigia() {
+		return otrosPuntosReuVigia;
+	}
+
+	public void setOtrosPuntosReuVigia(String otrosPuntosReuVigia) {
+		this.otrosPuntosReuVigia = otrosPuntosReuVigia;
 	}
 	
 	

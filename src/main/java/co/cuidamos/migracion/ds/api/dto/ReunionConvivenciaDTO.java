@@ -1,0 +1,60 @@
+package co.cuidamos.migracion.ds.api.dto;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
+
+public class ReunionConvivenciaDTO implements Serializable{
+
+	private String temaTratadoConviv;
+	
+	private String medidasRecomendConviv;
+	
+	private List<IntegranteDTO> listadoUsuarios_responsableConviv;
+	
+	private Date fechaEjecucionConviv;
+	
+	private String observacionConviv;
+
+	public String getTemaTratadoConviv() {
+		return temaTratadoConviv;
+	}
+
+	public void setTemaTratadoConviv(String temaTratadoConviv) {
+		this.temaTratadoConviv = temaTratadoConviv;
+	}
+
+	public String getMedidasRecomendConviv() {
+		return medidasRecomendConviv;
+	}
+
+	public void setMedidasRecomendConviv(String medidasRecomendConviv) {
+		this.medidasRecomendConviv = medidasRecomendConviv;
+	}
+
+	public List<IntegranteDTO> getListadoUsuarios_responsableConviv() {
+		return listadoUsuarios_responsableConviv;
+	}
+
+	public void setListadoUsuarios_responsableConviv(List<IntegranteDTO> listadoUsuarios_responsableConviv) {
+		this.listadoUsuarios_responsableConviv = listadoUsuarios_responsableConviv;
+	}
+
+	public Date getFechaEjecucionConviv() {
+		return fechaEjecucionConviv;
+	}
+
+	public void setFechaEjecucionConviv(Date fechaEjecucionConviv) {
+		this.fechaEjecucionConviv = fechaEjecucionConviv;
+	}
+
+	public String getObservacionConviv() {
+		return observacionConviv;
+	}
+
+	public void setObservacionConviv(String observacionConviv) {
+		this.observacionConviv = observacionConviv;
+	}
+	
+	
+}

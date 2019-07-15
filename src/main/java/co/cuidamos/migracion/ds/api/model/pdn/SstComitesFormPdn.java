@@ -105,7 +105,7 @@ public class SstComitesFormPdn implements Serializable{
 	public void setVersion(Integer version) {
 		this.version = version;
 	}
-	public SstComitesTipo getFidSstComitesTipo() {
+	public String getFidSstComitesTipo() {
 		return fidSstComitesTipo;
 	}
 	public void setFidSstComitesTipo(SstComitesTipo fidSstComitesTipo) {
