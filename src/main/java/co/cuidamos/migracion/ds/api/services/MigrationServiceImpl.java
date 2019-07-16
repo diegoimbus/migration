@@ -31,6 +31,8 @@ import co.cuidamos.migracion.ds.api.pdn.repository.SstRiesgosTipoFieldsDao;
 import co.cuidamos.migracion.ds.api.pdn.repository.SstRiesgosValoracionDataDao;
 import co.cuidamos.migracion.ds.api.pdn.repository.SstRiesgosValoracionFieldsDao;
 import co.cuidamos.migracion.ds.api.pdn.repository.SstSaludTrabajDataDao;
+import co.cuidamos.migracion.ds.api.pdn.repository.SstSociodemoDataPdnDao;
+import co.cuidamos.migracion.ds.api.pdn.repository.SstSociodemoFieldsDao;
 import co.cuidamos.migracion.ds.api.dto.*;
 import co.cuidamos.migracion.ds.api.util.JsonUtil;
 import co.cuidamos.migracion.ds.api.pdn.repository.CoreRecursoDao;
@@ -57,6 +59,7 @@ import co.cuidamos.migracion.ds.api.model.pdn.SstResponsabDataPdn;
 import co.cuidamos.migracion.ds.api.model.pdn.SstRiesgosTipoDataPdn;
 import co.cuidamos.migracion.ds.api.model.pdn.SstRiesgosValoracionDataPdn;
 import co.cuidamos.migracion.ds.api.model.pdn.SstSaludTrabajDataPdn;
+import co.cuidamos.migracion.ds.api.model.pdn.SstSociodemoDataPdn;
 import co.cuidamos.migracion.ds.api.model.certif.SstAmenazasCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstAtelCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstAtelGestionCertif;
@@ -78,6 +81,7 @@ import co.cuidamos.migracion.ds.api.model.certif.SstResponsableCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstRiesgosTipoCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstRiesgosValoracionCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstSaludTrabajadorCertif;
+import co.cuidamos.migracion.ds.api.model.certif.SstSociodemoCertif;
 import co.cuidamos.migracion.ds.api.certif.repository.SstAmenazasDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstAtelDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstAtelGestionDao;
@@ -99,6 +103,7 @@ import co.cuidamos.migracion.ds.api.certif.repository.SstResponsableDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstRiesgosTipoDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstRiesgosValoracionDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstSaludTrabajadorDao;
+import co.cuidamos.migracion.ds.api.certif.repository.SstSociodemoDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -270,6 +275,15 @@ public class MigrationServiceImpl implements MigrationService {
     
     @Autowired
     private SstComitesFormDao sstComitesFormDaoCertif;
+    
+    @Autowired
+    private SstSociodemoDataPdnDao sstSociodemoDataPdnDao;
+    
+    @Autowired
+    private SstSociodemoDao sstSociodemoDaoCertif;
+    
+    @Autowired
+    private SstSociodemoFieldsDao sstSociodemoFieldsDao;
     
     @Override
     public void migrateSstEmpresaGral() {
@@ -6105,7 +6119,7 @@ public class MigrationServiceImpl implements MigrationService {
                 sstComitesFormPdns.parallelStream().forEach(sstComitesFormPdn -> {
 
                 	
-                	sstComitesFormCertif.setFidSstComitesTipo(Integer.valueOf(sstComitesFormPdn.getFidSstComitesTipo()));
+                	sstComitesFormCertif.setFidSstComitesTipo(Integer.valueOf(String.valueOf(sstComitesFormPdn.getFidSstComitesTipo())));
                 	
                     sstComitesFormCertif.setIdSstComitesForm(Long.valueOf(sstComitesFormPdn.getIdSstComitesForm().toString())); 
 
@@ -6128,6 +6142,93 @@ public class MigrationServiceImpl implements MigrationService {
         });
 
         System.out.println("Migracion sstComitesForm completada");
+	}
+
+
+
+	@Override
+	public void migrateSstSociodemo() {
+		
+		List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
+		
+
+        coreSubdomainsList.forEach(coreSubdomains -> {
+            List<SstSociodemoDataPdn> sstSociodemoDataPdnList = sstSociodemoDataPdnDao.getSstSociodemoDataBySubdomain(coreSubdomains.getIdCoreSubdomain()); 
+            sstSociodemoDataPdnList.
+                    parallelStream().collect(Collectors.groupingBy(SstSociodemoDataPdn::getModified)).forEach((date, sstSociodemoDataPdns) -> {
+
+                SstSociodemoDTO sstSociodemoDTO = new SstSociodemoDTO();
+                SstSociodemoCertif sstSociodemoCertif = new SstSociodemoCertif();
+                List<SociodemoDTO> sociodemo = new ArrayList<SociodemoDTO>();
+
+                
+                sstSociodemoDataPdns.parallelStream().forEach(sstSociodemoDataPdn -> {
+
+                	
+                	SociodemoDTO socio = new SociodemoDTO();
+                	socio.setId(Long.valueOf(sstSociodemoDataPdn.getFidSstSociodemoForm().getFidUser().getIdUser()));
+                	socio.setUser(coreUsuarioDao.getFirstNameCoreUsuarioByIdUser(sstSociodemoDataPdn.getFidSstSociodemoForm().getFidUser().getIdUser())
+                			+" " +coreUsuarioDao.getLastNameCoreUsuarioByIdUser(sstSociodemoDataPdn.getFidSstSociodemoForm().getFidUser().getIdUser()));
+                	if (sstSociodemoDataPdn.getFidSstSociodemoField().getIdSstSociodemoField() == 1) {
+                		GenericoDTO registro = new GenericoDTO();
+                		registro.set_id(Integer.valueOf(sstSociodemoDataPdn.getResult()));
+                		registro.setLabel(sstSociodemoFieldsDao.getSstSociodemoFieldsLabelBySubdomain
+                				(Integer.valueOf(sstSociodemoDataPdn.getResult())));
+                		socio.setEstadoCivil(registro);
+                	}
+                	if (sstSociodemoDataPdn.getFidSstSociodemoField().getIdSstSociodemoField() == 2)
+                		socio.setNroHijos(sstSociodemoDataPdn.getResult());
+                	if (sstSociodemoDataPdn.getFidSstSociodemoField().getIdSstSociodemoField() == 3) {
+                		GenericoDTO registro = new GenericoDTO();
+                		registro.set_id(Integer.valueOf(sstSociodemoDataPdn.getResult()));
+                		registro.setLabel(sstSociodemoFieldsDao.getSstSociodemoFieldsLabelBySubdomain
+                				(Integer.valueOf(sstSociodemoDataPdn.getResult())));
+                		socio.setSexo(registro);
+                	}
+                	if(sstSociodemoDataPdn.getFidSstSociodemoField().getIdSstSociodemoField() == 4)
+                		socio.setEdad(sstSociodemoDataPdn.getResult());
+                	if (sstSociodemoDataPdn.getFidSstSociodemoField().getIdSstSociodemoField() == 5) {
+                		GenericoDTO registro = new GenericoDTO();
+                		registro.set_id(Integer.valueOf(sstSociodemoDataPdn.getResult()));
+                		registro.setLabel(sstSociodemoFieldsDao.getSstSociodemoFieldsLabelBySubdomain
+                				(Integer.valueOf(sstSociodemoDataPdn.getResult())));
+                		socio.setEscolaridadCumplida(registro);
+                	}
+                	if (sstSociodemoDataPdn.getFidSstSociodemoField().getIdSstSociodemoField() == 6) {
+                		GenericoDTO registro = new GenericoDTO();
+                		registro.set_id(Integer.valueOf(sstSociodemoDataPdn.getResult()));
+                		registro.setLabel(sstSociodemoFieldsDao.getSstSociodemoFieldsLabelBySubdomain
+                				(Integer.valueOf(sstSociodemoDataPdn.getResult())));
+                		socio.setEstrato(registro);
+                	}
+                	if (sstSociodemoDataPdn.getFidSstSociodemoField().getIdSstSociodemoField() == 26)
+                		socio.setAntiguedadEmpresa(sstSociodemoDataPdn.getResult());
+                	
+                	sociodemo.add(socio);
+                	
+                	sstSociodemoDTO.setSubdomain(sstSociodemoDataPdn.getFidCoreSubdomain().getIdCoreSubdomain());
+                	sstSociodemoDTO.setId(Long.valueOf(sstSociodemoDataPdn.getIdSstSociodemoData().toString()));
+                	
+                    sstSociodemoCertif.setId(Long.valueOf(sstSociodemoDataPdn.getIdSstSociodemoData().toString())); 
+
+                    sstSociodemoCertif.setChecked(sstSociodemoDataPdn.getChecked());
+                    sstSociodemoCertif.setEnable(sstSociodemoDataPdn.getEnable());
+                    sstSociodemoCertif.setModified(sstSociodemoDataPdn.getModified());
+                    sstSociodemoCertif.setCreated(sstSociodemoDataPdn.getCreated());
+                    
+               
+                    
+                });
+                sstSociodemoDTO.setUsers(sociodemo);
+                sstSociodemoCertif.setSstSociodemo(JsonUtil.convertObjectToJson(sstSociodemoDTO));
+                sstSociodemoDaoCertif.save(sstSociodemoCertif);
+                System.out.println("------Migrando-----" + sstSociodemoCertif.getId() + "---------" + sstSociodemoDTO.getSubdomain());
+            });
+
+
+        });
+
+        System.out.println("Migracion sstSociodemo completada");
 	}
 
 

@@ -55,4 +55,7 @@ public interface MigrationService {
     void migrateSstComitesDataReunionComiteConvivencia();
     
     void migrateSstComitesForm();
+    
+    void migrateSstSociodemo();
+
 }

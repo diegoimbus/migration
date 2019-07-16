@@ -3,22 +3,25 @@ package co.cuidamos.migracion.ds.api.model.pdn;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.*;
 
 
 @Entity
-@Table(name = "sst_comites_form")
-public class SstComitesFormPdn implements Serializable{
-	
+@Table(name = "sst_sociodemo_data")
+public class SstSociodemoDataPdn implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id_sst_comites_form")
-    private Integer idSstComitesForm;
+    @Column(name = "id_sst_sociodemo_data")
+    private Integer idSstSociodemoData;
+    @Column(name = "result")
+    private String result;
+    @Column(name = "observation")
+    private String observation;
     @Column(name = "_created")
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
@@ -37,19 +40,32 @@ public class SstComitesFormPdn implements Serializable{
     private String tags;
     @Column(name = "_version")
     private Integer version;
-    @JoinColumn(name = "fid_sst_comites_tipo", referencedColumnName = "id_sst_comites_tipo")
+    @JoinColumn(name = "fid_sst_sociodemo_field", referencedColumnName = "id_sst_sociodemo_field")
     @ManyToOne
-    private SstComitesTipo fidSstComitesTipo;
+    private SstSociodemoFields fidSstSociodemoField;
+    @JoinColumn(name = "fid_sst_sociodemo_form", referencedColumnName = "id_sst_sociodemo_form")
+    @ManyToOne
+    private SstSociodemoForm fidSstSociodemoForm;
     @JoinColumn(name = "fid_core_subdomain", referencedColumnName = "id_core_subdomain")
     @ManyToOne
     private CoreSubdomains fidCoreSubdomain;
-    @OneToMany(mappedBy = "fidSstComitesForm")
-    private Collection<SstComitesDataPdn> sstComiteDataCollection;
-	public Integer getIdSstComitesForm() {
-		return idSstComitesForm;
+	public Integer getIdSstSociodemoData() {
+		return idSstSociodemoData;
 	}
-	public void setIdSstComitesForm(Integer idSstComitesForm) {
-		this.idSstComitesForm = idSstComitesForm;
+	public void setIdSstSociodemoData(Integer idSstSociodemoData) {
+		this.idSstSociodemoData = idSstSociodemoData;
+	}
+	public String getResult() {
+		return result;
+	}
+	public void setResult(String result) {
+		this.result = result;
+	}
+	public String getObservation() {
+		return observation;
+	}
+	public void setObservation(String observation) {
+		this.observation = observation;
 	}
 	public Date getCreated() {
 		return created;
@@ -105,11 +121,17 @@ public class SstComitesFormPdn implements Serializable{
 	public void setVersion(Integer version) {
 		this.version = version;
 	}
-	public SstComitesTipo getFidSstComitesTipo() {
-		return fidSstComitesTipo;
+	public SstSociodemoFields getFidSstSociodemoField() {
+		return fidSstSociodemoField;
 	}
-	public void setFidSstComitesTipo(SstComitesTipo fidSstComitesTipo) {
-		this.fidSstComitesTipo = fidSstComitesTipo;
+	public void setFidSstSociodemoField(SstSociodemoFields fidSstSociodemoField) {
+		this.fidSstSociodemoField = fidSstSociodemoField;
+	}
+	public SstSociodemoForm getFidSstSociodemoForm() {
+		return fidSstSociodemoForm;
+	}
+	public void setFidSstSociodemoForm(SstSociodemoForm fidSstSociodemoForm) {
+		this.fidSstSociodemoForm = fidSstSociodemoForm;
 	}
 	public CoreSubdomains getFidCoreSubdomain() {
 		return fidCoreSubdomain;
@@ -117,16 +139,9 @@ public class SstComitesFormPdn implements Serializable{
 	public void setFidCoreSubdomain(CoreSubdomains fidCoreSubdomain) {
 		this.fidCoreSubdomain = fidCoreSubdomain;
 	}
-	public Collection<SstComitesDataPdn> getSstComiteDataCollection() {
-		return sstComiteDataCollection;
-	}
-	public void setSstComiteDataCollection(Collection<SstComitesDataPdn> sstComiteDataCollection) {
-		this.sstComiteDataCollection = sstComiteDataCollection;
-	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
     
     
-
 }

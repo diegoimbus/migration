@@ -1,8 +1,6 @@
 package co.cuidamos.migracion.ds.api.model.pdn;
 
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 
@@ -10,15 +8,16 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name = "sst_comites_form")
-public class SstComitesFormPdn implements Serializable{
+@Table(name = "sst_sociodemo_form")
+public class SstSociodemoForm  implements Serializable{
+
 	
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id_sst_comites_form")
-    private Integer idSstComitesForm;
+    @Column(name = "id_sst_sociodemo_form")
+    private Integer idSstSociodemoForm;
     @Column(name = "_created")
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
@@ -37,19 +36,19 @@ public class SstComitesFormPdn implements Serializable{
     private String tags;
     @Column(name = "_version")
     private Integer version;
-    @JoinColumn(name = "fid_sst_comites_tipo", referencedColumnName = "id_sst_comites_tipo")
-    @ManyToOne
-    private SstComitesTipo fidSstComitesTipo;
+    @OneToMany(mappedBy = "fidSstSociodemoForm")
+    private Collection<SstSociodemoDataPdn> sstSociodemoDataCollection;
     @JoinColumn(name = "fid_core_subdomain", referencedColumnName = "id_core_subdomain")
     @ManyToOne
     private CoreSubdomains fidCoreSubdomain;
-    @OneToMany(mappedBy = "fidSstComitesForm")
-    private Collection<SstComitesDataPdn> sstComiteDataCollection;
-	public Integer getIdSstComitesForm() {
-		return idSstComitesForm;
+    @JoinColumn(name = "fid_user", referencedColumnName = "id_user")
+    @ManyToOne
+    private CoreUsuario fidUser;
+	public Integer getIdSstSociodemoForm() {
+		return idSstSociodemoForm;
 	}
-	public void setIdSstComitesForm(Integer idSstComitesForm) {
-		this.idSstComitesForm = idSstComitesForm;
+	public void setIdSstSociodemoForm(Integer idSstSociodemoForm) {
+		this.idSstSociodemoForm = idSstSociodemoForm;
 	}
 	public Date getCreated() {
 		return created;
@@ -58,13 +57,7 @@ public class SstComitesFormPdn implements Serializable{
 		this.created = created;
 	}
 	public Date getModified() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        try {
-            return simpleDateFormat.parse(simpleDateFormat.format(modified));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return null;
+		return modified;
 	}
 	public void setModified(Date modified) {
 		this.modified = modified;
@@ -105,11 +98,11 @@ public class SstComitesFormPdn implements Serializable{
 	public void setVersion(Integer version) {
 		this.version = version;
 	}
-	public SstComitesTipo getFidSstComitesTipo() {
-		return fidSstComitesTipo;
+	public Collection<SstSociodemoDataPdn> getSstSociodemoDataCollection() {
+		return sstSociodemoDataCollection;
 	}
-	public void setFidSstComitesTipo(SstComitesTipo fidSstComitesTipo) {
-		this.fidSstComitesTipo = fidSstComitesTipo;
+	public void setSstSociodemoDataCollection(Collection<SstSociodemoDataPdn> sstSociodemoDataCollection) {
+		this.sstSociodemoDataCollection = sstSociodemoDataCollection;
 	}
 	public CoreSubdomains getFidCoreSubdomain() {
 		return fidCoreSubdomain;
@@ -117,16 +110,15 @@ public class SstComitesFormPdn implements Serializable{
 	public void setFidCoreSubdomain(CoreSubdomains fidCoreSubdomain) {
 		this.fidCoreSubdomain = fidCoreSubdomain;
 	}
-	public Collection<SstComitesDataPdn> getSstComiteDataCollection() {
-		return sstComiteDataCollection;
+	public CoreUsuario getFidUser() {
+		return fidUser;
 	}
-	public void setSstComiteDataCollection(Collection<SstComitesDataPdn> sstComiteDataCollection) {
-		this.sstComiteDataCollection = sstComiteDataCollection;
+	public void setFidUser(CoreUsuario fidUser) {
+		this.fidUser = fidUser;
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
     
     
-
 }
