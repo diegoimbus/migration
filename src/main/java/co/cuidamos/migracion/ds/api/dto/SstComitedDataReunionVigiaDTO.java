@@ -7,7 +7,7 @@ public class SstComitedDataReunionVigiaDTO implements Serializable{
 	
 	private Long id;
 	
-	private Date fechaReunionVigia;
+	private String fechaReunionVigia;
 	
 	private String otrosUsuariosReunionVigia;
 	
@@ -19,7 +19,7 @@ public class SstComitedDataReunionVigiaDTO implements Serializable{
 	
 	private String otrosPuntosReuVigia;
 	
-	private Date fechaProxReunionVigia;
+	private String fechaProxReunionVigia;
 
 	private String subdomain;
 	
@@ -33,12 +33,12 @@ public class SstComitedDataReunionVigiaDTO implements Serializable{
 		this.id = id;
 	}
 
-	public Date getFechaReunionVigia() {
+	public String getFechaReunionVigia() {
 		return fechaReunionVigia;
 	}
 
-	public void setFechaReunionVigia(Date fechaReunionVigia) {
-		this.fechaReunionVigia = fechaReunionVigia;
+	public void setFechaReunionVigia(String string) {
+		this.fechaReunionVigia = string;
 	}
 
 	public String getOtrosUsuariosReunionVigia() {
@@ -73,11 +73,13 @@ public class SstComitedDataReunionVigiaDTO implements Serializable{
 		this.revisionInspeccionReuVigia = revisionInspeccionReuVigia;
 	}
 
-	public Date getFechaProxReunionVigia() {
+
+
+	public String getFechaProxReunionVigia() {
 		return fechaProxReunionVigia;
 	}
 
-	public void setFechaProxReunionVigia(Date fechaProxReunionVigia) {
+	public void setFechaProxReunionVigia(String fechaProxReunionVigia) {
 		this.fechaProxReunionVigia = fechaProxReunionVigia;
 	}
 

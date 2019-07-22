@@ -1,21 +1,21 @@
 package co.cuidamos.migracion.ds.api.model.pdn;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Collection;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "sst_capacitacion_fields")
-public class SstCapacitacionFields implements Serializable {
+@Table(name = "sst_capacitacion_plan_fields")
+public class SstCapacitacionPlanFields implements Serializable {
 	
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id_sst_capacitacion_field")
-    private Integer idSstCapacitacionField;
+    @Column(name = "id_sst_capacitacion_plan_field")
+    private Integer idSstCapacitacionPlanField;
     @Column(name = "label")
     private String label;
     @Column(name = "parent")
@@ -46,15 +46,19 @@ public class SstCapacitacionFields implements Serializable {
     private String defaultValues;
     @Column(name = "fid_core_tipo_recurso")
     private Integer fidCoreTipoRecurso;
+    @OneToMany(mappedBy = "fidSstCapacitacionPlanField")
+    private Collection<SstCapacitacionPlanDataPdn> sstCapacitacionPlanDataCollection;
+
     @Column(name = "upload_number_files")
     private Integer uploadNumberFiles;
-    @OneToMany(mappedBy = "fidSstCapacitacionField")
-    private Collection<SstCapacitacionPlanDataPdn> sstCapacitacionDataCollection;
-	public Integer getIdSstCapacitacionField() {
-		return idSstCapacitacionField;
+    @JoinColumn(name = "fid_capacitacion_tipo", referencedColumnName = "id_sst_capacitacion_tipo")
+    @ManyToOne
+    private SstCapacitacionTipo fidSstCapacitacionTipo;
+	public Integer getIdSstCapacitacionPlanField() {
+		return idSstCapacitacionPlanField;
 	}
-	public void setIdSstCapacitacionField(Integer idSstCapacitacionField) {
-		this.idSstCapacitacionField = idSstCapacitacionField;
+	public void setIdSstCapacitacionPlanField(Integer idSstCapacitacionPlanField) {
+		this.idSstCapacitacionPlanField = idSstCapacitacionPlanField;
 	}
 	public String getLabel() {
 		return label;
@@ -140,22 +144,31 @@ public class SstCapacitacionFields implements Serializable {
 	public void setFidCoreTipoRecurso(Integer fidCoreTipoRecurso) {
 		this.fidCoreTipoRecurso = fidCoreTipoRecurso;
 	}
+	public Collection<SstCapacitacionPlanDataPdn> getSstCapacitacionPlanDataCollection() {
+		return sstCapacitacionPlanDataCollection;
+	}
+	public void setSstCapacitacionPlanDataCollection(
+			Collection<SstCapacitacionPlanDataPdn> sstCapacitacionPlanDataCollection) {
+		this.sstCapacitacionPlanDataCollection = sstCapacitacionPlanDataCollection;
+	}
 	public Integer getUploadNumberFiles() {
 		return uploadNumberFiles;
 	}
 	public void setUploadNumberFiles(Integer uploadNumberFiles) {
 		this.uploadNumberFiles = uploadNumberFiles;
 	}
-	public Collection<SstCapacitacionPlanDataPdn> getSstCapacitacionDataCollection() {
-		return sstCapacitacionDataCollection;
+	public SstCapacitacionTipo getFidSstCapacitacionTipo() {
+		return fidSstCapacitacionTipo;
 	}
-	public void setSstCapacitacionDataCollection(Collection<SstCapacitacionPlanDataPdn> sstCapacitacionDataCollection) {
-		this.sstCapacitacionDataCollection = sstCapacitacionDataCollection;
+	public void setFidSstCapacitacionTipo(SstCapacitacionTipo fidSstCapacitacionTipo) {
+		this.fidSstCapacitacionTipo = fidSstCapacitacionTipo;
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
+	    
+	    
     
 
 }

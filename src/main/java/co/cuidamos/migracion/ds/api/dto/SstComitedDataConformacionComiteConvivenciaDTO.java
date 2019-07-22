@@ -8,7 +8,7 @@ public class SstComitedDataConformacionComiteConvivenciaDTO implements Serializa
 	
 	private Long id;
 	
-	private Date fechaActa_ConvivenciaM;
+	private String fechaActa_ConvivenciaM;
 	
 	private List<IntegranteDTO> listadoUsuarios_ConvivTrabaj;
 	
@@ -28,12 +28,12 @@ public class SstComitedDataConformacionComiteConvivenciaDTO implements Serializa
 		this.id = id;
 	}
 
-	public Date getFechaActa_ConvivenciaM() {
+	public String getFechaActa_ConvivenciaM() {
 		return fechaActa_ConvivenciaM;
 	}
 
-	public void setFechaActa_ConvivenciaM(Date fechaActa_ConvivenciaM) {
-		this.fechaActa_ConvivenciaM = fechaActa_ConvivenciaM;
+	public void setFechaActa_ConvivenciaM(String string) {
+		this.fechaActa_ConvivenciaM = string;
 	}
 
 	public List<IntegranteDTO> getListadoUsuarios_ConvivTrabaj() {

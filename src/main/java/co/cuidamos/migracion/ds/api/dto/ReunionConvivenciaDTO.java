@@ -12,7 +12,7 @@ public class ReunionConvivenciaDTO implements Serializable{
 	
 	private List<IntegranteDTO> listadoUsuarios_responsableConviv;
 	
-	private Date fechaEjecucionConviv;
+	private String fechaEjecucionConviv;
 	
 	private String observacionConviv;
 
@@ -40,12 +40,12 @@ public class ReunionConvivenciaDTO implements Serializable{
 		this.listadoUsuarios_responsableConviv = listadoUsuarios_responsableConviv;
 	}
 
-	public Date getFechaEjecucionConviv() {
+	public String getFechaEjecucionConviv() {
 		return fechaEjecucionConviv;
 	}
 
-	public void setFechaEjecucionConviv(Date fechaEjecucionConviv) {
-		this.fechaEjecucionConviv = fechaEjecucionConviv;
+	public void setFechaEjecucionConviv(String string) {
+		this.fechaEjecucionConviv = string;
 	}
 
 	public String getObservacionConviv() {

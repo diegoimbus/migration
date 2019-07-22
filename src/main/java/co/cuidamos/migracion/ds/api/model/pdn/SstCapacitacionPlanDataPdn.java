@@ -44,10 +44,12 @@ public class SstCapacitacionPlanDataPdn implements Serializable {
     private CoreSubdomains fidCoreSubdomain;
     @JoinColumn(name = "fid_sst_capacitacion_plan_field", referencedColumnName = "id_sst_capacitacion_plan_field")
     @ManyToOne
-    private SstCapacitacionFields fidSstCapacitacionPlanField;
+    private SstCapacitacionPlanFields fidSstCapacitacionPlanField;
+    @JoinColumn(name = "fid_sst_capacitacion_plan_form", referencedColumnName = "id_sst_capacitacion_plan_form")
+    @ManyToOne
+    private SstCapacitacionPlanForm fidSstCapacitacionPlanForm;
 	
     public Integer getIdSstCapacitacionPlanData() {
-		
 		return idSstCapacitacionPlanData;
 	}
 	public void setIdSstCapacitacionPlanData(Integer idSstCapacitacionPlanData) {
@@ -125,14 +127,20 @@ public class SstCapacitacionPlanDataPdn implements Serializable {
 	public void setFidCoreSubdomain(CoreSubdomains fidCoreSubdomain) {
 		this.fidCoreSubdomain = fidCoreSubdomain;
 	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-	public SstCapacitacionFields getFidSstCapacitacionPlanField() {
+	public SstCapacitacionPlanFields getFidSstCapacitacionPlanField() {
 		return fidSstCapacitacionPlanField;
 	}
-	public void setFidSstCapacitacionPlanField(SstCapacitacionFields fidSstCapacitacionPlanField) {
+	public void setFidSstCapacitacionPlanField(SstCapacitacionPlanFields fidSstCapacitacionPlanField) {
 		this.fidSstCapacitacionPlanField = fidSstCapacitacionPlanField;
+	}
+	public SstCapacitacionPlanForm getFidSstCapacitacionPlanForm() {
+		return fidSstCapacitacionPlanForm;
+	}
+	public void setFidSstCapacitacionPlanForm(SstCapacitacionPlanForm fidSstCapacitacionPlanForm) {
+		this.fidSstCapacitacionPlanForm = fidSstCapacitacionPlanForm;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
     

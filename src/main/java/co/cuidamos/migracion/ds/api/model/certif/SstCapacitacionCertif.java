@@ -20,7 +20,7 @@ public class SstCapacitacionCertif {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id_sst_at_el_gestion")
+    @Column(name = "id")
     private Long id;
     
     @NotNull

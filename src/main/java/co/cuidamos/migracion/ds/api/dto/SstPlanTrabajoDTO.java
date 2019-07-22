@@ -19,7 +19,7 @@ public class SstPlanTrabajoDTO implements Serializable {
 	
 	private String recPersonPlan1;
 	
-	private Date fechaRealPlan1;
+	private String fechaRealPlan1;
 	
 	private GenericoDTO estadoPlanTrabajo;
 	
@@ -81,12 +81,12 @@ public class SstPlanTrabajoDTO implements Serializable {
 		this.recPersonPlan1 = recPersonPlan1;
 	}
 
-	public Date getFechaRealPlan1() {
+	public String getFechaRealPlan1() {
 		return fechaRealPlan1;
 	}
 
-	public void setFechaRealPlan1(Date fechaRealPlan1) {
-		this.fechaRealPlan1 = fechaRealPlan1;
+	public void setFechaRealPlan1(String string) {
+		this.fechaRealPlan1 = string;
 	}
 
 	public GenericoDTO getEstadoPlanTrabajo() {

@@ -14,7 +14,7 @@ import co.cuidamos.migracion.ds.api.model.pdn.CoreUsuario;
 public interface CoreUsuarioDao  extends JpaRepository<CoreUsuario, Long>{
 	
     @Query(value = "SELECT first_name FROM core_usuario WHERE id_user = :id", nativeQuery = true)
-    public String getFirstNameCoreUsuarioByIdUser(@Param("id") Integer id);
+    public String getFirstNameCoreUsuarioByIdUser(@Param("id") Integer string);
     
     @Query(value = "SELECT last_name FROM core_usuario WHERE id_user = :id", nativeQuery = true)
     public String getLastNameCoreUsuarioByIdUser(@Param("id") Integer id);

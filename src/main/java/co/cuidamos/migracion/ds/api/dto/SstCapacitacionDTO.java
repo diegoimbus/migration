@@ -2,6 +2,7 @@ package co.cuidamos.migracion.ds.api.dto;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.Collection;
 import java.util.List;
 
 public class SstCapacitacionDTO implements Serializable {
@@ -10,11 +11,11 @@ public class SstCapacitacionDTO implements Serializable {
 	
 	private String nombreCapacitacion;
 	
-	private List<IntegranteDTO> listaUsuarios;
+	private Collection<IntegranteDTO> listaUsuarios;
 	
-	private Date dateInicioCapacitacion;
+	private String dateInicioCapacitacion;
 	
-	private Date dateCumpliCapacitacion;
+	private String dateCumpliCapacitacion;
 	
 	private GenericoDTO estadoCapacitacion;
 	
@@ -38,28 +39,28 @@ public class SstCapacitacionDTO implements Serializable {
 		this.nombreCapacitacion = nombreCapacitacion;
 	}
 
-	public List<IntegranteDTO> getListaUsuarios() {
+	public Collection<IntegranteDTO> getListaUsuarios() {
 		return listaUsuarios;
 	}
 
-	public void setListaUsuarios(List<IntegranteDTO> listaUsuarios) {
-		this.listaUsuarios = listaUsuarios;
+	public void setListaUsuarios(Collection<IntegranteDTO> lista) {
+		this.listaUsuarios = lista;
 	}
 
-	public Date getDateInicioCapacitacion() {
+	public String getDateInicioCapacitacion() {
 		return dateInicioCapacitacion;
 	}
 
-	public void setDateInicioCapacitacion(Date dateInicioCapacitacion) {
+	public void setDateInicioCapacitacion(String dateInicioCapacitacion) {
 		this.dateInicioCapacitacion = dateInicioCapacitacion;
 	}
 
-	public Date getDateCumpliCapacitacion() {
+	public String getDateCumpliCapacitacion() {
 		return dateCumpliCapacitacion;
 	}
 
-	public void setDateCumpliCapacitacion(Date dateCumpliCapacitacion) {
-		this.dateCumpliCapacitacion = dateCumpliCapacitacion;
+	public void setDateCumpliCapacitacion(String string) {
+		this.dateCumpliCapacitacion = string;
 	}
 
 	public GenericoDTO getEstadoCapacitacion() {

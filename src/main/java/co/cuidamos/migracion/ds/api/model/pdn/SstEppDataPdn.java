@@ -84,7 +84,8 @@ public class SstEppDataPdn implements Serializable {
 	}
 
 	public Date getModified() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+       
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             return simpleDateFormat.parse(simpleDateFormat.format(modified));
         } catch (ParseException e) {

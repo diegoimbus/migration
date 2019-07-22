@@ -8,9 +8,9 @@ public class SstComitedDataReunionComiteConvivenciaDTO implements Serializable {
 	
 	private Long id;
 	
-	private Date fechaReunion_Convivencia;
+	private String fechaReunion_Convivencia;
 	
-	private Date fechaProxReunionConvivencia;
+	private String fechaProxReunionConvivencia;
 	
 	private String horaProxReunionConvivencia;
 	
@@ -28,20 +28,20 @@ public class SstComitedDataReunionComiteConvivenciaDTO implements Serializable {
 		this.id = id;
 	}
 
-	public Date getFechaReunion_Convivencia() {
+	public String getFechaReunion_Convivencia() {
 		return fechaReunion_Convivencia;
 	}
 
-	public void setFechaReunion_Convivencia(Date fechaReunion_Convivencia) {
+	public void setFechaReunion_Convivencia(String fechaReunion_Convivencia) {
 		this.fechaReunion_Convivencia = fechaReunion_Convivencia;
 	}
 
-	public Date getFechaProxReunionConvivencia() {
+	public String getFechaProxReunionConvivencia() {
 		return fechaProxReunionConvivencia;
 	}
 
-	public void setFechaProxReunionConvivencia(Date fechaProxReunionConvivencia) {
-		this.fechaProxReunionConvivencia = fechaProxReunionConvivencia;
+	public void setFechaProxReunionConvivencia(String string) {
+		this.fechaProxReunionConvivencia = string;
 	}
 
 	public String getHoraProxReunionConvivencia() {

@@ -110,6 +110,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -549,12 +550,12 @@ public class MigrationServiceImpl implements MigrationService {
 	
 	@Override
 	public void migrateSstReponsable() {
-    	List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
+    	//List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
     	
     	List<IntegranteDTO> integrantes = new ArrayList<IntegranteDTO>();
     	
-    	coreSubdomainsList.forEach(coreSubdomains -> {
-    		List<SstResponsabDataPdn> sstResponsableDataPdnList = sstResponsableDao.getSstResponsabDataBySubdomain(coreSubdomains.getIdCoreSubdomain());
+    	//coreSubdomainsList.forEach(coreSubdomains -> {
+    		List<SstResponsabDataPdn> sstResponsableDataPdnList = sstResponsableDao.getSstResponsabDataBySubdomain(subd);
     		sstResponsableDataPdnList.
     			parallelStream().collect(Collectors.groupingBy(SstResponsabDataPdn::getModified)).forEach((date, sstResponsabDataPdns) -> {
                     
@@ -638,7 +639,7 @@ public class MigrationServiceImpl implements MigrationService {
                     sstResponsableDaoCertif.save(sstResponsableCertif);
                     System.out.println("------Migrando-----" + sstResponsableCertif.getId() + "---------" + sstResponsableDTO.getSubdomain());
     			});
-            });
+            //});
     
     	System.out.println("Migracion sstResponsable completada");
 	}
@@ -664,7 +665,7 @@ public class MigrationServiceImpl implements MigrationService {
                     riegos.setOrder(sstRiesgosFields.getSstRiesgosTipoDataOrderById(Integer.valueOf(sstRiesgosTipoDataPdn.getResult())));
                     riegos.setParent(sstRiesgosFields.getSstRiesgosTipoDataLabelById(sstRiesgosFields
                     		.getSstRiesgosTipoDataParentrById(Integer.valueOf(sstRiesgosTipoDataPdn.getResult()))));
-                    risks.add(riegos);
+                    
                     
 
                     sstRiesgosTipoDTO.setSubdomain(sstRiesgosTipoDataPdn.getFidCoreSubdomain().getIdCoreSubdomain());
@@ -677,6 +678,7 @@ public class MigrationServiceImpl implements MigrationService {
                     sstRiesgosTipoCertif.setModified(sstRiesgosTipoDataPdn.getModified());
                     sstRiesgosTipoCertif.setCreated(sstRiesgosTipoDataPdn.getCreated());
                 });
+                risks.add(riegos);
                 sstRiesgosTipoDTO.setRisks(risks);
                 sstRiesgosTipoCertif.setSstRiesgosTipo(JsonUtil.convertObjectToJson(sstRiesgosTipoDTO));
 
@@ -2420,10 +2422,10 @@ public class MigrationServiceImpl implements MigrationService {
                     sstEncuestasFormCertif.setModified(sstEncuestasFormPdn.getModified());
                     sstEncuestasFormCertif.setCreated(sstEncuestasFormPdn.getCreated());
                     
-                    sstEncuestasFormCertif.setSubdomain(sstEncuestasFormPdn.getFidCoreSubdomain().getIdCoreSubdomain());
+                    sstEncuestasFormCertif.setSubdomain(String.valueOf(sstEncuestasFormPdn.getFidCoreSubdomain()));
                     sstEncuestasFormCertif.setFidUser(sstEncuestasFormPdn.getFidUser().getIdUser());
                     sstEncuestasFormCertif.setFidSstEncuestasTipo(sstEncuestasFormPdn.getFidSstEncuestasTipo().getIdSstEncuestasTipo());
-                    sstEncuestasFormCertif.setFidSstRecurso(sstEncuestasFormPdn.getFidRecurso().getIdCoreModuloRecurso());
+                    //sstEncuestasFormCertif.setFidSstRecurso(sstEncuestasFormPdn.getFidRecurso().getIdCoreModuloRecurso());
                     
                 });
                 
@@ -3323,8 +3325,9 @@ public class MigrationServiceImpl implements MigrationService {
 	@Override
 	public void migrateSstEpp() {
 		//List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
-		
+
        
+        
         //coreSubdomainsList.forEach(coreSubdomains -> {
             List<SstEppDataPdn> sstEppDataPdnList = sstEppDao.getSstEppDataBySubdomain(subd);
             sstEppDataPdnList.
@@ -3345,7 +3348,11 @@ public class MigrationServiceImpl implements MigrationService {
                 
                 sstEppDataPdns.parallelStream().forEach(sstEppDataPdn -> {
 
-                	if (Integer.valueOf(sstEppDataPdn.getResult()) == 4){
+                	
+
+                    
+                    
+                	if (sstEppDataPdn.getFidSstEppField().getIdSstEppField() == 3){
                 		RisksDTO epp = new RisksDTO();
                 		epp.setId(Integer.valueOf(sstEppDataPdn.getResult()));
                 		epp.setLabel(sstEppFieldsDao.getSstFieldsLabelById(Integer.valueOf(sstEppDataPdn.getResult())));
@@ -3354,7 +3361,7 @@ public class MigrationServiceImpl implements MigrationService {
                 		protectoresCabeza.add(epp);
                 	}
                 	
-                	if (Integer.valueOf(sstEppDataPdn.getResult()) == 6){
+                	if (sstEppDataPdn.getFidSstEppField().getIdSstEppField() == 5){
                 		RisksDTO epp = new RisksDTO();
                 		epp.setId(Integer.valueOf(sstEppDataPdn.getResult()));
                 		epp.setLabel(sstEppFieldsDao.getSstFieldsLabelById(Integer.valueOf(sstEppDataPdn.getResult())));
@@ -3363,16 +3370,9 @@ public class MigrationServiceImpl implements MigrationService {
                 		protectoresOidos.add(epp);
                 	}
                 	
-                	if (Integer.valueOf(sstEppDataPdn.getResult()) == 7){
-                		RisksDTO epp = new RisksDTO();
-                		epp.setId(Integer.valueOf(sstEppDataPdn.getResult()));
-                		epp.setLabel(sstEppFieldsDao.getSstFieldsLabelById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setOrder(sstEppFieldsDao.getSstFieldsOrderById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setParent(sstEppFieldsDao.getSstFieldsParentById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		protectoresOidos.add(epp);
-                	}
+
                 	
-                	if (Integer.valueOf(sstEppDataPdn.getResult()) == 9){
+                	if (sstEppDataPdn.getFidSstEppField().getIdSstEppField() == 8){
                 		RisksDTO epp = new RisksDTO();
                 		epp.setId(Integer.valueOf(sstEppDataPdn.getResult()));
                 		epp.setLabel(sstEppFieldsDao.getSstFieldsLabelById(Integer.valueOf(sstEppDataPdn.getResult())));
@@ -3380,44 +3380,9 @@ public class MigrationServiceImpl implements MigrationService {
                 		epp.setParent(sstEppFieldsDao.getSstFieldsParentById(Integer.valueOf(sstEppDataPdn.getResult())));
                 		protectoresOjosCara.add(epp);
                 	}
-                    
-                	if (Integer.valueOf(sstEppDataPdn.getResult()) == 10){
-                		RisksDTO epp = new RisksDTO();
-                		epp.setId(Integer.valueOf(sstEppDataPdn.getResult()));
-                		epp.setLabel(sstEppFieldsDao.getSstFieldsLabelById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setOrder(sstEppFieldsDao.getSstFieldsOrderById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setParent(sstEppFieldsDao.getSstFieldsParentById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		protectoresOjosCara.add(epp);
-                	}
-                	
-                	if (Integer.valueOf(sstEppDataPdn.getResult()) == 11){
-                		RisksDTO epp = new RisksDTO();
-                		epp.setId(Integer.valueOf(sstEppDataPdn.getResult()));
-                		epp.setLabel(sstEppFieldsDao.getSstFieldsLabelById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setOrder(sstEppFieldsDao.getSstFieldsOrderById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setParent(sstEppFieldsDao.getSstFieldsParentById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		protectoresOjosCara.add(epp);
-                	}
-                	
-                	if (Integer.valueOf(sstEppDataPdn.getResult()) == 12){
-                		RisksDTO epp = new RisksDTO();
-                		epp.setId(Integer.valueOf(sstEppDataPdn.getResult()));
-                		epp.setLabel(sstEppFieldsDao.getSstFieldsLabelById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setOrder(sstEppFieldsDao.getSstFieldsOrderById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setParent(sstEppFieldsDao.getSstFieldsParentById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		protectoresOjosCara.add(epp);
-                	}
-                	
-                	if (Integer.valueOf(sstEppDataPdn.getResult()) == 13){
-                		RisksDTO epp = new RisksDTO();
-                		epp.setId(Integer.valueOf(sstEppDataPdn.getResult()));
-                		epp.setLabel(sstEppFieldsDao.getSstFieldsLabelById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setOrder(sstEppFieldsDao.getSstFieldsOrderById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setParent(sstEppFieldsDao.getSstFieldsParentById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		protectoresOjosCara.add(epp);
-                	}
-                    
-                	if (Integer.valueOf(sstEppDataPdn.getResult()) == 15){
+
+                   
+                	if (sstEppDataPdn.getFidSstEppField().getIdSstEppField() == 14){
                 		RisksDTO epp = new RisksDTO();
                 		epp.setId(Integer.valueOf(sstEppDataPdn.getResult()));
                 		epp.setLabel(sstEppFieldsDao.getSstFieldsLabelById(Integer.valueOf(sstEppDataPdn.getResult())));
@@ -3426,34 +3391,9 @@ public class MigrationServiceImpl implements MigrationService {
                 		protectoresViasResp.add(epp);
                 	}
                     
-                	if (Integer.valueOf(sstEppDataPdn.getResult()) == 16){
-                		RisksDTO epp = new RisksDTO();
-                		epp.setId(Integer.valueOf(sstEppDataPdn.getResult()));
-                		epp.setLabel(sstEppFieldsDao.getSstFieldsLabelById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setOrder(sstEppFieldsDao.getSstFieldsOrderById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setParent(sstEppFieldsDao.getSstFieldsParentById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		protectoresViasResp.add(epp);
-                	}
                 	
-                	if (Integer.valueOf(sstEppDataPdn.getResult()) == 17){
-                		RisksDTO epp = new RisksDTO();
-                		epp.setId(Integer.valueOf(sstEppDataPdn.getResult()));
-                		epp.setLabel(sstEppFieldsDao.getSstFieldsLabelById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setOrder(sstEppFieldsDao.getSstFieldsOrderById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setParent(sstEppFieldsDao.getSstFieldsParentById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		protectoresViasResp.add(epp);
-                	}
-                	
-                	if (Integer.valueOf(sstEppDataPdn.getResult()) == 18){
-                		RisksDTO epp = new RisksDTO();
-                		epp.setId(Integer.valueOf(sstEppDataPdn.getResult()));
-                		epp.setLabel(sstEppFieldsDao.getSstFieldsLabelById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setOrder(sstEppFieldsDao.getSstFieldsOrderById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setParent(sstEppFieldsDao.getSstFieldsParentById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		protectoresViasResp.add(epp);
-                	}
-                	
-                	if (Integer.valueOf(sstEppDataPdn.getResult()) == 20){
+                
+                	if (sstEppDataPdn.getFidSstEppField().getIdSstEppField() == 19){
                 		RisksDTO epp = new RisksDTO();
                 		epp.setId(Integer.valueOf(sstEppDataPdn.getResult()));
                 		epp.setLabel(sstEppFieldsDao.getSstFieldsLabelById(Integer.valueOf(sstEppDataPdn.getResult())));
@@ -3462,16 +3402,16 @@ public class MigrationServiceImpl implements MigrationService {
                 		protectoresManosBrazos.add(epp);
                 	}
                 	
-                	if (Integer.valueOf(sstEppDataPdn.getResult()) == 22){
+                	if (sstEppDataPdn.getFidSstEppField().getIdSstEppField() == 21){
                 		RisksDTO epp = new RisksDTO();
                 		epp.setId(Integer.valueOf(sstEppDataPdn.getResult()));
                 		epp.setLabel(sstEppFieldsDao.getSstFieldsLabelById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setOrder(sstEppFieldsDao.getSstFieldsOrderById(Integer.valueOf(sstEppDataPdn.getResult())));
+                		epp.setOrder(      sstEppFieldsDao.getSstFieldsOrderById(Integer.valueOf(sstEppDataPdn.getResult())));
                 		epp.setParent(sstEppFieldsDao.getSstFieldsParentById(Integer.valueOf(sstEppDataPdn.getResult())));
                 		protectoresPiesPiernas.add(epp);
                 	}
                 	
-                	if (Integer.valueOf(sstEppDataPdn.getResult()) == 24){
+                	if (sstEppDataPdn.getFidSstEppField().getIdSstEppField() == 23){
                 		RisksDTO epp = new RisksDTO();
                 		epp.setId(Integer.valueOf(sstEppDataPdn.getResult()));
                 		epp.setLabel(sstEppFieldsDao.getSstFieldsLabelById(Integer.valueOf(sstEppDataPdn.getResult())));
@@ -3480,7 +3420,7 @@ public class MigrationServiceImpl implements MigrationService {
                 		protectoresPiel.add(epp);
                 	}
                     
-                	if (Integer.valueOf(sstEppDataPdn.getResult()) == 26){
+                	if (sstEppDataPdn.getFidSstEppField().getIdSstEppField() == 25){
                 		RisksDTO epp = new RisksDTO();
                 		epp.setId(Integer.valueOf(sstEppDataPdn.getResult()));
                 		epp.setLabel(sstEppFieldsDao.getSstFieldsLabelById(Integer.valueOf(sstEppDataPdn.getResult())));
@@ -3489,52 +3429,9 @@ public class MigrationServiceImpl implements MigrationService {
                 		protectoresCuerpo.add(epp);
                 	}
                 	
-                	if (Integer.valueOf(sstEppDataPdn.getResult()) == 27){
-                		RisksDTO epp = new RisksDTO();
-                		epp.setId(Integer.valueOf(sstEppDataPdn.getResult()));
-                		epp.setLabel(sstEppFieldsDao.getSstFieldsLabelById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setOrder(sstEppFieldsDao.getSstFieldsOrderById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setParent(sstEppFieldsDao.getSstFieldsParentById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		protectoresCuerpo.add(epp);
-                	}
+
                 	
-                	if (Integer.valueOf(sstEppDataPdn.getResult()) == 28){
-                		RisksDTO epp = new RisksDTO();
-                		epp.setId(Integer.valueOf(sstEppDataPdn.getResult()));
-                		epp.setLabel(sstEppFieldsDao.getSstFieldsLabelById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setOrder(sstEppFieldsDao.getSstFieldsOrderById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setParent(sstEppFieldsDao.getSstFieldsParentById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		protectoresCuerpo.add(epp);
-                	}
-                	
-                	if (Integer.valueOf(sstEppDataPdn.getResult()) == 29){
-                		RisksDTO epp = new RisksDTO();
-                		epp.setId(Integer.valueOf(sstEppDataPdn.getResult()));
-                		epp.setLabel(sstEppFieldsDao.getSstFieldsLabelById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setOrder(sstEppFieldsDao.getSstFieldsOrderById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setParent(sstEppFieldsDao.getSstFieldsParentById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		protectoresCuerpo.add(epp);
-                	}
-                	
-                	if (Integer.valueOf(sstEppDataPdn.getResult()) == 30){
-                		RisksDTO epp = new RisksDTO();
-                		epp.setId(Integer.valueOf(sstEppDataPdn.getResult()));
-                		epp.setLabel(sstEppFieldsDao.getSstFieldsLabelById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setOrder(sstEppFieldsDao.getSstFieldsOrderById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setParent(sstEppFieldsDao.getSstFieldsParentById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		protectoresCuerpo.add(epp);
-                	}
-                	
-                	if (Integer.valueOf(sstEppDataPdn.getResult()) == 31){
-                		RisksDTO epp = new RisksDTO();
-                		epp.setId(Integer.valueOf(sstEppDataPdn.getResult()));
-                		epp.setLabel(sstEppFieldsDao.getSstFieldsLabelById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setOrder(sstEppFieldsDao.getSstFieldsOrderById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setParent(sstEppFieldsDao.getSstFieldsParentById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		protectoresCuerpo.add(epp);
-                	}
-                	
-                	if (Integer.valueOf(sstEppDataPdn.getResult()) == 33){
+                	if (sstEppDataPdn.getFidSstEppField().getIdSstEppField() == 32){
                 		RisksDTO epp = new RisksDTO();
                 		epp.setId(Integer.valueOf(sstEppDataPdn.getResult()));
                 		epp.setLabel(sstEppFieldsDao.getSstFieldsLabelById(Integer.valueOf(sstEppDataPdn.getResult())));
@@ -3543,7 +3440,7 @@ public class MigrationServiceImpl implements MigrationService {
                 		protectoresAltura.add(epp);
                 	}
                 
-                	if (Integer.valueOf(sstEppDataPdn.getResult()) == 35){
+                	if (sstEppDataPdn.getFidSstEppField().getIdSstEppField() == 34){
                 		RisksDTO epp = new RisksDTO();
                 		epp.setId(Integer.valueOf(sstEppDataPdn.getResult()));
                 		epp.setLabel(sstEppFieldsDao.getSstFieldsLabelById(Integer.valueOf(sstEppDataPdn.getResult())));
@@ -3552,132 +3449,12 @@ public class MigrationServiceImpl implements MigrationService {
                 		protectoresOtros.add(epp);
                 	}
                 	
-                	if (Integer.valueOf(sstEppDataPdn.getResult()) == 36){
-                		RisksDTO epp = new RisksDTO();
-                		epp.setId(Integer.valueOf(sstEppDataPdn.getResult()));
-                		epp.setLabel(sstEppFieldsDao.getSstFieldsLabelById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setOrder(sstEppFieldsDao.getSstFieldsOrderById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setParent(sstEppFieldsDao.getSstFieldsParentById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		protectoresOtros.add(epp);
-                	}
                 	
-                	if (Integer.valueOf(sstEppDataPdn.getResult()) == 37){
-                		RisksDTO epp = new RisksDTO();
-                		epp.setId(Integer.valueOf(sstEppDataPdn.getResult()));
-                		epp.setLabel(sstEppFieldsDao.getSstFieldsLabelById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setOrder(sstEppFieldsDao.getSstFieldsOrderById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setParent(sstEppFieldsDao.getSstFieldsParentById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		protectoresOtros.add(epp);
-                	}
-                	
-                	if (Integer.valueOf(sstEppDataPdn.getResult()) == 38){
-                		RisksDTO epp = new RisksDTO();
-                		epp.setId(Integer.valueOf(sstEppDataPdn.getResult()));
-                		epp.setLabel(sstEppFieldsDao.getSstFieldsLabelById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setOrder(sstEppFieldsDao.getSstFieldsOrderById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setParent(sstEppFieldsDao.getSstFieldsParentById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		protectoresOtros.add(epp);
-                	}
-                	
-                	if (Integer.valueOf(sstEppDataPdn.getResult()) == 39){
-                		RisksDTO epp = new RisksDTO();
-                		epp.setId(Integer.valueOf(sstEppDataPdn.getResult()));
-                		epp.setLabel(sstEppFieldsDao.getSstFieldsLabelById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setOrder(sstEppFieldsDao.getSstFieldsOrderById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setParent(sstEppFieldsDao.getSstFieldsParentById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		protectoresOtros.add(epp);
-                	}
-                	
-                	if (Integer.valueOf(sstEppDataPdn.getResult()) == 40){
-                		RisksDTO epp = new RisksDTO();
-                		epp.setId(Integer.valueOf(sstEppDataPdn.getResult()));
-                		epp.setLabel(sstEppFieldsDao.getSstFieldsLabelById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setOrder(sstEppFieldsDao.getSstFieldsOrderById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setParent(sstEppFieldsDao.getSstFieldsParentById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		protectoresOtros.add(epp);
-                	}
-                	
-                	if (Integer.valueOf(sstEppDataPdn.getResult()) == 41){
-                		RisksDTO epp = new RisksDTO();
-                		epp.setId(Integer.valueOf(sstEppDataPdn.getResult()));
-                		epp.setLabel(sstEppFieldsDao.getSstFieldsLabelById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setOrder(sstEppFieldsDao.getSstFieldsOrderById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setParent(sstEppFieldsDao.getSstFieldsParentById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		protectoresOtros.add(epp);
-                	}
-                	
-                	if (Integer.valueOf(sstEppDataPdn.getResult()) == 42){
-                		RisksDTO epp = new RisksDTO();
-                		epp.setId(Integer.valueOf(sstEppDataPdn.getResult()));
-                		epp.setLabel(sstEppFieldsDao.getSstFieldsLabelById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setOrder(sstEppFieldsDao.getSstFieldsOrderById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setParent(sstEppFieldsDao.getSstFieldsParentById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		protectoresOtros.add(epp);
-                	}
-                	
-                	if (Integer.valueOf(sstEppDataPdn.getResult()) == 43){
-                		RisksDTO epp = new RisksDTO();
-                		epp.setId(Integer.valueOf(sstEppDataPdn.getResult()));
-                		epp.setLabel(sstEppFieldsDao.getSstFieldsLabelById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setOrder(sstEppFieldsDao.getSstFieldsOrderById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setParent(sstEppFieldsDao.getSstFieldsParentById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		protectoresOtros.add(epp);
-                	}
-                	
-                	if (Integer.valueOf(sstEppDataPdn.getResult()) == 44){
-                		RisksDTO epp = new RisksDTO();
-                		epp.setId(Integer.valueOf(sstEppDataPdn.getResult()));
-                		epp.setLabel(sstEppFieldsDao.getSstFieldsLabelById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setOrder(sstEppFieldsDao.getSstFieldsOrderById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setParent(sstEppFieldsDao.getSstFieldsParentById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		protectoresOtros.add(epp);
-                	}
-                	
-                	if (Integer.valueOf(sstEppDataPdn.getResult()) == 45){
-                		RisksDTO epp = new RisksDTO();
-                		epp.setId(Integer.valueOf(sstEppDataPdn.getResult()));
-                		epp.setLabel(sstEppFieldsDao.getSstFieldsLabelById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setOrder(sstEppFieldsDao.getSstFieldsOrderById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setParent(sstEppFieldsDao.getSstFieldsParentById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		protectoresOtros.add(epp);
-                	}
-                	
-                	if (Integer.valueOf(sstEppDataPdn.getResult()) == 46){
-                		RisksDTO epp = new RisksDTO();
-                		epp.setId(Integer.valueOf(sstEppDataPdn.getResult()));
-                		epp.setLabel(sstEppFieldsDao.getSstFieldsLabelById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setOrder(sstEppFieldsDao.getSstFieldsOrderById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setParent(sstEppFieldsDao.getSstFieldsParentById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		protectoresOtros.add(epp);
-                	}
-                	
-                	if (Integer.valueOf(sstEppDataPdn.getResult()) == 47){
-                		RisksDTO epp = new RisksDTO();
-                		epp.setId(Integer.valueOf(sstEppDataPdn.getResult()));
-                		epp.setLabel(sstEppFieldsDao.getSstFieldsLabelById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setOrder(sstEppFieldsDao.getSstFieldsOrderById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setParent(sstEppFieldsDao.getSstFieldsParentById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		protectoresOtros.add(epp);
-                	}
-                	
-                	if (Integer.valueOf(sstEppDataPdn.getResult()) == 48){
-                		RisksDTO epp = new RisksDTO();
-                		epp.setId(Integer.valueOf(sstEppDataPdn.getResult()));
-                		epp.setLabel(sstEppFieldsDao.getSstFieldsLabelById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setOrder(sstEppFieldsDao.getSstFieldsOrderById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setParent(sstEppFieldsDao.getSstFieldsParentById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		protectoresOtros.add(epp);
-                	}
-                	
-                	if (Integer.valueOf(sstEppDataPdn.getResult()) == 49){
-                		RisksDTO epp = new RisksDTO();
-                		epp.setId(Integer.valueOf(sstEppDataPdn.getResult()));
-                		epp.setLabel(sstEppFieldsDao.getSstFieldsLabelById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setOrder(sstEppFieldsDao.getSstFieldsOrderById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		epp.setParent(sstEppFieldsDao.getSstFieldsParentById(Integer.valueOf(sstEppDataPdn.getResult())));
-                		protectoresOtros.add(epp);
-                	}
 
+
+
+                    
+                    sstEppDTO.setUser(String.valueOf(sstEppDataPdn.getFidSstEppForm().getFidUser().getIdUser()));
                     sstEppDTO.setSubdomain(sstEppDataPdn.getFidCoreSubdomain().getIdCoreSubdomain());
                     sstEppDTO.setId(Long.valueOf(sstEppDataPdn.getIdSstEppData()));
                     
@@ -3688,6 +3465,7 @@ public class MigrationServiceImpl implements MigrationService {
                     sstEppCertif.setModified(sstEppDataPdn.getModified());
                     sstEppCertif.setCreated(sstEppDataPdn.getCreated());
                 });
+   
                 eppDTO.setProtectoresAltura(protectoresAltura);
                 eppDTO.setProtectoresCabeza(protectoresCabeza);
                 eppDTO.setProtectoresCuerpo(protectoresCuerpo);
@@ -3699,7 +3477,7 @@ public class MigrationServiceImpl implements MigrationService {
                 eppDTO.setProtectoresPierPiernas(protectoresPiesPiernas);
                 eppDTO.setProtectoresViasResp(protectoresViasResp);
                 eppDTO.setProtectoresViasResp(protectoresViasResp);
-                
+
                 sstEppDTO.setEpps(eppDTO);
                 
                 sstEppCertif.setSstEpp(JsonUtil.convertObjectToJson(sstEppDTO));
@@ -5388,9 +5166,10 @@ public class MigrationServiceImpl implements MigrationService {
                 	if (sstPlanTrabajoDataPdn.getFidSstPlanTrabajoField().getIdSstPlanTrabajoField() == 6)
                 		sstPlanTrabajoDTO.setRecPersonPlan1(sstPlanTrabajoDataPdn.getResult());
                 	
-                	if (sstPlanTrabajoDataPdn.getFidSstPlanTrabajoField().getIdSstPlanTrabajoField() == 7 )
-                		sstPlanTrabajoDTO.setFechaRealPlan1(Date.valueOf(sstPlanTrabajoDataPdn.getResult()));
-                	
+                	if (sstPlanTrabajoDataPdn.getFidSstPlanTrabajoField().getIdSstPlanTrabajoField() == 7 ) {
+                			sstPlanTrabajoDTO.setFechaRealPlan1(sstPlanTrabajoDataPdn.getResult());            	
+                	}
+
                 	if (sstPlanTrabajoDataPdn.getFidSstPlanTrabajoField().getIdSstPlanTrabajoField() == 10) {
                 		GenericoDTO registro = new GenericoDTO();
                 		registro.set_id(Integer.valueOf(sstPlanTrabajoDataPdn.getResult()));
@@ -5440,17 +5219,17 @@ public class MigrationServiceImpl implements MigrationService {
 
                 SstCapacitacionDTO sstCapacitacionDTO = new SstCapacitacionDTO();
                 SstCapacitacionCertif sstCapacitacionCertif = new SstCapacitacionCertif();
-                List<IntegranteDTO> lista = new ArrayList<IntegranteDTO>();
-
+                
+                Collection<IntegranteDTO> lista = new ArrayList<IntegranteDTO>();
                 
                 sstCapacitacionPlanDataPdns.parallelStream().forEach(sstCapacitacionPlanDataPdn -> {
 
-
-                	if (sstCapacitacionPlanDataPdn.getFidSstCapacitacionPlanField().getIdSstCapacitacionField() == 17)
+                	
+                	if (sstCapacitacionPlanDataPdn.getFidSstCapacitacionPlanField().getIdSstCapacitacionPlanField() == 17)
                 		sstCapacitacionDTO.setNombreCapacitacion(sstCapacitacionPlanDataPdn.getResult());
                 	
-                	if (sstCapacitacionPlanDataPdn.getFidSstCapacitacionPlanField().getIdSstCapacitacionField() == 18
-                			|| sstCapacitacionPlanDataPdn.getFidSstCapacitacionPlanField().getIdSstCapacitacionField() == 100) {
+                	if (sstCapacitacionPlanDataPdn.getFidSstCapacitacionPlanField().getIdSstCapacitacionPlanField() == 18
+                			|| sstCapacitacionPlanDataPdn.getFidSstCapacitacionPlanField().getIdSstCapacitacionPlanField() == 100) {
                 		IntegranteDTO user = new IntegranteDTO();
                 		user.setId(Integer.valueOf(sstCapacitacionPlanDataPdn.getResult()));
                 		user.setUser(coreUsuarioDao.getFirstNameCoreUsuarioByIdUser(Integer.valueOf(sstCapacitacionPlanDataPdn.getResult()))
@@ -5458,16 +5237,16 @@ public class MigrationServiceImpl implements MigrationService {
                 		lista.add(user);
                 	}
                 	
-                	if (sstCapacitacionPlanDataPdn.getFidSstCapacitacionPlanField().getIdSstCapacitacionField() == 101
-                			|| sstCapacitacionPlanDataPdn.getFidSstCapacitacionPlanField().getIdSstCapacitacionField() == 19)
-                		sstCapacitacionDTO.setDateInicioCapacitacion(Date.valueOf(sstCapacitacionPlanDataPdn.getResult()));
+                	if (sstCapacitacionPlanDataPdn.getFidSstCapacitacionPlanField().getIdSstCapacitacionPlanField() == 101
+                			|| sstCapacitacionPlanDataPdn.getFidSstCapacitacionPlanField().getIdSstCapacitacionPlanField() == 19)
+                		sstCapacitacionDTO.setDateInicioCapacitacion(sstCapacitacionPlanDataPdn.getResult());
                 	
-                	if (sstCapacitacionPlanDataPdn.getFidSstCapacitacionPlanField().getIdSstCapacitacionField() == 102
-                			|| sstCapacitacionPlanDataPdn.getFidSstCapacitacionPlanField().getIdSstCapacitacionField() == 20)
-                		sstCapacitacionDTO.setDateCumpliCapacitacion(Date.valueOf(sstCapacitacionPlanDataPdn.getResult()));
+                	if (sstCapacitacionPlanDataPdn.getFidSstCapacitacionPlanField().getIdSstCapacitacionPlanField() == 102
+                			|| sstCapacitacionPlanDataPdn.getFidSstCapacitacionPlanField().getIdSstCapacitacionPlanField() == 20)
+                		sstCapacitacionDTO.setDateCumpliCapacitacion(sstCapacitacionPlanDataPdn.getResult());
                 	
-                	if (sstCapacitacionPlanDataPdn.getFidSstCapacitacionPlanField().getIdSstCapacitacionField() == 21
-                			|| sstCapacitacionPlanDataPdn.getFidSstCapacitacionPlanField().getIdSstCapacitacionField() == 103) {
+                	if (sstCapacitacionPlanDataPdn.getFidSstCapacitacionPlanField().getIdSstCapacitacionPlanField() == 21
+                			|| sstCapacitacionPlanDataPdn.getFidSstCapacitacionPlanField().getIdSstCapacitacionPlanField() == 103) {
                 	
                 		GenericoDTO registro = new GenericoDTO();
                 		registro.set_id(Integer.valueOf(sstCapacitacionPlanDataPdn.getResult()));
@@ -5475,7 +5254,7 @@ public class MigrationServiceImpl implements MigrationService {
                 		sstCapacitacionDTO.setEstadoCapacitacion(registro);
                 	}
                 	
-                	if (sstCapacitacionPlanDataPdn.getFidSstCapacitacionPlanField().getIdSstCapacitacionField() == 27) {
+                	if (sstCapacitacionPlanDataPdn.getFidSstCapacitacionPlanField().getIdSstCapacitacionPlanField() == 27) {
                 		GenericoDTO registro = new GenericoDTO();
                 		registro.set_id(Integer.valueOf(sstCapacitacionPlanDataPdn.getResult()));
                 		registro.setLabel(sstCapacitacionFieldsDao.getSstCapacitacionFieldsLabelBySubdomain(Integer.valueOf(sstCapacitacionPlanDataPdn.getResult())));
@@ -5567,80 +5346,47 @@ public class MigrationServiceImpl implements MigrationService {
                 	}
      	
                 	if (sstAmenazasDataPdn.getFidSstAmenazasField().getIdSstAmenazasField() == 6) {
-                		if (Integer.valueOf(sstAmenazasDataPdn.getResult()) == 7
-                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 8
-                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 9
-                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 10
-                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 11
-                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 12
-                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 13
-                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 14
-                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 15
-                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 16) {
+
                 			RisksDTO riesgo = new RisksDTO();
                 			riesgo.setId(Integer.valueOf(sstAmenazasDataPdn.getResult()));
                 			riesgo.setLabel(sstAmenazasFieldsDao.getSstSstAmenazasFieldsLabelBySubdomain(Integer.valueOf(sstAmenazasDataPdn.getResult())));
                 			riesgo.setOrder(sstAmenazasFieldsDao.getSstSstAmenazasFieldsOrderBySubdomain(Integer.valueOf(sstAmenazasDataPdn.getResult())));
                 			riesgo.setParent(sstAmenazasFieldsDao.getSstSstAmenazasFieldsParentBySubdomain(Integer.valueOf(sstAmenazasDataPdn.getResult())));
                 			amenazasNaturales.add(riesgo);
-                		}
+                		
                 	}
                 	
                 	if (sstAmenazasDataPdn.getFidSstAmenazasField().getIdSstAmenazasField() == 17) {
-                		if (Integer.valueOf(sstAmenazasDataPdn.getResult()) == 18
-                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 19
-                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 20
-                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 21
-                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 22
-                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 27
-                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 28
-                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 29
-                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 30
-                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 31
-                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 35) {
+
                 			RisksDTO riesgo = new RisksDTO();
                 			riesgo.setId(Integer.valueOf(sstAmenazasDataPdn.getResult()));
                 			riesgo.setLabel(sstAmenazasFieldsDao.getSstSstAmenazasFieldsLabelBySubdomain(Integer.valueOf(sstAmenazasDataPdn.getResult())));
                 			riesgo.setOrder(sstAmenazasFieldsDao.getSstSstAmenazasFieldsOrderBySubdomain(Integer.valueOf(sstAmenazasDataPdn.getResult())));
                 			riesgo.setParent(sstAmenazasFieldsDao.getSstSstAmenazasFieldsParentBySubdomain(Integer.valueOf(sstAmenazasDataPdn.getResult())));
                 			amenazasTecnologicas1.add(riesgo);
-                		}
+                		
                 	}
                 	
                 	if (sstAmenazasDataPdn.getFidSstAmenazasField().getIdSstAmenazasField() == 37) {
-                		if (Integer.valueOf(sstAmenazasDataPdn.getResult()) == 38
-                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 39
-                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 40
-                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 41
-                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 42
-                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 43
-                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 44) {
+
                 			RisksDTO riesgo = new RisksDTO();
                 			riesgo.setId(Integer.valueOf(sstAmenazasDataPdn.getResult()));
                 			riesgo.setLabel(sstAmenazasFieldsDao.getSstSstAmenazasFieldsLabelBySubdomain(Integer.valueOf(sstAmenazasDataPdn.getResult())));
                 			riesgo.setOrder(sstAmenazasFieldsDao.getSstSstAmenazasFieldsOrderBySubdomain(Integer.valueOf(sstAmenazasDataPdn.getResult())));
                 			riesgo.setParent(sstAmenazasFieldsDao.getSstSstAmenazasFieldsParentBySubdomain(Integer.valueOf(sstAmenazasDataPdn.getResult())));
                 			amenazasSociales.add(riesgo);
-                		}
+                		
                 	}
                 	
                 	if (sstAmenazasDataPdn.getFidSstAmenazasField().getIdSstAmenazasField() == 47) {
-                		if (Integer.valueOf(sstAmenazasDataPdn.getResult()) == 23
-                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 24
-                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 25
-                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 26
-                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 32
-                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 33
-                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 34
-                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 36
-                				|| Integer.valueOf(sstAmenazasDataPdn.getResult()) == 45) {
+
                 			RisksDTO riesgo = new RisksDTO();
                 			riesgo.setId(Integer.valueOf(sstAmenazasDataPdn.getResult()));
                 			riesgo.setLabel(sstAmenazasFieldsDao.getSstSstAmenazasFieldsLabelBySubdomain(Integer.valueOf(sstAmenazasDataPdn.getResult())));
                 			riesgo.setOrder(sstAmenazasFieldsDao.getSstSstAmenazasFieldsOrderBySubdomain(Integer.valueOf(sstAmenazasDataPdn.getResult())));
                 			riesgo.setParent(sstAmenazasFieldsDao.getSstSstAmenazasFieldsParentBySubdomain(Integer.valueOf(sstAmenazasDataPdn.getResult())));
                 			amenazasTecnologicas2.add(riesgo);
-                		}
+                		
                 	}
                 	
                 	sstAmenazasDTO.setSubdomain(sstAmenazasDataPdn.getFidCoreSubdomain().getIdCoreSubdomain());
@@ -5691,7 +5437,7 @@ public class MigrationServiceImpl implements MigrationService {
                 sstComitesDataPdns.parallelStream().forEach(sstComitesDataPdn -> {
 
                 	if(sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 65)
-                		sstComitesDTO.setFechaReunionVigia(Date.valueOf(sstComitesDataPdn.getResult()));
+                		sstComitesDTO.setFechaReunionVigia(sstComitesDataPdn.getResult());
                 	
                 	if(sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 66)
                 		sstComitesDTO.setOtrosUsuariosReunionVigia(sstComitesDataPdn.getResult());
@@ -5709,7 +5455,7 @@ public class MigrationServiceImpl implements MigrationService {
                 		sstComitesDTO.setOtrosPuntosReuVigia(sstComitesDataPdn.getResult());
                 	
                 	if (sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 71)
-                		sstComitesDTO.setFechaProxReunionVigia(Date.valueOf(sstComitesDataPdn.getResult()));
+                		sstComitesDTO.setFechaProxReunionVigia(sstComitesDataPdn.getResult());
                 	
                 	sstComitesDTO.setTipComite(sstComitesDataPdn.getFidSstComitesField().getFidSstComitesTipo().getIdSstComitesTipo());
                 	
@@ -5841,7 +5587,7 @@ public class MigrationServiceImpl implements MigrationService {
                 	if (sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 25)
                 		sstComitesDTO.setFechaProxReunionCopasst(Date.valueOf(sstComitesDataPdn.getResult()));
                 	
-                	if (sstComitesDataPdn.getFidSstComitesField().getFidCoreTipoRecurso() == 30) 
+                	if (sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 30) 
                 		temas.setTemaTratado(sstComitesDataPdn.getResult());
                 	
                 	if (sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 31)
@@ -5982,13 +5728,15 @@ public class MigrationServiceImpl implements MigrationService {
                 sstComitesDataPdns.parallelStream().forEach(sstComitesDataPdn -> {
 
                 	if (sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 37)
-                		sstComitesDTO.setFechaActa_ConvivenciaM(Date.valueOf(sstComitesDataPdn.getResult()));
+                		sstComitesDTO.setFechaActa_ConvivenciaM(sstComitesDataPdn.getResult());
                 	
                 	if (sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 39) {
                 		IntegranteDTO user = new IntegranteDTO();
                 		user.setId(Integer.valueOf(sstComitesDataPdn.getResult()));
-                		user.setUser(coreUsuarioDao.getFirstNameCoreUsuarioByIdUser(Integer.valueOf(sstComitesDataPdn.getResult()
-                				+ " " + coreUsuarioDao.getLastNameCoreUsuarioByIdUser(Integer.valueOf(sstComitesDataPdn.getResult())))));
+                		user.setUser(
+                				coreUsuarioDao.getFirstNameCoreUsuarioByIdUser(Integer.valueOf(sstComitesDataPdn.getResult()))
+                				+ " " + coreUsuarioDao.getLastNameCoreUsuarioByIdUser(Integer.valueOf(sstComitesDataPdn.getResult()))
+                				);
                 		lista.add(user);
                 	}
                 	
@@ -5998,8 +5746,11 @@ public class MigrationServiceImpl implements MigrationService {
                 	if (sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 46) {
                 		IntegranteDTO user = new IntegranteDTO();
                 		user.setId(Integer.valueOf(sstComitesDataPdn.getResult()));
-                		user.setUser(coreUsuarioDao.getFirstNameCoreUsuarioByIdUser(Integer.valueOf(sstComitesDataPdn.getResult()
-                				+ " " + coreUsuarioDao.getLastNameCoreUsuarioByIdUser(Integer.valueOf(sstComitesDataPdn.getResult())))));
+                		user.setUser(
+                				coreUsuarioDao.getFirstNameCoreUsuarioByIdUser(Integer.valueOf(sstComitesDataPdn.getResult()))
+                				+ " "
+                				+ coreUsuarioDao.getLastNameCoreUsuarioByIdUser(Integer.valueOf(sstComitesDataPdn.getResult()))
+                				);
                 		lista1.add(user);
                 	}
 
@@ -6047,10 +5798,10 @@ public class MigrationServiceImpl implements MigrationService {
                 sstComitesDataPdns.parallelStream().forEach(sstComitesDataPdn -> {
 
                 	if (sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 50)
-                		sstComitesDTO.setFechaReunion_Convivencia(Date.valueOf(sstComitesDataPdn.getResult()));
+                		sstComitesDTO.setFechaReunion_Convivencia(sstComitesDataPdn.getResult());
                 	
                 	if (sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 53)
-                		sstComitesDTO.setFechaProxReunionConvivencia(Date.valueOf(sstComitesDataPdn.getResult()));
+                		sstComitesDTO.setFechaProxReunionConvivencia(sstComitesDataPdn.getResult());
                 	
                 	if (sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 54)
                 		sstComitesDTO.setHoraProxReunionConvivencia(sstComitesDataPdn.getResult());
@@ -6064,13 +5815,14 @@ public class MigrationServiceImpl implements MigrationService {
                 	if (sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 58) {
                 		IntegranteDTO user = new IntegranteDTO();
                 		user.setId(Integer.valueOf(sstComitesDataPdn.getResult()));
-                		user.setUser(coreUsuarioDao.getFirstNameCoreUsuarioByIdUser(Integer.valueOf(sstComitesDataPdn.getResult()
-                				+ " " + coreUsuarioDao.getLastNameCoreUsuarioByIdUser(Integer.valueOf(sstComitesDataPdn.getResult())))));
+                		user.setUser(coreUsuarioDao.getFirstNameCoreUsuarioByIdUser(Integer.valueOf(sstComitesDataPdn.getResult()))
+                				+ " " + coreUsuarioDao.getLastNameCoreUsuarioByIdUser(Integer.valueOf(sstComitesDataPdn.getResult()))
+                				);
                 		lista.add(user);
                 	}
                 	
                 	if (sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 59)
-                		temas.setFechaEjecucionConviv(Date.valueOf(sstComitesDataPdn.getResult()));
+                		temas.setFechaEjecucionConviv(sstComitesDataPdn.getResult());
                 	
                 	if (sstComitesDataPdn.getFidSstComitesField().getIdSstComitesField() == 60)
                 		temas.setObservacionConviv(sstComitesDataPdn.getResult());

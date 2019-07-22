@@ -13,7 +13,7 @@ public interface SstEppFieldsDao extends JpaRepository<SstEppFields, Long> {
     @Query(value = "SELECT label FROM sst_epp_fields WHERE id_sst_epp_field = :id", nativeQuery = true)
     public String getSstFieldsLabelById(@Param("id") Integer id);
     
-    @Query(value = "SELECT order FROM sst_epp_fields WHERE id_sst_epp_field = :id", nativeQuery = true)
+    @Query(value = "SELECT _order FROM sst_epp_fields WHERE id_sst_epp_field = :id", nativeQuery = true)
     public Integer getSstFieldsOrderById(@Param("id") Integer id);
     
     @Query(value = "SELECT parent FROM sst_epp_fields WHERE id_sst_epp_field = :id", nativeQuery = true)

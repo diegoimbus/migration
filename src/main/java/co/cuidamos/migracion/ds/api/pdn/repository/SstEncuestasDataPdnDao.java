@@ -15,4 +15,5 @@ public interface SstEncuestasDataPdnDao extends JpaRepository<SstEncuestasDataPd
     @Query(value = "SELECT * FROM sst_encuestas_data WHERE fid_core_subdomain = :subdomain", nativeQuery = true)
     public List<SstEncuestasDataPdn> getSstEncuestasDataBySubdomain(@Param("subdomain") String subdomain);
 
+
 }
