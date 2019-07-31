@@ -14,7 +14,7 @@ public class SstEncuestasFormPdn implements Serializable {
 	private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@Basic(optional = false)
+    @Basic(optional = false)
     @Column(name = "id_sst_encuestas_form")
     private Integer idSstEncuestasForm;
     @Column(name = "_created")
@@ -62,16 +62,9 @@ public class SstEncuestasFormPdn implements Serializable {
 		this.created = created;
 	}
 	public Date getModified() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        try {
-        	if (modified != null)
-            return simpleDateFormat.parse(simpleDateFormat.format(modified));
-        	else 
-        		return new Date();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return null;
+
+			return modified;
+
 	}
 	public void setModified(Date modified) {
 		this.modified = modified;

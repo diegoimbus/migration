@@ -13,34 +13,35 @@ public class MigrationTest {
 
     @GetMapping
     public void executeMigration(){
- //       migrationService.migrateSstEmpresaGral();
- //       migrationService.migrateSstEmpresaEspec();
- //       migrationService.migrateSstPolitica();
- //       migrationService.migrateSstObjetivos();
- //       migrationService.migrateSstReponsable();
- //       migrationService.migrateSstRiegosTipo();
- //       migrationService.migrateSstControles();
- //       migrationService.migrateSstEncuestasForm();
- //       migrationService.migrateSstEncuestasTrabajo();
- //       migrationService.migrateSstEncuestasSalud();
- //       migrationService.migrateSstEpp();
- //       migrationService.migrateSstAtel();
- //       migrationService.migrateSstAtelGestion();
- //       migrationService.migrateSstMatrizLegal();
- //       migrationService.migrateSstPlanTrabajo();
- //       migrationService.migrateSstCapacitacion();
- //      migrationService.migrateSstAmenazas(); //discutir con Clemente
-        migrationService.migrateSstComitesDataConformacionComiteConvivencia();
- //       //migrationService.migrateSstComitesDataConformacionCopasst();
- //       //migrationService.migrateSstComitesDataDesignacionVigia();
- //       //migrationService.migrateSstComitesDataReunionComiteConvivencia();
- //       //migrationService.migrateSstComitesDataReunionCopasst();
- //       //migrationService.migrateSstComitesDataReunionVigia();
- //       //migrationService.migrateSstComitesForm();
- //       migrationService.migrateSstInstructivos();
- //       migrationService.migrateSstSaludTrabajador();
- //       //migrationService.migrateSstSociodemo();
- //       migrationService.migrateSstRiesgosValoracion();
+//        migrationService.migrateSstEmpresaGral();
+//        migrationService.migrateSstEmpresaEspec();
+//        //migrationService.migrateSstPolitica();
+//        migrationService.migrateSstObjetivos();
+//        migrationService.migrateSstReponsable();
+        migrationService.migrateSstRiegosTipo();
+//        migrationService.migrateSstControles();
+//        migrationService.migrateSstEncuestasForm();
+//        migrationService.migrateSstEncuestasTrabajo();
+//        migrationService.migrateSstEncuestasSalud();
+//        migrationService.migrateSstEpp();
+//        migrationService.migrateSstAtel();
+//        migrationService.migrateSstAtelGestion();
+//        migrationService.migrateSstMatrizLegal();
+//        migrationService.migrateSstPlanTrabajo();
+//        migrationService.migrateSstCapacitacion();
+//        migrationService.migrateSstAmenazas(); //discutir con Clemente
+//        migrationService.migrateSstComitesDataConformacionComiteConvivencia();
+//        migrationService.migrateSstComitesDataConformacionCopasst();
+//        migrationService.migrateSstComitesDataDesignacionVigia();
+//        migrationService.migrateSstComitesDataReunionComiteConvivencia();
+//        migrationService.migrateSstComitesDataReunionCopasst();
+//        migrationService.migrateSstComitesDataReunionVigia();
+//        migrationService.migrateSstComitesForm();
+//        migrationService.migrateSstInstructivos();
+//        migrationService.migrateSstSaludTrabajador();
+//        migrationService.migrateSstSociodemo();
+//        migrationService.migrateSstRiesgosValoracion();
+//        migrationService.migrateSstProveedores();
         
     }
     

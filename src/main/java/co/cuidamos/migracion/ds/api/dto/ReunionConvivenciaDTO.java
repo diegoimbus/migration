@@ -1,8 +1,8 @@
 package co.cuidamos.migracion.ds.api.dto;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
+import java.util.Collection;
+
 
 public class ReunionConvivenciaDTO implements Serializable{
 
@@ -10,7 +10,7 @@ public class ReunionConvivenciaDTO implements Serializable{
 	
 	private String medidasRecomendConviv;
 	
-	private List<IntegranteDTO> listadoUsuarios_responsableConviv;
+	private Collection<IntegranteDTO> listadoUsuarios_responsableConviv;
 	
 	private String fechaEjecucionConviv;
 	
@@ -32,12 +32,12 @@ public class ReunionConvivenciaDTO implements Serializable{
 		this.medidasRecomendConviv = medidasRecomendConviv;
 	}
 
-	public List<IntegranteDTO> getListadoUsuarios_responsableConviv() {
+	public Collection<IntegranteDTO> getListadoUsuarios_responsableConviv() {
 		return listadoUsuarios_responsableConviv;
 	}
 
-	public void setListadoUsuarios_responsableConviv(List<IntegranteDTO> listadoUsuarios_responsableConviv) {
-		this.listadoUsuarios_responsableConviv = listadoUsuarios_responsableConviv;
+	public void setListadoUsuarios_responsableConviv(Collection<IntegranteDTO> lista) {
+		this.listadoUsuarios_responsableConviv = lista;
 	}
 
 	public String getFechaEjecucionConviv() {

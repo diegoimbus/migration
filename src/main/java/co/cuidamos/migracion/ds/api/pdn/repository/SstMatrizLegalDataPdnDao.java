@@ -13,7 +13,7 @@ import co.cuidamos.migracion.ds.api.model.pdn.SstMatrizLegalDataPdn;
 @Repository
 public interface SstMatrizLegalDataPdnDao extends JpaRepository<SstMatrizLegalDataPdn, Long> {
 	
-    @Query(value = "SELECT * FROM sst_matriz_legal_data WHERE fid_core_subdomain = :subdomain", nativeQuery = true)
+    @Query(value = "SELECT * FROM sst_matriz_legal_data WHERE fid_core_subdomain = :subdomain and _checked = TRUE and _enable = TRUE", nativeQuery = true)
     public List<SstMatrizLegalDataPdn> getSstMatrizLegalDataBySubdomain(@Param("subdomain") String subdomain);
 	
 

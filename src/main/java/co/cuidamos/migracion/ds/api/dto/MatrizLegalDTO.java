@@ -24,7 +24,7 @@ public class MatrizLegalDTO implements Serializable {
 	
 	private GenericoDTO aplica1401del2007;
 	
-	private GenericoDTO aplica032del2010;
+	private GenericoDTO aplica038del2010;
 	
 	private GenericoDTO aplica1010del2006;
 	
@@ -46,13 +46,13 @@ public class MatrizLegalDTO implements Serializable {
 	
 	private GenericoDTO aplica789del2002;
 	
-	private GenericoDTO aplica1616del2012;
+	private GenericoDTO aplica1616del2013;
 	
 	private GenericoDTO aplica2346del2007;
 	
 	private GenericoDTO aplica1918del2009;
 	
-	private GenericoDTO aplica1429del2012;
+	private GenericoDTO aplica1429del2010;
 	
 	private GenericoDTO aplica2087del2013;
 	
@@ -102,7 +102,7 @@ public class MatrizLegalDTO implements Serializable {
 	
 	private GenericoDTO aplica2222del1993;
 	
-	private GenericoDTO aplica685del2001;
+	private GenericoDTO aplica685del2011;
 	
 	private GenericoDTO aplica1382del2010;
 	
@@ -206,13 +206,7 @@ public class MatrizLegalDTO implements Serializable {
 		this.aplica1401del2007 = aplica1401del2007;
 	}
 
-	public GenericoDTO getAplica032del2010() {
-		return aplica032del2010;
-	}
 
-	public void setAplica032del2010(GenericoDTO aplica032del2010) {
-		this.aplica032del2010 = aplica032del2010;
-	}
 
 	public GenericoDTO getAplica1010del2006() {
 		return aplica1010del2006;
@@ -294,13 +288,7 @@ public class MatrizLegalDTO implements Serializable {
 		this.aplica789del2002 = aplica789del2002;
 	}
 
-	public GenericoDTO getAplica1616del2012() {
-		return aplica1616del2012;
-	}
 
-	public void setAplica1616del2012(GenericoDTO aplica1616del2012) {
-		this.aplica1616del2012 = aplica1616del2012;
-	}
 
 	public GenericoDTO getAplica2346del2007() {
 		return aplica2346del2007;
@@ -318,13 +306,7 @@ public class MatrizLegalDTO implements Serializable {
 		this.aplica1918del2009 = aplica1918del2009;
 	}
 
-	public GenericoDTO getAplica1429del2012() {
-		return aplica1429del2012;
-	}
 
-	public void setAplica1429del2012(GenericoDTO aplica1429del2012) {
-		this.aplica1429del2012 = aplica1429del2012;
-	}
 
 	public GenericoDTO getAplica2087del2013() {
 		return aplica2087del2013;
@@ -518,12 +500,38 @@ public class MatrizLegalDTO implements Serializable {
 		this.aplica2222del1993 = aplica2222del1993;
 	}
 
-	public GenericoDTO getAplica685del2001() {
-		return aplica685del2001;
+
+
+	public GenericoDTO getAplica038del2010() {
+		return aplica038del2010;
 	}
 
-	public void setAplica685del2001(GenericoDTO aplica685del2001) {
-		this.aplica685del2001 = aplica685del2001;
+	public void setAplica038del2010(GenericoDTO aplica038del2010) {
+		this.aplica038del2010 = aplica038del2010;
+	}
+
+	public GenericoDTO getAplica1616del2013() {
+		return aplica1616del2013;
+	}
+
+	public void setAplica1616del2013(GenericoDTO aplica1616del2013) {
+		this.aplica1616del2013 = aplica1616del2013;
+	}
+
+	public GenericoDTO getAplica1429del2010() {
+		return aplica1429del2010;
+	}
+
+	public void setAplica1429del2010(GenericoDTO aplica1429del2010) {
+		this.aplica1429del2010 = aplica1429del2010;
+	}
+
+	public GenericoDTO getAplica685del2011() {
+		return aplica685del2011;
+	}
+
+	public void setAplica685del2011(GenericoDTO aplica685del2011) {
+		this.aplica685del2011 = aplica685del2011;
 	}
 
 	public GenericoDTO getAplica1382del2010() {

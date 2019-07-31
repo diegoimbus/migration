@@ -58,13 +58,7 @@ public class SstComitesFormPdn implements Serializable{
 		this.created = created;
 	}
 	public Date getModified() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        try {
-            return simpleDateFormat.parse(simpleDateFormat.format(modified));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return null;
+		return modified; 
 	}
 	public void setModified(Date modified) {
 		this.modified = modified;

@@ -10,7 +10,7 @@ public class SstEmpresaEspecDTO implements Serializable {
 	
 	private Integer curso50horas;
 	
-	private Integer porceTrabajAfiliados;
+	private Integer porcTrabajAfiliados;
 	
 	private Integer garantizaResiduosElim;
 	
@@ -47,11 +47,11 @@ public class SstEmpresaEspecDTO implements Serializable {
 	}
 
 	public Integer getPorceTrabajAfiliados() {
-		return porceTrabajAfiliados;
+		return porcTrabajAfiliados;
 	}
 
 	public void setPorceTrabajAfiliados(Integer porceTrabajAfiliados) {
-		this.porceTrabajAfiliados = porceTrabajAfiliados;
+		this.porcTrabajAfiliados = porceTrabajAfiliados;
 	}
 
 	public Integer getGarantizaResiduosElim() {

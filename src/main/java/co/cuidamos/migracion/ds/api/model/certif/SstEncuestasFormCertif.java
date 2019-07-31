@@ -12,7 +12,7 @@ public class SstEncuestasFormCertif {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@Basic(optional = false)
+    @Basic(optional = false)
     @Column(name = "id_sst_encuestas_form")
     private Long id;
 

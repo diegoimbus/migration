@@ -12,7 +12,7 @@ import co.cuidamos.migracion.ds.api.model.pdn.SstAtelDataPdn;
 @Repository
 public interface SstAtelDataDao extends JpaRepository<SstAtelDataPdn, Long> {
 	
-    @Query(value = "SELECT * FROM sst_at_el_data WHERE fid_core_subdomain = :subdomain", nativeQuery = true)
+    @Query(value = "SELECT * FROM sst_at_el_data WHERE fid_core_subdomain = :subdomain and _checked = TRUE and _enable = TRUE", nativeQuery = true)
     public List<SstAtelDataPdn> getSstAtelDataBySubdomain(@Param("subdomain") String subdomain);
 
 }

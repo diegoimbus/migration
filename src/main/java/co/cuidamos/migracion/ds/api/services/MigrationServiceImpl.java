@@ -25,6 +25,7 @@ import co.cuidamos.migracion.ds.api.pdn.repository.SstObjetivosDataDao;
 import co.cuidamos.migracion.ds.api.pdn.repository.SstPlanTrabajoDataPdnDao;
 import co.cuidamos.migracion.ds.api.pdn.repository.SstPlanTrabajoFieldsDao;
 import co.cuidamos.migracion.ds.api.pdn.repository.SstPoliticaDataDao;
+import co.cuidamos.migracion.ds.api.pdn.repository.SstProveedoresDataPdnDao;
 import co.cuidamos.migracion.ds.api.pdn.repository.SstResponsabDataDao;
 import co.cuidamos.migracion.ds.api.pdn.repository.SstRiesgosTipoDataDao;
 import co.cuidamos.migracion.ds.api.pdn.repository.SstRiesgosTipoFieldsDao;
@@ -55,6 +56,7 @@ import co.cuidamos.migracion.ds.api.model.pdn.SstObjetivosDataPdn;
 import co.cuidamos.migracion.ds.api.model.pdn.SstPlanTrabajoDataPdn;
 import co.cuidamos.migracion.ds.api.model.pdn.SstEmpresaEspecDataPdn;
 import co.cuidamos.migracion.ds.api.model.pdn.SstPoliticaDataPdn;
+import co.cuidamos.migracion.ds.api.model.pdn.SstProveedoresDataPdn;
 import co.cuidamos.migracion.ds.api.model.pdn.SstResponsabDataPdn;
 import co.cuidamos.migracion.ds.api.model.pdn.SstRiesgosTipoDataPdn;
 import co.cuidamos.migracion.ds.api.model.pdn.SstRiesgosValoracionDataPdn;
@@ -77,6 +79,7 @@ import co.cuidamos.migracion.ds.api.model.certif.SstMatrizLegalCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstObjetivosCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstPlanTrabajoCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstPoliticaCertif;
+import co.cuidamos.migracion.ds.api.model.certif.SstProveedoresCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstResponsableCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstRiesgosTipoCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstRiesgosValoracionCertif;
@@ -99,6 +102,7 @@ import co.cuidamos.migracion.ds.api.certif.repository.SstMatrizLegalDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstObjetivosDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstPlanTrabajoDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstPoliticaDao;
+import co.cuidamos.migracion.ds.api.certif.repository.SstProveedoresDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstResponsableDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstRiesgosTipoDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstRiesgosValoracionDao;
@@ -111,6 +115,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -288,6 +293,12 @@ public class MigrationServiceImpl implements MigrationService {
     @Autowired
     private SstSociodemoFieldsDao sstSociodemoFieldsDao;
     
+    @Autowired
+    private SstProveedoresDataPdnDao sstProveedoresDataPdnDao;
+    
+    @Autowired
+    private SstProveedoresDao sstProveedoresDaoCertif;
+    
     @Override
     public void migrateSstEmpresaGral() {
         //List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
@@ -381,20 +392,41 @@ public class MigrationServiceImpl implements MigrationService {
                     sstEmpresaEspecDataPdns.parallelStream().forEach(sstEmpresaEspecDataPdn -> {
                     	
                         if (sstEmpresaEspecDataPdn.getFidSstEmpresaEspecField().getIdSstEmpresaEspecField() == 2) {
-                            sstEmpresaEspecDTO.setPersonaEncargadaSST(Integer.valueOf(sstEmpresaEspecDataPdn.getResult()));
+                            if(Integer.valueOf(sstEmpresaEspecDataPdn.getResult()) == 48)
+                            		sstEmpresaEspecDTO.setPersonaEncargadaSST(1);
+                            if(Integer.valueOf(sstEmpresaEspecDataPdn.getResult()) == 49)
+                        		sstEmpresaEspecDTO.setPersonaEncargadaSST(2);
+                            if(Integer.valueOf(sstEmpresaEspecDataPdn.getResult()) == 50)
+                        		sstEmpresaEspecDTO.setPersonaEncargadaSST(3);
                         }
                     	
                         if (sstEmpresaEspecDataPdn.getFidSstEmpresaEspecField().getIdSstEmpresaEspecField() == 3) {
-                            sstEmpresaEspecDTO.setCurso50horas(Integer.valueOf(sstEmpresaEspecDataPdn.getResult()));
+                            if(Integer.valueOf(sstEmpresaEspecDataPdn.getResult()) == 51)
+                            	sstEmpresaEspecDTO.setCurso50horas(1);
+                            if(Integer.valueOf(sstEmpresaEspecDataPdn.getResult()) == 52)
+                            	sstEmpresaEspecDTO.setCurso50horas(2);
+                            if(Integer.valueOf(sstEmpresaEspecDataPdn.getResult()) == 53)
+                            	sstEmpresaEspecDTO.setCurso50horas(3);
                   
                         }
                         
                         if (sstEmpresaEspecDataPdn.getFidSstEmpresaEspecField().getIdSstEmpresaEspecField() == 6) {
-                            sstEmpresaEspecDTO.setFlotaDistribucion(Integer.valueOf(sstEmpresaEspecDataPdn.getResult()));
+                            if(Integer.valueOf(sstEmpresaEspecDataPdn.getResult()) == 54)
+                            	sstEmpresaEspecDTO.setFlotaDistribucion(1);
+                            if(Integer.valueOf(sstEmpresaEspecDataPdn.getResult()) == 55)
+                            	sstEmpresaEspecDTO.setFlotaDistribucion(2);
+                            if(Integer.valueOf(sstEmpresaEspecDataPdn.getResult()) == 56)
+                            	sstEmpresaEspecDTO.setFlotaDistribucion(3);
                         }
                         
                         if (sstEmpresaEspecDataPdn.getFidSstEmpresaEspecField().getIdSstEmpresaEspecField() == 7) {
-                            sstEmpresaEspecDTO.setPersonalContratista(Integer.valueOf(sstEmpresaEspecDataPdn.getResult()));
+                            if(Integer.valueOf(sstEmpresaEspecDataPdn.getResult()) == 57)
+                            	sstEmpresaEspecDTO.setPersonalContratista(1);
+                            if(Integer.valueOf(sstEmpresaEspecDataPdn.getResult()) == 58)
+                            	sstEmpresaEspecDTO.setPersonalContratista(2);
+                            if(Integer.valueOf(sstEmpresaEspecDataPdn.getResult()) == 59)
+                            	sstEmpresaEspecDTO.setPersonalContratista(3);
+                            
                         }
                         
                         if (sstEmpresaEspecDataPdn.getFidSstEmpresaEspecField().getIdSstEmpresaEspecField() == 12) {
@@ -429,11 +461,23 @@ public class MigrationServiceImpl implements MigrationService {
 
 
                         if (sstEmpresaEspecDataPdn.getFidSstEmpresaEspecField().getIdSstEmpresaEspecField() == 86) {
-                            sstEmpresaEspecDTO.setExisteSuministroAguaEtc(Integer.valueOf(sstEmpresaEspecDataPdn.getResult()));
+                            if(Integer.valueOf(sstEmpresaEspecDataPdn.getResult()) == 87)
+                            	sstEmpresaEspecDTO.setExisteSuministroAguaEtc(1);
+                            if(Integer.valueOf(sstEmpresaEspecDataPdn.getResult()) == 88)
+                            	sstEmpresaEspecDTO.setExisteSuministroAguaEtc(2);
+                            if(Integer.valueOf(sstEmpresaEspecDataPdn.getResult()) == 89)
+                            	sstEmpresaEspecDTO.setExisteSuministroAguaEtc(3);
+                           
                         }
                         
                         if (sstEmpresaEspecDataPdn.getFidSstEmpresaEspecField().getIdSstEmpresaEspecField() == 90) {
-                            sstEmpresaEspecDTO.setGarantizaResiduosElim(Integer.valueOf(sstEmpresaEspecDataPdn.getResult()));
+                            if(Integer.valueOf(sstEmpresaEspecDataPdn.getResult()) == 87)
+                            	sstEmpresaEspecDTO.setGarantizaResiduosElim(1);
+                            if(Integer.valueOf(sstEmpresaEspecDataPdn.getResult()) == 88)
+                            	sstEmpresaEspecDTO.setGarantizaResiduosElim(2);
+                            if(Integer.valueOf(sstEmpresaEspecDataPdn.getResult()) == 89)
+                            	sstEmpresaEspecDTO.setGarantizaResiduosElim(3);
+                         
                         }                 
 
                        
@@ -474,7 +518,10 @@ public class MigrationServiceImpl implements MigrationService {
                 sstPoliticaDataPdns.parallelStream().forEach(sstPoliticaDataPdn -> {
 
                     if (sstPoliticaDataPdn.getFidSstPoliticaField().getIdSstPoliticaField() == 1) {
-                        sstPoliticaDTO.setDeAcuerdoPolitica(Integer.valueOf(sstPoliticaDataPdn.getResult()));  
+                        if(Integer.valueOf(sstPoliticaDataPdn.getResult()) == 2);
+                        	sstPoliticaDTO.setDeAcuerdoPolitica(1);
+                        if(Integer.valueOf(sstPoliticaDataPdn.getResult()) == 3);
+                        	sstPoliticaDTO.setDeAcuerdoPolitica(2);
                     }
                                         
                     if (sstPoliticaDataPdn.getFidSstPoliticaField().getIdSstPoliticaField() == 5) {
@@ -520,8 +567,11 @@ public class MigrationServiceImpl implements MigrationService {
                         sstObjetivosDTO.setCrearOtrosObjetivos(sstObjetivosDataPdn.getResult());  
                     }
                                         
-                    if (sstObjetivosDataPdn.getFidSstObjetivosField().getIdSstObjetivosField() == 7) {
-                        sstObjetivosDTO.setDeAcuerdoObjetivos(Integer.valueOf(sstObjetivosDataPdn.getResult())); 
+                    if (sstObjetivosDataPdn.getFidSstObjetivosField().getIdSstObjetivosField() == 1) {
+                        if(Integer.valueOf(sstObjetivosDataPdn.getResult())==2);
+                        	sstObjetivosDTO.setDeAcuerdoObjetivos(1);
+                            if(Integer.valueOf(sstObjetivosDataPdn.getResult())==3);
+                        	sstObjetivosDTO.setDeAcuerdoObjetivos(2);
                     }
                     
 
@@ -647,7 +697,7 @@ public class MigrationServiceImpl implements MigrationService {
 	@Override
 	public void migrateSstRiegosTipo() {
 		//List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
-		List<RisksDTO> risks = new ArrayList<RisksDTO>();
+		
 
        // coreSubdomainsList.forEach(coreSubdomains -> {
             List<SstRiesgosTipoDataPdn> sstRiesgosTipoDataPdnList = sstRiesgosTipoDao.getSstRiesgosTipoDataBySubdomain(subd);
@@ -655,17 +705,20 @@ public class MigrationServiceImpl implements MigrationService {
                     parallelStream().collect(Collectors.groupingBy(SstRiesgosTipoDataPdn::getModified)).forEach((date, sstRiesgosTipoDataPdns) -> {
                 SstRiesgosTipoDTO sstRiesgosTipoDTO = new SstRiesgosTipoDTO();
                 SstRiesgosTipoCertif sstRiesgosTipoCertif = new SstRiesgosTipoCertif();
-
+                List<RisksDTO> risks = Collections.synchronizedList(new ArrayList<RisksDTO>());
                 RisksDTO riegos = new RisksDTO();
+                
                 sstRiesgosTipoDataPdns.parallelStream().forEach(sstRiesgosTipoDataPdn -> {
 
                     sstRiesgosTipoDataPdn.getFidSstRiesgosTipoField().getIdSstRiesgosTipoField();
-                    riegos.setId(sstRiesgosTipoDataPdn.getIdSstRiesgosTipoData());
+                    
+                    
+                    riegos.setId(Integer.valueOf(sstRiesgosTipoDataPdn.getResult()));
                     riegos.setLabel(sstRiesgosFields.getSstRiesgosTipoDataLabelById(Integer.valueOf(sstRiesgosTipoDataPdn.getResult())));
                     riegos.setOrder(sstRiesgosFields.getSstRiesgosTipoDataOrderById(Integer.valueOf(sstRiesgosTipoDataPdn.getResult())));
                     riegos.setParent(sstRiesgosFields.getSstRiesgosTipoDataLabelById(sstRiesgosFields
                     		.getSstRiesgosTipoDataParentrById(Integer.valueOf(sstRiesgosTipoDataPdn.getResult()))));
-                    
+                    risks.add(riegos);
                     
 
                     sstRiesgosTipoDTO.setSubdomain(sstRiesgosTipoDataPdn.getFidCoreSubdomain().getIdCoreSubdomain());
@@ -678,7 +731,7 @@ public class MigrationServiceImpl implements MigrationService {
                     sstRiesgosTipoCertif.setModified(sstRiesgosTipoDataPdn.getModified());
                     sstRiesgosTipoCertif.setCreated(sstRiesgosTipoDataPdn.getCreated());
                 });
-                risks.add(riegos);
+                
                 sstRiesgosTipoDTO.setRisks(risks);
                 sstRiesgosTipoCertif.setSstRiesgosTipo(JsonUtil.convertObjectToJson(sstRiesgosTipoDTO));
 
@@ -2413,18 +2466,20 @@ public class MigrationServiceImpl implements MigrationService {
                 
                 sstEncuestasFormPdns.parallelStream().forEach(sstEncuestasFormPdn -> {
 
-                	
-                	
-                    sstEncuestasFormCertif.setId(Long.valueOf(sstEncuestasFormPdn.getIdSstEncuestasForm().toString()));
+     
+                        sstEncuestasFormCertif.setId(Long.valueOf(sstEncuestasFormPdn.getIdSstEncuestasForm().toString()));
 
-                    sstEncuestasFormCertif.setChecked(sstEncuestasFormPdn.getChecked());
-                    sstEncuestasFormCertif.setEnable(sstEncuestasFormPdn.getEnable());
-                    sstEncuestasFormCertif.setModified(sstEncuestasFormPdn.getModified());
-                    sstEncuestasFormCertif.setCreated(sstEncuestasFormPdn.getCreated());
-                    
-                    sstEncuestasFormCertif.setSubdomain(String.valueOf(sstEncuestasFormPdn.getFidCoreSubdomain()));
-                    sstEncuestasFormCertif.setFidUser(sstEncuestasFormPdn.getFidUser().getIdUser());
-                    sstEncuestasFormCertif.setFidSstEncuestasTipo(sstEncuestasFormPdn.getFidSstEncuestasTipo().getIdSstEncuestasTipo());
+                        sstEncuestasFormCertif.setChecked(sstEncuestasFormPdn.getChecked());
+                        sstEncuestasFormCertif.setEnable(sstEncuestasFormPdn.getEnable());
+                        sstEncuestasFormCertif.setModified(sstEncuestasFormPdn.getModified());
+                        sstEncuestasFormCertif.setCreated(sstEncuestasFormPdn.getCreated());
+                        
+                        sstEncuestasFormCertif.setSubdomain(String.valueOf(sstEncuestasFormPdn.getFidCoreSubdomain()));
+                        sstEncuestasFormCertif.setFidUser(sstEncuestasFormPdn.getFidUser().getIdUser());
+                        sstEncuestasFormCertif.setFidSstEncuestasTipo(sstEncuestasFormPdn.getFidSstEncuestasTipo().getIdSstEncuestasTipo());
+                	
+                	
+
                     //sstEncuestasFormCertif.setFidSstRecurso(sstEncuestasFormPdn.getFidRecurso().getIdCoreModuloRecurso());
                     
                 });
@@ -2454,7 +2509,7 @@ public class MigrationServiceImpl implements MigrationService {
                 
                 SstEncuestasTrabajoDTO sstEncuestasDTO = new SstEncuestasTrabajoDTO();
                 SstEncuestasCertif sstEncuestasCertif = new SstEncuestasCertif();
-                List<RisksDTO> risks = new ArrayList<RisksDTO>();
+                List<RisksDTO> risks = Collections.synchronizedList(new ArrayList<RisksDTO>());
                 
                 sstEncuestasDataPdns.parallelStream().forEach(sstEncuestasDataPdn -> {
 
@@ -2992,8 +3047,8 @@ public class MigrationServiceImpl implements MigrationService {
                 
                 SstEncuestasSaludDTO sstEncuestasDTO = new SstEncuestasSaludDTO();
                 SstEncuestasCertif sstEncuestasCertif = new SstEncuestasCertif();
-                List<GenericoDTO> hobbyDeporte = new ArrayList<GenericoDTO>();
-                List<GenericoDTO> actividadesSaludEmpresa = new ArrayList<GenericoDTO>();
+                List<GenericoDTO> hobbyDeporte = Collections.synchronizedList(new ArrayList<GenericoDTO>());
+                List<GenericoDTO> actividadesSaludEmpresa = Collections.synchronizedList(new ArrayList<GenericoDTO>());
                 
                 sstEncuestasDataPdns.parallelStream().forEach(sstEncuestasDataPdn -> {
 
@@ -3196,7 +3251,7 @@ public class MigrationServiceImpl implements MigrationService {
                     parallelStream().collect(Collectors.groupingBy(SstInstructivosDataPdn::getModified)).forEach((date, sstInstructivosDataPdns) -> {
                 SstInstructivosDTO sstInstructivosDTO = new SstInstructivosDTO();
                 SstInstructivosCertif sstInstructivosCertif = new SstInstructivosCertif();
-                List<String> instructivosFile = new ArrayList<String>();
+                List<String> instructivosFile = Collections.synchronizedList(new ArrayList<String>());
                 
                 
                 sstInstructivosDataPdns.parallelStream().forEach(sstInstructivosDataPdn -> {
@@ -3250,9 +3305,9 @@ public class MigrationServiceImpl implements MigrationService {
                     parallelStream().collect(Collectors.groupingBy(SstSaludTrabajDataPdn::getModified)).forEach((date, sstSaludTrabajDataPdns) -> {
                 SstSaludTrabajadorDTO sstSaludTrabajDTO = new SstSaludTrabajadorDTO();
                 SstSaludTrabajadorCertif sstSaludTrabajCertif = new SstSaludTrabajadorCertif();
-                List<String> certMedIng = new ArrayList<String>();
-                List<String> certPedCon = new ArrayList<String>();
-                List<String> certMedRet = new ArrayList<String>();
+                List<String> certMedIng = Collections.synchronizedList(new ArrayList<String>());
+                List<String> certPedCon = Collections.synchronizedList(new ArrayList<String>());
+                List<String> certMedRet = Collections.synchronizedList(new ArrayList<String>());
                 
                 
                 
@@ -3335,16 +3390,16 @@ public class MigrationServiceImpl implements MigrationService {
                 SstEppDTO sstEppDTO = new SstEppDTO();
                 EppDTO eppDTO = new EppDTO();
                 SstEppCertif sstEppCertif = new SstEppCertif();
-                List<RisksDTO> protectoresCabeza = new ArrayList<RisksDTO>();
-                List<RisksDTO> protectoresOidos = new ArrayList<RisksDTO>();
-                List<RisksDTO> protectoresOjosCara = new ArrayList<RisksDTO>();
-                List<RisksDTO> protectoresViasResp = new ArrayList<RisksDTO>();
-                List<RisksDTO> protectoresManosBrazos = new ArrayList<RisksDTO>();
-                List<RisksDTO> protectoresPiesPiernas = new ArrayList<RisksDTO>();
-                List<RisksDTO> protectoresPiel = new ArrayList<RisksDTO>();
-                List<RisksDTO> protectoresCuerpo = new ArrayList<RisksDTO>();
-                List<RisksDTO> protectoresAltura = new ArrayList<RisksDTO>();
-                List<RisksDTO> protectoresOtros = new ArrayList<RisksDTO>();
+                List<RisksDTO> protectoresCabeza = Collections.synchronizedList(new ArrayList<RisksDTO>());
+                List<RisksDTO> protectoresOidos = Collections.synchronizedList(new ArrayList<RisksDTO>());
+                List<RisksDTO> protectoresOjosCara = Collections.synchronizedList(new ArrayList<RisksDTO>());
+                List<RisksDTO> protectoresViasResp = Collections.synchronizedList(new ArrayList<RisksDTO>());
+                List<RisksDTO> protectoresManosBrazos = Collections.synchronizedList(new ArrayList<RisksDTO>());
+                List<RisksDTO> protectoresPiesPiernas = Collections.synchronizedList(new ArrayList<RisksDTO>());
+                List<RisksDTO> protectoresPiel = Collections.synchronizedList(new ArrayList<RisksDTO>());
+                List<RisksDTO> protectoresCuerpo = Collections.synchronizedList(new ArrayList<RisksDTO>());
+                List<RisksDTO> protectoresAltura = Collections.synchronizedList(new ArrayList<RisksDTO>());
+                List<RisksDTO> protectoresOtros = Collections.synchronizedList(new ArrayList<RisksDTO>());
                 
                 sstEppDataPdns.parallelStream().forEach(sstEppDataPdn -> {
 
@@ -3722,7 +3777,7 @@ public class MigrationServiceImpl implements MigrationService {
                     parallelStream().collect(Collectors.groupingBy(SstAtelGestionPdn::getModified)).forEach((date, sstAtelGestionPdns) -> {
                 SstAtelGestionDTO sstAtelGestionDTO = new SstAtelGestionDTO();
                 SstAtelGestionCertif sstAtelGestionCertif = new SstAtelGestionCertif();
-                List<IntegranteDTO> users = new ArrayList<IntegranteDTO>();
+                List<IntegranteDTO> users = Collections.synchronizedList(new ArrayList<IntegranteDTO>());
                 
                 sstAtelGestionPdns.parallelStream().forEach(sstAtelGestionPdn -> {
                 	sstAtelGestionDTO.setId(Long.valueOf(sstAtelGestionPdn.getIdSstAtElGestion().toString()));
@@ -3949,19 +4004,19 @@ public class MigrationServiceImpl implements MigrationService {
                 		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 38) {
                 			registro.set_id(1);
                 			registro.setLabel("selYes");
-                			matriz.setAplica685del2001(registro);
+                			matriz.setAplica685del2011(registro);
                 		}
                 		
                 		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 39) {
                 			registro.set_id(2);
                 			registro.setLabel("selNo");
-                			matriz.setAplica685del2001(registro);
+                			matriz.setAplica685del2011(registro);
                 		}
                 		
                 		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 40) {
                 			registro.set_id(3);
                 			registro.setLabel("selNoSe");
-                			matriz.setAplica685del2001(registro);
+                			matriz.setAplica685del2011(registro);
                 		}
                 	}
                 	
@@ -4138,19 +4193,19 @@ public class MigrationServiceImpl implements MigrationService {
                 		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 86) {
                 			registro.set_id(1);
                 			registro.setLabel("selYes");
-                			matriz.setAplica1616del2012(registro);
+                			matriz.setAplica1616del2013(registro);
                 		}
                 		
                 		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 87) {
                 			registro.set_id(2);
                 			registro.setLabel("selNo");
-                			matriz.setAplica1616del2012(registro);
+                			matriz.setAplica1616del2013(registro);
                 		}
                 		
                 		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 88) {
                 			registro.set_id(3);
                 			registro.setLabel("selNoSe");
-                			matriz.setAplica1616del2012(registro);
+                			matriz.setAplica1616del2013(registro);
                 		}
                 	}
                 	
@@ -4180,19 +4235,19 @@ public class MigrationServiceImpl implements MigrationService {
                 		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 94) {
                 			registro.set_id(1);
                 			registro.setLabel("selYes");
-                			matriz.setAplica1429del2012(registro);
+                			matriz.setAplica1429del2010(registro);
                 		}
                 		
                 		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 95) {
                 			registro.set_id(2);
                 			registro.setLabel("selNo");
-                			matriz.setAplica1429del2012(registro);
+                			matriz.setAplica1429del2010(registro);
                 		}
                 		
                 		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 96) {
                 			registro.set_id(3);
                 			registro.setLabel("selNoSe");
-                			matriz.setAplica1429del2012(registro);
+                			matriz.setAplica1429del2010(registro);
                 		}
                 	}
                 	
@@ -4831,19 +4886,19 @@ public class MigrationServiceImpl implements MigrationService {
                 		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 326) {
                 			registro.set_id(1);
                 			registro.setLabel("selYes");
-                			matriz.setAplica032del2010(registro);
+                			matriz.setAplica038del2010(registro);
                 		}
                 		
                 		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 327) {
                 			registro.set_id(2);
                 			registro.setLabel("selNo");
-                			matriz.setAplica032del2010(registro);
+                			matriz.setAplica038del2010(registro);
                 		}
                 		
                 		if (Integer.valueOf(sstMatrizLegalDataPdn.getResult()) == 328) {
                 			registro.set_id(3);
                 			registro.setLabel("selNoSe");
-                			matriz.setAplica032del2010(registro);
+                			matriz.setAplica038del2010(registro);
                 		}
                 	}
                    	
@@ -5102,7 +5157,8 @@ public class MigrationServiceImpl implements MigrationService {
                 	sstMatrizLegalDTO.setId(Long.valueOf(sstMatrizLegalDataPdn.getIdSstMatrizLegalData()));
                     sstMatrizLegalDTO.setQuantityFields(61);
                 	sstMatrizLegalCertif.setId(Long.valueOf(sstMatrizLegalDataPdn.getIdSstMatrizLegalData().toString()));
-
+                	sstMatrizLegalDTO.setSubdomain(sstMatrizLegalDataPdn.getFidCoreSubdomain().getIdCoreSubdomain());
+                	
                     sstMatrizLegalCertif.setChecked(sstMatrizLegalDataPdn.getChecked());
                     sstMatrizLegalCertif.setEnable(sstMatrizLegalDataPdn.getEnable());
                     sstMatrizLegalCertif.setModified(sstMatrizLegalDataPdn.getModified());
@@ -5110,8 +5166,10 @@ public class MigrationServiceImpl implements MigrationService {
                     
                     
                     
+                    
                 });
                 
+                sstMatrizLegalDTO.setMatriz(matriz);
                 sstMatrizLegalCertif.setSstMatrizRiesgos(JsonUtil.convertObjectToJson(sstMatrizLegalDTO));
                 
                 sstMatrizLegalDaoCertif.save(sstMatrizLegalCertif);
@@ -5219,8 +5277,8 @@ public class MigrationServiceImpl implements MigrationService {
 
                 SstCapacitacionDTO sstCapacitacionDTO = new SstCapacitacionDTO();
                 SstCapacitacionCertif sstCapacitacionCertif = new SstCapacitacionCertif();
-                
-                Collection<IntegranteDTO> lista = new ArrayList<IntegranteDTO>();
+                //IntegranteDTO user = new IntegranteDTO();
+                List<IntegranteDTO> lista = Collections.synchronizedList(new ArrayList<IntegranteDTO>());
                 
                 sstCapacitacionPlanDataPdns.parallelStream().forEach(sstCapacitacionPlanDataPdn -> {
 
@@ -5228,13 +5286,31 @@ public class MigrationServiceImpl implements MigrationService {
                 	if (sstCapacitacionPlanDataPdn.getFidSstCapacitacionPlanField().getIdSstCapacitacionPlanField() == 17)
                 		sstCapacitacionDTO.setNombreCapacitacion(sstCapacitacionPlanDataPdn.getResult());
                 	
-                	if (sstCapacitacionPlanDataPdn.getFidSstCapacitacionPlanField().getIdSstCapacitacionPlanField() == 18
-                			|| sstCapacitacionPlanDataPdn.getFidSstCapacitacionPlanField().getIdSstCapacitacionPlanField() == 100) {
-                		IntegranteDTO user = new IntegranteDTO();
-                		user.setId(Integer.valueOf(sstCapacitacionPlanDataPdn.getResult()));
-                		user.setUser(coreUsuarioDao.getFirstNameCoreUsuarioByIdUser(Integer.valueOf(sstCapacitacionPlanDataPdn.getResult()))
-                				+" "+coreUsuarioDao.getLastNameCoreUsuarioByIdUser(Integer.valueOf(sstCapacitacionPlanDataPdn.getResult())));
-                		lista.add(user);
+                	if (sstCapacitacionPlanDataPdn.getFidSstCapacitacionPlanField().getIdSstCapacitacionPlanField() == 18) {
+                		
+                		try {
+                    		IntegranteDTO user = new IntegranteDTO();
+                    		user.setId(Integer.valueOf(sstCapacitacionPlanDataPdn.getResult()));
+                    		user.setUser(coreUsuarioDao.getFirstNameCoreUsuarioByIdUser(Integer.valueOf(sstCapacitacionPlanDataPdn.getResult()))
+                    				+" "+coreUsuarioDao.getLastNameCoreUsuarioByIdUser(Integer.valueOf(sstCapacitacionPlanDataPdn.getResult())));
+                    		lista.add(user);
+                		}catch(Exception e){
+                	        e.printStackTrace();
+                	    }
+                	}
+                	
+                	if (sstCapacitacionPlanDataPdn.getFidSstCapacitacionPlanField().getIdSstCapacitacionPlanField() == 100) {
+                		try {
+                    		IntegranteDTO user = new IntegranteDTO();
+                    		user.setId(Integer.valueOf(sstCapacitacionPlanDataPdn.getResult()));
+                    		user.setUser(coreUsuarioDao.getFirstNameCoreUsuarioByIdUser(Integer.valueOf(sstCapacitacionPlanDataPdn.getResult()))
+                    				+" "+coreUsuarioDao.getLastNameCoreUsuarioByIdUser(Integer.valueOf(sstCapacitacionPlanDataPdn.getResult())));
+                    		lista.add(user);
+                		}catch(Exception e){
+                	        e.printStackTrace();
+                	    }
+
+
                 	}
                 	
                 	if (sstCapacitacionPlanDataPdn.getFidSstCapacitacionPlanField().getIdSstCapacitacionPlanField() == 101
@@ -5299,13 +5375,14 @@ public class MigrationServiceImpl implements MigrationService {
             sstAmenazasDataPdnList.
                     parallelStream().collect(Collectors.groupingBy(SstAmenazasDataPdn::getModified)).forEach((date, sstAmenazasDataPdns) -> {
 
+            	//List<IntegranteDTO> lista = Collections.synchronizedList(new ArrayList<IntegranteDTO>());    	
                 SstAmenazasDTO sstAmenazasDTO = new SstAmenazasDTO();
                 SstAmenazasCertif sstAmenazasCertif = new SstAmenazasCertif();
-                List<String> arreglo = new ArrayList<String>();
-                List<RisksDTO> amenazasNaturales = new ArrayList<RisksDTO>();
-                List<RisksDTO> amenazasTecnologicas1 = new ArrayList<RisksDTO>();
-                List<RisksDTO> amenazasSociales = new ArrayList<RisksDTO>();
-                List<RisksDTO> amenazasTecnologicas2 = new ArrayList<RisksDTO>();
+                List<String> arreglo = Collections.synchronizedList(new ArrayList<String>());
+                List<RisksDTO> amenazasNaturales = Collections.synchronizedList(new ArrayList<RisksDTO>());
+                List<RisksDTO> amenazasTecnologicas1 = Collections.synchronizedList(new ArrayList<RisksDTO>());
+                List<RisksDTO> amenazasSociales = Collections.synchronizedList(new ArrayList<RisksDTO>());
+                List<RisksDTO> amenazasTecnologicas2 = Collections.synchronizedList(new ArrayList<RisksDTO>());
                 AmenazasDTO amenazas = new AmenazasDTO();
                 
                 sstAmenazasDataPdns.parallelStream().forEach(sstAmenazasDataPdn -> {
@@ -5498,7 +5575,7 @@ public class MigrationServiceImpl implements MigrationService {
 
                 SstComitedDataDesignacionVigiaDTO sstComitesDTO = new SstComitedDataDesignacionVigiaDTO();
                 SstComitesCertif sstComitesCertif = new SstComitesCertif();
-                List<IntegranteDTO> lista = new ArrayList<IntegranteDTO>();
+                List<IntegranteDTO> lista = Collections.synchronizedList(new ArrayList<IntegranteDTO>());
                 
                 sstComitesDataPdns.parallelStream().forEach(sstComitesDataPdn -> {
                 	
@@ -5555,8 +5632,8 @@ public class MigrationServiceImpl implements MigrationService {
 
                 SstComitedDataReunionCopasstDTO sstComitesDTO = new SstComitedDataReunionCopasstDTO();
                 SstComitesCertif sstComitesCertif = new SstComitesCertif();
-                List<IntegranteDTO> lista = new ArrayList<IntegranteDTO>();
-                List<IntegranteDTO> lista1 = new ArrayList<IntegranteDTO>();
+                List<IntegranteDTO> lista = Collections.synchronizedList(new ArrayList<IntegranteDTO>());
+                List<IntegranteDTO> lista1 = Collections.synchronizedList(new ArrayList<IntegranteDTO>()) ;
                 ReunionDTO temas = new ReunionDTO();
 
                 sstComitesDataPdns.parallelStream().forEach(sstComitesDataPdn -> {
@@ -5653,8 +5730,8 @@ public class MigrationServiceImpl implements MigrationService {
 
                 SstComitedDataDesignacionCopasstDTO sstComitesDTO = new SstComitedDataDesignacionCopasstDTO();
                 SstComitesCertif sstComitesCertif = new SstComitesCertif();
-                List<IntegranteDTO> lista = new ArrayList<IntegranteDTO>();
-                List<IntegranteDTO> lista1 = new ArrayList<IntegranteDTO>();
+                List<IntegranteDTO> lista = Collections.synchronizedList(new ArrayList<IntegranteDTO>()) ;
+                List<IntegranteDTO> lista1 = Collections.synchronizedList(new ArrayList<IntegranteDTO>()) ;
 
                 sstComitesDataPdns.parallelStream().forEach(sstComitesDataPdn -> {
 
@@ -5722,8 +5799,8 @@ public class MigrationServiceImpl implements MigrationService {
 
                 SstComitedDataConformacionComiteConvivenciaDTO sstComitesDTO = new SstComitedDataConformacionComiteConvivenciaDTO();
                 SstComitesCertif sstComitesCertif = new SstComitesCertif();
-                List<IntegranteDTO> lista = new ArrayList<IntegranteDTO>();
-                List<IntegranteDTO> lista1 = new ArrayList<IntegranteDTO>();
+                List<IntegranteDTO> lista = Collections.synchronizedList(new ArrayList<IntegranteDTO>());
+                List<IntegranteDTO> lista1 = Collections.synchronizedList(new ArrayList<IntegranteDTO>());
 
                 sstComitesDataPdns.parallelStream().forEach(sstComitesDataPdn -> {
 
@@ -5792,7 +5869,7 @@ public class MigrationServiceImpl implements MigrationService {
 
                 SstComitedDataReunionComiteConvivenciaDTO sstComitesDTO = new SstComitedDataReunionComiteConvivenciaDTO();
                 SstComitesCertif sstComitesCertif = new SstComitesCertif();
-                List<IntegranteDTO> lista = new ArrayList<IntegranteDTO>();
+                Collection<IntegranteDTO> lista = Collections.synchronizedList(new ArrayList<IntegranteDTO>());
                 ReunionConvivenciaDTO temas = new ReunionConvivenciaDTO();
 
                 sstComitesDataPdns.parallelStream().forEach(sstComitesDataPdn -> {
@@ -5873,7 +5950,7 @@ public class MigrationServiceImpl implements MigrationService {
                 sstComitesFormPdns.parallelStream().forEach(sstComitesFormPdn -> {
 
                 	
-                	sstComitesFormCertif.setFidSstComitesTipo(Integer.valueOf(String.valueOf(sstComitesFormPdn.getFidSstComitesTipo())));
+                	sstComitesFormCertif.setFidSstComitesTipo(Integer.valueOf(sstComitesFormPdn.getFidSstComitesTipo().getIdSstComitesTipo()));
                 	
                     sstComitesFormCertif.setIdSstComitesForm(Long.valueOf(sstComitesFormPdn.getIdSstComitesForm().toString())); 
 
@@ -5913,7 +5990,7 @@ public class MigrationServiceImpl implements MigrationService {
 
                 SstSociodemoDTO sstSociodemoDTO = new SstSociodemoDTO();
                 SstSociodemoCertif sstSociodemoCertif = new SstSociodemoCertif();
-                List<SociodemoDTO> sociodemo = new ArrayList<SociodemoDTO>();
+                List<SociodemoDTO> sociodemo = Collections.synchronizedList( new ArrayList<SociodemoDTO>());
 
                 
                 sstSociodemoDataPdns.parallelStream().forEach(sstSociodemoDataPdn -> {
@@ -5983,6 +6060,63 @@ public class MigrationServiceImpl implements MigrationService {
         //});
 
         System.out.println("Migracion sstSociodemo completada");
+	}
+
+
+
+	@Override
+	public void migrateSstProveedores() {
+		
+		//List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
+		
+
+        //coreSubdomainsList.forEach(coreSubdomains -> {
+            List<SstProveedoresDataPdn> sstProveedoresDataPdnList = sstProveedoresDataPdnDao.getSstProveedoresDataBySubdomain(subd); 
+            sstProveedoresDataPdnList.
+                    parallelStream().collect(Collectors.groupingBy(SstProveedoresDataPdn::getModified)).forEach((date, sstProveedoresDataPdns) -> {
+
+                
+                SstProveedoresCertif sstProveedoresCertif = new SstProveedoresCertif();
+                SstProvedoresDTO sstProveedoresDTO = new SstProvedoresDTO();
+                List<String> proveedores = Collections.synchronizedList(new ArrayList<String>());
+                
+                sstProveedoresDataPdns.parallelStream().forEach(sstProveedoresDataPdn -> {
+
+                	if (sstProveedoresDataPdn.getFidSstProveedoresField().getIdSstProveedoresField() == 2) {
+                        if(sstProveedoresDataPdn.getResult() != null){
+                            Optional<CoreRecurso> coreRecurso = coreRecursoDao.findById(Integer.valueOf(sstProveedoresDataPdn.getResult()));
+                            if(coreRecurso.isPresent()){
+                                String result = coreRecurso.get().getNombreArchivo();
+                                proveedores.add(result);
+                            }
+
+                        }
+                	}
+                	
+                	sstProveedoresDTO.setSubdomain(sstProveedoresDataPdn.getFidCoreSubdomain().getIdCoreSubdomain());
+                	sstProveedoresDTO.setId(Long.valueOf(sstProveedoresDataPdn.getIdSstProveedoresData().toString()));
+                	
+                    sstProveedoresCertif.setId(Long.valueOf(sstProveedoresDataPdn.getIdSstProveedoresData().toString()));
+                	
+
+                    sstProveedoresCertif.setChecked(sstProveedoresDataPdn.getChecked());
+                    sstProveedoresCertif.setEnable(sstProveedoresDataPdn.getEnable());
+                    sstProveedoresCertif.setModified(sstProveedoresDataPdn.getModified());
+                    sstProveedoresCertif.setCreated(sstProveedoresDataPdn.getCreated());
+                    
+                                     
+                });
+                sstProveedoresDTO.setProveedorFile(proveedores);
+
+                sstProveedoresDaoCertif.save(sstProveedoresCertif);
+                System.out.println("------Migrando-----" + sstProveedoresCertif.getId()  + "---------" + sstProveedoresDTO.getSubdomain());
+            });
+
+
+        //});
+
+        System.out.println("Migracion sstProveedores completada");
+		
 	}
 
 

@@ -70,7 +70,7 @@ public class SstMatrizLegalDataPdn implements Serializable {
 		this.created = created;
 	}
 	public Date getModified() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         try {
             return simpleDateFormat.parse(simpleDateFormat.format(modified));
         } catch (ParseException e) {
