@@ -7,7 +7,7 @@ public class SstRiesgosTipoDTO implements Serializable {
 	
 	private Long id;
 	
-	private List<RisksDTO> risks;
+	private List<List<RisksDTO>> risks;
 	
 	private String subdomain;
 	
@@ -21,11 +21,13 @@ public class SstRiesgosTipoDTO implements Serializable {
 		this.id = id;
 	}
 
-	public List<RisksDTO> getRisks() {
+
+
+	public List<List<RisksDTO>> getRisks() {
 		return risks;
 	}
 
-	public void setRisks(List<RisksDTO> risks) {
+	public void setRisks(List<List<RisksDTO>> risks) {
 		this.risks = risks;
 	}
 

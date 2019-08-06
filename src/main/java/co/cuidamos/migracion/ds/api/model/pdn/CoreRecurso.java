@@ -8,6 +8,7 @@ package co.cuidamos.migracion.ds.api.model.pdn;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 
 /**
@@ -93,6 +94,11 @@ public class CoreRecurso implements Serializable {
     @Column(name = "fecha_vencimiento")
     @Temporal(TemporalType.DATE)
     private Date fechaVencimiento;
+    @JoinColumn(name = "fid_tipo_recurso", referencedColumnName = "id_tipo_recurso")
+    @ManyToOne
+    private CoreTipoRecurso fidTipoRecurso;
+    @OneToMany(mappedBy = "fidRecurso")
+    private Collection<CoreModuloRecurso> coreModuloRecursoCollection;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -305,4 +311,26 @@ public class CoreRecurso implements Serializable {
     public void setFechaVencimiento(Date fechaVencimiento) {
         this.fechaVencimiento = fechaVencimiento;
     }
+
+	public CoreTipoRecurso getFidTipoRecurso() {
+		return fidTipoRecurso;
+	}
+
+	public void setFidTipoRecurso(CoreTipoRecurso fidTipoRecurso) {
+		this.fidTipoRecurso = fidTipoRecurso;
+	}
+
+	public Collection<CoreModuloRecurso> getCoreModuloRecursoCollection() {
+		return coreModuloRecursoCollection;
+	}
+
+	public void setCoreModuloRecursoCollection(Collection<CoreModuloRecurso> coreModuloRecursoCollection) {
+		this.coreModuloRecursoCollection = coreModuloRecursoCollection;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+    
+    
 }

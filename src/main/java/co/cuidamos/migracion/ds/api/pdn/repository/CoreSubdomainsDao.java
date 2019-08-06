@@ -15,4 +15,7 @@ public interface CoreSubdomainsDao extends JpaRepository<CoreSubdomains, Long> {
 	
     @Query(value = "SELECT * FROM core_subdomains WHERE id_core_subdomain = :subdomain", nativeQuery = true)
     public String getSubdomainBySubdomain(@Param("subdomain") String subdomain);
+    
+    @Query(value = "SELECT gral_nombre_dominio FROM core_subdomains WHERE id_core_subdomain = :subdomain", nativeQuery = true)
+    public String getNombreDominioBySubdomain(@Param("subdomain") String subdomain);
 }

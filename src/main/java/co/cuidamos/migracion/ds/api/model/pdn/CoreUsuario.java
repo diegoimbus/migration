@@ -85,6 +85,13 @@ public class CoreUsuario implements Serializable {
     private String areaTrabajo;
     @Column(name = "turno_trabajo")
     private String turnoTrabajo;
+    
+    
+    
+    @JoinColumn(name = "fid_groupuser", referencedColumnName = "id_groupuser")
+    @ManyToOne
+    private CoreGrupoUsuario fidGroupuser;
+    
 	public Integer getIdUser() {
 		return idUser;
 	}
@@ -267,6 +274,12 @@ public class CoreUsuario implements Serializable {
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+	public CoreGrupoUsuario getFidGroupuser() {
+		return fidGroupuser;
+	}
+	public void setFidGroupuser(CoreGrupoUsuario fidGroupuser) {
+		this.fidGroupuser = fidGroupuser;
 	}
 
 

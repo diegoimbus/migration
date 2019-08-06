@@ -39,6 +39,7 @@ import co.cuidamos.migracion.ds.api.util.JsonUtil;
 import co.cuidamos.migracion.ds.api.pdn.repository.CoreRecursoDao;
 import co.cuidamos.migracion.ds.api.model.pdn.CoreRecurso;
 import co.cuidamos.migracion.ds.api.model.pdn.CoreSubdomains;
+import co.cuidamos.migracion.ds.api.model.pdn.CoreUsuario;
 import co.cuidamos.migracion.ds.api.model.pdn.SstAmenazasDataPdn;
 import co.cuidamos.migracion.ds.api.model.pdn.SstAtelDataPdn;
 import co.cuidamos.migracion.ds.api.model.pdn.SstAtelGestionPdn;
@@ -62,6 +63,8 @@ import co.cuidamos.migracion.ds.api.model.pdn.SstRiesgosTipoDataPdn;
 import co.cuidamos.migracion.ds.api.model.pdn.SstRiesgosValoracionDataPdn;
 import co.cuidamos.migracion.ds.api.model.pdn.SstSaludTrabajDataPdn;
 import co.cuidamos.migracion.ds.api.model.pdn.SstSociodemoDataPdn;
+import co.cuidamos.migracion.ds.api.model.certif.CoreRecursoCertif;
+import co.cuidamos.migracion.ds.api.model.certif.CoreUsuarioCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstAmenazasCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstAtelCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstAtelGestionCertif;
@@ -85,6 +88,8 @@ import co.cuidamos.migracion.ds.api.model.certif.SstRiesgosTipoCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstRiesgosValoracionCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstSaludTrabajadorCertif;
 import co.cuidamos.migracion.ds.api.model.certif.SstSociodemoCertif;
+import co.cuidamos.migracion.ds.api.certif.repository.CoreRecursoCertifDao;
+import co.cuidamos.migracion.ds.api.certif.repository.CoreUsuarioCertifDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstAmenazasDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstAtelDao;
 import co.cuidamos.migracion.ds.api.certif.repository.SstAtelGestionDao;
@@ -139,6 +144,9 @@ public class MigrationServiceImpl implements MigrationService {
 
     @Autowired
     private CoreRecursoDao coreRecursoDao;
+    
+    @Autowired
+    private CoreRecursoCertifDao coreRecursoCertifDao;
     
     @Autowired
     private SstEmpresaEspecDataDao sstEmpresaEspecDao;
@@ -298,6 +306,9 @@ public class MigrationServiceImpl implements MigrationService {
     
     @Autowired
     private SstProveedoresDao sstProveedoresDaoCertif;
+    
+    @Autowired
+    private CoreUsuarioCertifDao coreUsuarioDaoCertif;
     
     @Override
     public void migrateSstEmpresaGral() {
@@ -705,21 +716,96 @@ public class MigrationServiceImpl implements MigrationService {
                     parallelStream().collect(Collectors.groupingBy(SstRiesgosTipoDataPdn::getModified)).forEach((date, sstRiesgosTipoDataPdns) -> {
                 SstRiesgosTipoDTO sstRiesgosTipoDTO = new SstRiesgosTipoDTO();
                 SstRiesgosTipoCertif sstRiesgosTipoCertif = new SstRiesgosTipoCertif();
-                List<RisksDTO> risks = Collections.synchronizedList(new ArrayList<RisksDTO>());
-                RisksDTO riegos = new RisksDTO();
+                List<RisksDTO> riesgosBiologicos = Collections.synchronizedList(new ArrayList<RisksDTO>());
+                List<RisksDTO> riesgosFisicos = Collections.synchronizedList(new ArrayList<RisksDTO>());
+                List<RisksDTO> riesgosQuimicos = Collections.synchronizedList(new ArrayList<RisksDTO>());
+                List<RisksDTO> riesgosPsicosociales = Collections.synchronizedList(new ArrayList<RisksDTO>());
+                List<RisksDTO> riesgosBiomecanicos = Collections.synchronizedList(new ArrayList<RisksDTO>());
+                List<RisksDTO> riesgosCondSeguridad = Collections.synchronizedList(new ArrayList<RisksDTO>());
+                List<RisksDTO> riesgosFenomNaturales = Collections.synchronizedList(new ArrayList<RisksDTO>());
+                List<List<RisksDTO>> risks2 = Collections.synchronizedList(new ArrayList<List<RisksDTO>>());
                 
                 sstRiesgosTipoDataPdns.parallelStream().forEach(sstRiesgosTipoDataPdn -> {
 
                     sstRiesgosTipoDataPdn.getFidSstRiesgosTipoField().getIdSstRiesgosTipoField();
                     
+                    if(sstRiesgosTipoDataPdn.getFidSstRiesgosTipoField().getIdSstRiesgosTipoField() == 1) {
+                    	RisksDTO riegos = new RisksDTO();
+                        
+                        riegos.setId(Integer.valueOf(sstRiesgosTipoDataPdn.getResult()));
+                        riegos.setLabel(sstRiesgosFields.getSstRiesgosTipoDataLabelById(Integer.valueOf(sstRiesgosTipoDataPdn.getResult())));
+                        riegos.setOrder(sstRiesgosFields.getSstRiesgosTipoDataOrderById(Integer.valueOf(sstRiesgosTipoDataPdn.getResult())));
+                        riegos.setParent(sstRiesgosFields.getSstRiesgosTipoDataLabelById(sstRiesgosFields
+                        		.getSstRiesgosTipoDataParentrById(Integer.valueOf(sstRiesgosTipoDataPdn.getResult()))));
+                        riesgosBiologicos.add(riegos);
+                        
+                    }
                     
-                    riegos.setId(Integer.valueOf(sstRiesgosTipoDataPdn.getResult()));
-                    riegos.setLabel(sstRiesgosFields.getSstRiesgosTipoDataLabelById(Integer.valueOf(sstRiesgosTipoDataPdn.getResult())));
-                    riegos.setOrder(sstRiesgosFields.getSstRiesgosTipoDataOrderById(Integer.valueOf(sstRiesgosTipoDataPdn.getResult())));
-                    riegos.setParent(sstRiesgosFields.getSstRiesgosTipoDataLabelById(sstRiesgosFields
-                    		.getSstRiesgosTipoDataParentrById(Integer.valueOf(sstRiesgosTipoDataPdn.getResult()))));
-                    risks.add(riegos);
+                    if(sstRiesgosTipoDataPdn.getFidSstRiesgosTipoField().getIdSstRiesgosTipoField() == 11) {
+                    	RisksDTO riegos = new RisksDTO();
+                        riegos.setId(Integer.valueOf(sstRiesgosTipoDataPdn.getResult()));
+                        riegos.setLabel(sstRiesgosFields.getSstRiesgosTipoDataLabelById(Integer.valueOf(sstRiesgosTipoDataPdn.getResult())));
+                        riegos.setOrder(sstRiesgosFields.getSstRiesgosTipoDataOrderById(Integer.valueOf(sstRiesgosTipoDataPdn.getResult())));
+                        riegos.setParent(sstRiesgosFields.getSstRiesgosTipoDataLabelById(sstRiesgosFields
+                        		.getSstRiesgosTipoDataParentrById(Integer.valueOf(sstRiesgosTipoDataPdn.getResult()))));
+                        riesgosFisicos.add(riegos);
+                        
+                    }
                     
+                    if(sstRiesgosTipoDataPdn.getFidSstRiesgosTipoField().getIdSstRiesgosTipoField() == 20) {
+                    	RisksDTO riegos = new RisksDTO();
+                        riegos.setId(Integer.valueOf(sstRiesgosTipoDataPdn.getResult()));
+                        riegos.setLabel(sstRiesgosFields.getSstRiesgosTipoDataLabelById(Integer.valueOf(sstRiesgosTipoDataPdn.getResult())));
+                        riegos.setOrder(sstRiesgosFields.getSstRiesgosTipoDataOrderById(Integer.valueOf(sstRiesgosTipoDataPdn.getResult())));
+                        riegos.setParent(sstRiesgosFields.getSstRiesgosTipoDataLabelById(sstRiesgosFields
+                        		.getSstRiesgosTipoDataParentrById(Integer.valueOf(sstRiesgosTipoDataPdn.getResult()))));
+                        riesgosQuimicos.add(riegos);
+                        
+                    }
+                    
+                    if(sstRiesgosTipoDataPdn.getFidSstRiesgosTipoField().getIdSstRiesgosTipoField() == 28) {
+                    	RisksDTO riegos = new RisksDTO();
+                        riegos.setId(Integer.valueOf(sstRiesgosTipoDataPdn.getResult()));
+                        riegos.setLabel(sstRiesgosFields.getSstRiesgosTipoDataLabelById(Integer.valueOf(sstRiesgosTipoDataPdn.getResult())));
+                        riegos.setOrder(sstRiesgosFields.getSstRiesgosTipoDataOrderById(Integer.valueOf(sstRiesgosTipoDataPdn.getResult())));
+                        riegos.setParent(sstRiesgosFields.getSstRiesgosTipoDataLabelById(sstRiesgosFields
+                        		.getSstRiesgosTipoDataParentrById(Integer.valueOf(sstRiesgosTipoDataPdn.getResult()))));
+                        riesgosPsicosociales.add(riegos);
+                        
+                    }
+
+                    if(sstRiesgosTipoDataPdn.getFidSstRiesgosTipoField().getIdSstRiesgosTipoField() == 36) {
+                    	RisksDTO riegos = new RisksDTO();
+                        riegos.setId(Integer.valueOf(sstRiesgosTipoDataPdn.getResult()));
+                        riegos.setLabel(sstRiesgosFields.getSstRiesgosTipoDataLabelById(Integer.valueOf(sstRiesgosTipoDataPdn.getResult())));
+                        riegos.setOrder(sstRiesgosFields.getSstRiesgosTipoDataOrderById(Integer.valueOf(sstRiesgosTipoDataPdn.getResult())));
+                        riegos.setParent(sstRiesgosFields.getSstRiesgosTipoDataLabelById(sstRiesgosFields
+                        		.getSstRiesgosTipoDataParentrById(Integer.valueOf(sstRiesgosTipoDataPdn.getResult()))));
+                        riesgosBiomecanicos.add(riegos);
+                        
+                    }
+                    
+                    if(sstRiesgosTipoDataPdn.getFidSstRiesgosTipoField().getIdSstRiesgosTipoField() == 42) {
+                    	RisksDTO riegos = new RisksDTO();
+                        riegos.setId(Integer.valueOf(sstRiesgosTipoDataPdn.getResult()));
+                        riegos.setLabel(sstRiesgosFields.getSstRiesgosTipoDataLabelById(Integer.valueOf(sstRiesgosTipoDataPdn.getResult())));
+                        riegos.setOrder(sstRiesgosFields.getSstRiesgosTipoDataOrderById(Integer.valueOf(sstRiesgosTipoDataPdn.getResult())));
+                        riegos.setParent(sstRiesgosFields.getSstRiesgosTipoDataLabelById(sstRiesgosFields
+                        		.getSstRiesgosTipoDataParentrById(Integer.valueOf(sstRiesgosTipoDataPdn.getResult()))));
+                        riesgosCondSeguridad.add(riegos);
+                        
+                    }
+                    
+                    if(sstRiesgosTipoDataPdn.getFidSstRiesgosTipoField().getIdSstRiesgosTipoField() == 52) {
+                    	RisksDTO riegos = new RisksDTO();
+                        riegos.setId(Integer.valueOf(sstRiesgosTipoDataPdn.getResult()));
+                        riegos.setLabel(sstRiesgosFields.getSstRiesgosTipoDataLabelById(Integer.valueOf(sstRiesgosTipoDataPdn.getResult())));
+                        riegos.setOrder(sstRiesgosFields.getSstRiesgosTipoDataOrderById(Integer.valueOf(sstRiesgosTipoDataPdn.getResult())));
+                        riegos.setParent(sstRiesgosFields.getSstRiesgosTipoDataLabelById(sstRiesgosFields
+                        		.getSstRiesgosTipoDataParentrById(Integer.valueOf(sstRiesgosTipoDataPdn.getResult()))));
+                        riesgosFenomNaturales.add(riegos);
+                        
+                    }
 
                     sstRiesgosTipoDTO.setSubdomain(sstRiesgosTipoDataPdn.getFidCoreSubdomain().getIdCoreSubdomain());
                     sstRiesgosTipoDTO.setId(Long.valueOf(sstRiesgosTipoDataPdn.getIdSstRiesgosTipoData()));
@@ -732,7 +818,24 @@ public class MigrationServiceImpl implements MigrationService {
                     sstRiesgosTipoCertif.setCreated(sstRiesgosTipoDataPdn.getCreated());
                 });
                 
-                sstRiesgosTipoDTO.setRisks(risks);
+               // sstRiesgosTipoDTO. .setRisks(risks);
+                risks2.add(riesgosFenomNaturales);
+                risks2.add(riesgosCondSeguridad);
+                risks2.add(riesgosBiomecanicos);
+                risks2.add(riesgosPsicosociales);
+                risks2.add(riesgosQuimicos);
+                risks2.add(riesgosFisicos);
+                risks2.add(riesgosBiologicos);
+                
+                
+                risks2.set(0, riesgosBiologicos);
+                risks2.set(1, riesgosFisicos);
+                risks2.set(2, riesgosQuimicos);
+                risks2.set(3, riesgosPsicosociales);
+                risks2.set(4, riesgosBiomecanicos);
+                risks2.set(5, riesgosCondSeguridad);
+                risks2.set(6, riesgosFenomNaturales);
+                sstRiesgosTipoDTO.setRisks(risks2);
                 sstRiesgosTipoCertif.setSstRiesgosTipo(JsonUtil.convertObjectToJson(sstRiesgosTipoDTO));
 
                 sstRiesgosTipoDaoCertif.save(sstRiesgosTipoCertif);
@@ -6108,6 +6211,8 @@ public class MigrationServiceImpl implements MigrationService {
                 });
                 sstProveedoresDTO.setProveedorFile(proveedores);
 
+                sstProveedoresCertif.setSstProveedores(JsonUtil.convertObjectToJson(sstProveedoresDTO));
+                
                 sstProveedoresDaoCertif.save(sstProveedoresCertif);
                 System.out.println("------Migrando-----" + sstProveedoresCertif.getId()  + "---------" + sstProveedoresDTO.getSubdomain());
             });
@@ -6116,6 +6221,143 @@ public class MigrationServiceImpl implements MigrationService {
         //});
 
         System.out.println("Migracion sstProveedores completada");
+		
+	}
+
+
+
+	@Override
+	public void migrateCoreUsuario() {
+		//List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
+		
+
+        //coreSubdomainsList.forEach(coreSubdomains -> {
+            List<CoreUsuario> coreUsuarioPdnList = coreUsuarioDao.getCoreUsuarioBySubdomain(subd); 
+            coreUsuarioPdnList.
+                    parallelStream().collect(Collectors.groupingBy(CoreUsuario::getModified)).forEach((date, coreUsuarioPdns) -> {
+
+                
+                CoreUsuarioCertif coreUsuarioCertif = new CoreUsuarioCertif();
+                UsuariosDTO coreUsuarioDTO = new UsuariosDTO();
+                SubdomainsDTO subdomain = new SubdomainsDTO();
+                List<SubdomainsDTO> subdomains = Collections.synchronizedList(new ArrayList<SubdomainsDTO>());
+                
+                coreUsuarioPdns.parallelStream().forEach(coreUsuarioPdn -> {
+                	
+                	
+                	coreUsuarioDTO.set_checked(coreUsuarioPdn.getChecked());
+                	coreUsuarioDTO.set_created(coreUsuarioPdn.getCreated().toString());
+                	coreUsuarioDTO.set_enable(coreUsuarioPdn.getEnable());
+                	coreUsuarioDTO.set_id_user_create(coreUsuarioPdn.getIdUserCreate().toString());
+                	coreUsuarioDTO.set_modified(coreUsuarioPdn.getModified().toString());
+                	coreUsuarioDTO.set_tags(coreUsuarioPdn.getTags());
+                	coreUsuarioDTO.set_user(coreUsuarioPdn.getUser().toString());
+                	coreUsuarioDTO.set_version(coreUsuarioPdn.getVersion().toString());
+                	coreUsuarioDTO.setArea_trabajo(coreUsuarioPdn.getAreaTrabajo());
+                	coreUsuarioDTO.setCliente(coreUsuarioPdn.getCliente().toString());
+                	coreUsuarioDTO.setColumn_id_user_create(coreUsuarioPdn.getColumnIdUserCreate().toString());
+                	coreUsuarioDTO.setCreated_on(coreUsuarioPdn.getCreateOn().toString());
+                	coreUsuarioDTO.setEmail(coreUsuarioPdn.getEmail());
+                	coreUsuarioDTO.setFecha_ingreso(coreUsuarioPdn.getFechaIngreso().toString());
+                	coreUsuarioDTO.setFecha_nacimiento(coreUsuarioPdn.getFechaNacimiento().toString());
+                	coreUsuarioDTO.setFecha_retiro(coreUsuarioPdn.getFechaRetiro().toString());
+                	coreUsuarioDTO.setFid_core_subdomains(coreUsuarioPdn.getFidCoreSubdomains());
+                	coreUsuarioDTO.setFid_groupuser(coreUsuarioPdn.getFidGroupuser().getIdGroupuser());
+                	coreUsuarioDTO.setFirst_name(coreUsuarioPdn.getFirstName());
+                	coreUsuarioDTO.setId_user(coreUsuarioPdn.getIdUser().toString());
+                	coreUsuarioDTO.setLast_login(coreUsuarioPdn.getLastLogin().toString());
+                	coreUsuarioDTO.setLast_name(coreUsuarioPdn.getLastName());
+                	coreUsuarioDTO.setNumero_cedula(coreUsuarioPdn.getNumeroCedula());
+                	coreUsuarioDTO.setPassword(coreUsuarioPdn.getPassword());
+                	coreUsuarioDTO.setPhone(coreUsuarioPdn.getPhone());
+                	coreUsuarioDTO.setPhone_cell(coreUsuarioPdn.getPhoneCell());
+                	coreUsuarioDTO.setSession_client_id(coreUsuarioPdn.getSessionClientId());
+                	coreUsuarioDTO.setSession_id(coreUsuarioPdn.getSessionId());
+                	coreUsuarioDTO.setTurno_trabajo(coreUsuarioPdn.getTurnoTrabajo());
+                	coreUsuarioDTO.setUsername(coreUsuarioPdn.getUsername());
+                	
+                	subdomain.set_enable(coreUsuarioPdn.getEnable());
+                	subdomain.setGral_nombre_dominio(coreSubdomainsDao.getNombreDominioBySubdomain(coreUsuarioPdn.getFidCoreSubdomains()));
+                	subdomain.setId_core_subdomain(coreUsuarioPdn.getFidCoreSubdomains());
+                	
+                	
+                    coreUsuarioCertif.setId(Long.valueOf(coreUsuarioPdn.getIdUser().toString()));
+                	
+
+                    coreUsuarioCertif.setChecked(coreUsuarioPdn.getChecked());
+                    coreUsuarioCertif.setEnable(coreUsuarioPdn.getEnable());
+                    coreUsuarioCertif.setModified(coreUsuarioPdn.getModified());
+                    coreUsuarioCertif.setCreated(coreUsuarioPdn.getCreated());
+                    
+                                     
+                });
+                subdomains.add(subdomain);
+                coreUsuarioDTO.setSubdomains(subdomains);
+                
+                coreUsuarioCertif.setPerson(JsonUtil.convertObjectToJson(coreUsuarioDTO));
+
+                coreUsuarioDaoCertif.save(coreUsuarioCertif);
+                System.out.println("------Migrando-----" + coreUsuarioCertif.getId()  + "---------" + coreUsuarioDTO.getFid_core_subdomains());
+            });
+
+
+        //});
+
+        System.out.println("Esto lo tenía que hacer JPT");
+		
+		
+	}
+
+
+
+	@Override
+	public void migrateCoreRecurso() {
+		
+		//List<CoreSubdomains> coreSubdomainsList = coreSubdomainsDao.findAll();
+		
+        
+        //coreSubdomainsList.forEach(coreSubdomains -> {
+            List<CoreRecurso> coreRecursoPdnList = coreRecursoDao.findAll(); 
+            coreRecursoPdnList.
+                    parallelStream().collect(Collectors.groupingBy(CoreRecurso::getModified)).forEach((date, coreRecursoPdns) -> {
+
+                
+                CoreRecursoCertif coreRecursoCertif = new CoreRecursoCertif();
+                CoreRecursoDTO coreRecursoDTO = new CoreRecursoDTO();
+
+                
+                coreRecursoPdns.parallelStream().forEach(coreRecursoPdn -> {
+                	
+                	
+                	
+                	coreRecursoDTO.set_modified(Long.valueOf(coreRecursoPdn.getModified().toString()));
+                	coreRecursoDTO.setFid_tipo_recurso(coreRecursoPdn.getFidTipoRecurso().getIdTipoRecurso());
+                	coreRecursoDTO.setId(Long.valueOf(coreRecursoPdn.getIdCoreRecurso()));
+                	coreRecursoDTO.setNombre_archivo(coreRecursoPdn.getNombreArchivo());
+                	coreRecursoDTO.setDestacado(coreRecursoPdn.getDestacado());
+                	coreRecursoDTO.setTitle(coreRecursoPdn.getTitle());
+                	
+                    coreRecursoCertif.setId(Long.valueOf(coreRecursoPdn.getIdCoreRecurso()));
+                	
+
+                    coreRecursoCertif.setChecked(coreRecursoPdn.getChecked());
+                    coreRecursoCertif.setEnable(coreRecursoPdn.getEnable());
+                    coreRecursoCertif.setModified(coreRecursoPdn.getModified());
+                    coreRecursoCertif.setCreated(coreRecursoPdn.getCreated());
+                    
+                                     
+                });
+                
+                coreRecursoCertif.setRecurso(JsonUtil.convertObjectToJson(coreRecursoDTO));
+
+                coreRecursoCertifDao.save(coreRecursoCertif);
+                System.out.println("------Migrando-----" + coreRecursoCertif.getId()  + "---------" + coreRecursoDTO.getId());
+            });
+
+
+        //});
+
+        System.out.println("Esto lo tenía que hacer JPT");
 		
 	}
 

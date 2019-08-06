@@ -59,5 +59,9 @@ public interface MigrationService {
     void migrateSstSociodemo();
     
     void migrateSstProveedores();
+    
+    void migrateCoreUsuario();
+    
+    void migrateCoreRecurso();
 
 }

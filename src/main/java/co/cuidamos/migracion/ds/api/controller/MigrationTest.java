@@ -17,8 +17,8 @@ public class MigrationTest {
 //        migrationService.migrateSstEmpresaEspec();
 //        //migrationService.migrateSstPolitica();
 //        migrationService.migrateSstObjetivos();
-//        migrationService.migrateSstReponsable();
-        migrationService.migrateSstRiegosTipo();
+        migrationService.migrateSstReponsable();
+    	//migrationService.migrateSstRiegosTipo();
 //        migrationService.migrateSstControles();
 //        migrationService.migrateSstEncuestasForm();
 //        migrationService.migrateSstEncuestasTrabajo();
