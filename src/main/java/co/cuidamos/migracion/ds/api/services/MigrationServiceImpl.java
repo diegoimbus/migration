@@ -6330,7 +6330,7 @@ public class MigrationServiceImpl implements MigrationService {
                 	
                 	
                 	
-                	coreRecursoDTO.set_modified(Long.valueOf(coreRecursoPdn.getModified().toString()));
+                	coreRecursoDTO.set_modified(Long.valueOf(coreRecursoPdn.getModified().getTime()));
                 	coreRecursoDTO.setFid_tipo_recurso(coreRecursoPdn.getFidTipoRecurso().getIdTipoRecurso());
                 	coreRecursoDTO.setId(Long.valueOf(coreRecursoPdn.getIdCoreRecurso()));
                 	coreRecursoDTO.setNombre_archivo(coreRecursoPdn.getNombreArchivo());
